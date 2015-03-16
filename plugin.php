@@ -41,14 +41,9 @@ class WPCustomFieldsSearchPlugin {
 
 	function admin_enqueue_scripts(){
 		wp_enqueue_script(
-			"wh-plugin",
-			plugin_dir_url(__FILE__).'/js/wh-plugin.js',
-			array('jquery','jquery-ui-core')
-		);
-		wp_enqueue_script(
 			"wp-custom-fields-search-editor",
 			plugin_dir_url(__FILE__).'/js/wp-custom-fields-search-editor.js',
-			array('jquery','jquery-ui-core','wh-plugin')
+			array('jquery','jquery-ui-core','jquery-ui-widget')
 		);
 	}
 

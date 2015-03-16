@@ -28,7 +28,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 	}
 	function update($new_instance,$old_instance){
 		return array(
-			"title"=>$new_instance['title'],
+			"data"=>$new_instance['data'],
 		);
 	}
 
@@ -51,13 +51,14 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 		$instance=array_merge($defaults,$instance);
 
 		$form_id = $this->get_field_id('edit-form');
-		echo "<div id='$form_id'>
+		echo "
+			<div id='$form_id'>
 			</div>
 			<script>
 				jQuery('#$form_id').wp_custom_fields_search_editor({
-					'form_config':".$instance['data'].",
+					'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
 					'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
-					'field_name':'".$this->get_field_id('data')."'
+					'field_name':'".$this->get_field_name('data')."'
 
 				});
 			</script>

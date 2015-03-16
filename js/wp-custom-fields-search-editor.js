@@ -13,66 +13,72 @@
 		}
 		return arr;
 	};
-	$.wh_plugin("wp_custom_fields_search_editor",{
-		"defaults":{
+	$.widget("wpcfs.wp_custom_fields_search_editor",{
+		"options":{
 
 		},
-		"init": function(params){
-			this.addClass("wp_custom_fields_search_editor");
-			params.ui = this;
-			params.value_element = $("<input type='hidden' name='"+params.field_name+"' value=''/>").appendTo(this);
-			params.display_element = $("<div></div>").appendTo(this);
-			this.wp_custom_fields_search_editor("view","field_list");
+		"save": function(){
+			this.options.value_element.val(JSON.stringify(this.options.form_config));
 		},
-		"add_row": function(params,args){
-		console.log("Adding Row");
-			params.form_config.inputs.push($.extend({
-				"datatype":params.building_blocks.datatypes[0].id,
-				"input":params.building_blocks.inputs[0].id,
-				"comparison":params.building_blocks.comparisons[0].id,
+		"_create": function(){
+			this.element.addClass("wp_custom_fields_search_editor");
+			this.options.ui = this;
+			this.options.value_element = $("<input type='hidden' name='"+this.options.field_name+"' value=''/>").appendTo(this.element);
+			this.options.display_element = $("<div></div>").appendTo(this.element);
+			this.save();
+			this.view("field_list");
+		},
+		"add_row": function(args){
+			this.options.form_config.inputs.push($.extend({
+				"datatype":this.options.building_blocks.datatypes[0].id,
+				"input":this.options.building_blocks.inputs[0].id,
+				"comparison":this.options.building_blocks.comparisons[0].id,
 			},args));
-			console.log(params.form_config);
-			this.wp_custom_fields_search_editor('refresh');
+			this.save();
+			this.refresh();
 		},
-		"view":function(params,view){
-			params.view = view;
-			this.wp_custom_fields_search_editor("view_"+view);
+		"view":function(view){
+			this.options.view = view;
+			this["view_"+view]();
 		},
-		"refresh": function(params){
-			this.wp_custom_fields_search_editor("view_"+params.view);
+		"refresh": function(){
+			this["view_"+this.options.view]();
 		},
-		"view_field_list": function(params,list_element,args){
-			params.display_element.html("");
-			var field_list = $('<ul class="field-list"></ul>').appendTo(params.display_element);
-			for(var i = 0 ; i<params.form_config.inputs.length ; i++){
-				var input = params.form_config.inputs[i];
+		"view_field_list": function(list_element,args){
+			this.options.display_element.html("");
+			var field_list = $('<ul class="field-list"></ul>').appendTo(this.options.display_element);
+			for(var i = 0 ; i<this.options.form_config.inputs.length ; i++){
+				var input = this.options.form_config.inputs[i];
 				var wrapper = $("<li class='form-element'></li>").appendTo(field_list);
 
 				var datatype_wrapper = $("<div class='datatype'></div>").appendTo(wrapper);
 				var datatype_selector = $("<select class='datatype'></select>").appendTo(datatype_wrapper);
-				for(var j = 0 ; j<params.building_blocks.datatypes.length ; j++){
-					var datatype = params.building_blocks.datatypes[j];
+				for(var j = 0 ; j<this.options.building_blocks.datatypes.length ; j++){
+					var datatype = this.options.building_blocks.datatypes[j];
 					datatype_selector.append("<option value='"+datatype.id+"'>"+datatype.name+"</option>");
 				}
 				datatype_selector.val(input.datatype);
-				this.wp_custom_fields_search_editor("select_datatype",input,datatype_wrapper);
-				(function(input,datatype_wrapper){
+				this.select_datatype(input,datatype_wrapper);
+				(function(input,datatype_wrapper,options,widget){
 					datatype_selector.bind('change',function(){
 						input.datatype = $(this).val();
-						params.ui.wp_custom_fields_search_editor('select_datatype',input,datatype_wrapper);
+						widget.save();
+						widget.select_datatype(input,datatype_wrapper);
 					});
-				})(input,datatype_wrapper);
+				})(input,datatype_wrapper,this.options,this);
 
 			}
-			$('<a href="#">Add</a>').appendTo(params.display_element).click(function(){
-				params.ui.wp_custom_fields_search_editor('add_row');
-				return false;
-			});
+			(function(widget){
+				$('<a href="#">Add</a>').appendTo(widget.options.display_element).click(function(){
+					widget.add_row();
+					return false;
+				});
+			})(this);
 		},
-		"select_datatype": function(params,input,wrapper){
+		"select_datatype": function(input,wrapper){
 			wrapper.find('select.field_name').remove();
 			var dropdown = $('<select class="field_name"></select>').appendTo(wrapper);
-			var datatype = find_by_id(params.building_blocks.datatypes,input.datatype);
+			var datatype = find_by_id(this.options.building_blocks.datatypes,input.datatype);
 			var found = false;
 
 			for(var field in datatype.options.all_fields){
@@ -84,9 +90,12 @@
 			}
 			if(!found) input["datatype/field"]= array_keys(datatype.options.all_fields)[0];
 			dropdown.val(input["datatype/field"]);
-			dropdown.change(function(){
-				input["datatype/field"] = $(this).val();
-			});
+			(function(widget){
+				dropdown.change(function(){
+					input["datatype/field"] = $(this).val();
+					widget.save();
+				});
+			})(this);
 		}
 
 	});
