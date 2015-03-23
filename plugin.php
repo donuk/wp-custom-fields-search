@@ -43,7 +43,7 @@ class WPCustomFieldsSearchPlugin {
 		wp_enqueue_script(
 			"wp-custom-fields-search-editor",
 			plugin_dir_url(__FILE__).'/js/wp-custom-fields-search-editor.js',
-			array('jquery','jquery-ui-core','jquery-ui-widget')
+			array('jquery','jquery-ui-core','jquery-ui-widget','jquery-ui-sortable')
 		);
 	}
 

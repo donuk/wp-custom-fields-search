@@ -50,6 +50,7 @@
 			for(var i = 0 ; i<this.options.form_config.inputs.length ; i++){
 				var input = this.options.form_config.inputs[i];
 				var wrapper = $("<li class='form-element'></li>").appendTo(field_list);
+				wrapper.data("index",i);
 
 				var datatype_wrapper = $("<div class='datatype'></div>").appendTo(wrapper);
 				var datatype_selector = $("<select class='datatype'></select>").appendTo(datatype_wrapper);
@@ -59,19 +60,43 @@
 				}
 				datatype_selector.val(input.datatype);
 				this.select_datatype(input,datatype_wrapper);
-				(function(input,datatype_wrapper,options,widget){
+				var delete_wrapper=$("<a href='#' class='delete-link'>X</a>").appendTo(wrapper);
+				(function(input,datatype_wrapper,options,widget,i){
 					datatype_selector.bind('change',function(){
 						input.datatype = $(this).val();
 						widget.save();
 						widget.select_datatype(input,datatype_wrapper);
 					});
-				})(input,datatype_wrapper,this.options,this);
+					delete_wrapper.bind('click',function(){
+						widget.options.form_config.inputs.splice(i,1);
+						widget.save();
+						widget.refresh();
+						return false;
+					});
+				})(input,datatype_wrapper,this.options,this,i);
+
 
 			}
 			(function(widget){
 				$('<a href="#">Add</a>').appendTo(widget.options.display_element).click(function(){
 					widget.add_row();
 					return false;
+				});
+				field_list.sortable({
+					stop: function(event,ui){
+						var inputs = widget.options.form_config.inputs,
+							originalPosition = ui.item.data('index'),
+							newPosition = ui.item.index(),
+
+							input = inputs[originalPosition];
+
+						inputs.splice(originalPosition,1);
+						inputs.splice(newPosition,0,input);
+						$(".form-element",field_list).each(function(index,el){
+							$(el).data('index',index);
+						});
+						widget.save();
+					}
 				});
 			})(this);
 		},
