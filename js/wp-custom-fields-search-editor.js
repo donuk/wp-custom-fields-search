@@ -44,6 +44,9 @@
 		"refresh": function(){
 			this["view_"+this.options.view]();
 		},
+
+
+
 		"view_field_list": function(list_element,args){
 			this.options.display_element.html("");
 			var field_list = $('<ul class="field-list"></ul>').appendTo(this.options.display_element);
@@ -53,19 +56,55 @@
 				wrapper.data("index",i);
 
 				var datatype_wrapper = $("<div class='datatype'></div>").appendTo(wrapper);
+
 				var datatype_selector = $("<select class='datatype'></select>").appendTo(datatype_wrapper);
 				for(var j = 0 ; j<this.options.building_blocks.datatypes.length ; j++){
 					var datatype = this.options.building_blocks.datatypes[j];
 					datatype_selector.append("<option value='"+datatype.id+"'>"+datatype.name+"</option>");
 				}
 				datatype_selector.val(input.datatype);
-				this.select_datatype(input,datatype_wrapper);
+			
+				var dropdown = $('<select class="field_name"></select>').appendTo(datatype_wrapper);
+				var datatype = find_by_id(this.options.building_blocks.datatypes,input.datatype);
+				var found = false;
+				for(var field in datatype.options.all_fields){
+					var option = $('<option/>').appendTo(dropdown);
+					option.attr('value',field);
+					option.html(datatype.options.all_fields[field]);
+					
+					if(field==input["datatype/field"]) found=true;
+				}
+				if(!found) input["datatype/field"]= array_keys(datatype.options.all_fields)[0];
+				dropdown.val(input["datatype/field"]);
+				(function(widget,input){
+					dropdown.change(function(){
+						input["datatype/field"] = $(this).val();
+						widget.save();
+					});
+				})(this,input);
+
+				(function(widget,input){
+					var input_wrapper = $("<div class='input'></div>").appendTo(wrapper);
+					var input_selector = $("<select class='input'></select>").appendTo(input_wrapper);
+					widget.options.building_blocks.inputs.forEach(function(input,index){
+						var option = $('<option/>').appendTo(input_selector);
+						option.html(input.name);
+						option.attr("value",input.id);
+					});
+					input_selector.val(input.input);
+					input_selector.change(function(){
+						input['input'] = $(this).val();
+						widget.save();
+						widget.refresh();
+					});
+				})(this,input);
+
 				var delete_wrapper=$("<a href='#' class='delete-link'>X</a>").appendTo(wrapper);
 				(function(input,datatype_wrapper,options,widget,i){
 					datatype_selector.bind('change',function(){
 						input.datatype = $(this).val();
 						widget.save();
-						widget.select_datatype(input,datatype_wrapper);
+						widget.refresh();
 					});
 					delete_wrapper.bind('click',function(){
 						widget.options.form_config.inputs.splice(i,1);
@@ -101,26 +140,6 @@
 			})(this);
 		},
 		"select_datatype": function(input,wrapper){
-			wrapper.find('select.field_name').remove();
-			var dropdown = $('<select class="field_name"></select>').appendTo(wrapper);
-			var datatype = find_by_id(this.options.building_blocks.datatypes,input.datatype);
-			var found = false;
-
-			for(var field in datatype.options.all_fields){
-				var option = $('<option/>').appendTo(dropdown);
-				option.attr('value',field);
-				option.html(datatype.options.all_fields[field]);
-				
-				if(field==input["datatype/field"]) found=true;
-			}
-			if(!found) input["datatype/field"]= array_keys(datatype.options.all_fields)[0];
-			dropdown.val(input["datatype/field"]);
-			(function(widget){
-				dropdown.change(function(){
-					input["datatype/field"] = $(this).val();
-					widget.save();
-				});
-			})(this);
 		}
 
 	});
