@@ -51,17 +51,46 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 		$instance=array_merge($defaults,$instance);
 
 		$form_id = $this->get_field_id('edit-form');
-		echo "
-			<div id='$form_id'>
-			</div>
-			<script>
-				jQuery('#$form_id').wp_custom_fields_search_editor({
-					'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
-					'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
-					'field_name':'".$this->get_field_name('data')."'
+		// TODO: Could this be implemented with is_active_sidebar???
+		if($this->number=="__i__"){
+			echo "
+				<div id='$form_id' class='wp-custom-fields-search-form'>
+				</div>
+				<script>
+					jQuery('.wp-custom-fields-search-form:not(.wp_custom_fields_search_editor)').each(function(el){
+						var $=jQuery;
+						var template_id = '$form_id',
+							template_name='".$this->get_field_name('data')."',
+							id_parts = template_id.split('__i__'),
+							actual_id = $(this).attr('id');
 
-				});
-			</script>
-		";
+						var index=actual_id.substr(id_parts[0].length,actual_id.length-id_parts[1].length-id_parts[0].length);
+						var actual_name = template_name.replace('__i__',index);
+						if(index=='__i__') return;
+
+						$(this).wp_custom_fields_search_editor({
+							'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
+							'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
+							'field_name':'".$this->get_field_name('data')."'
+
+						});
+						
+					});
+				</script>
+			";
+		} else {
+			echo "
+				<div id='$form_id'>
+				</div>
+				<script>
+					jQuery('#$form_id').wp_custom_fields_search_editor({
+						'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
+						'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
+						'field_name':'".$this->get_field_name('data')."'
+
+					});
+				</script>
+			";
+		}
 	}
 }
