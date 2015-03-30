@@ -33,4 +33,12 @@ angular.module('WPCFS', ['ui.sortable'])
 	});
 }]).controller('SelectController', ['$scope', function($scope) {
 	if(!$scope.field.any_message) $scope.field.any_message="Any";
+	if(!$scope.field.options) $scope.field.options=[{"value":1,"label":"One"},{"value":2,"label":"Two"}];
+	$scope.remove_option = function(option){
+		var index = $scope.field.options.indexOf(option);
+		$scope.field.options.splice(index,1);
+	};
+	$scope.add_option = function(){
+		$scope.field.options.push({});
+	};
 }]);
