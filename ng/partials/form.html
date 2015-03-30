@@ -1,0 +1,27 @@
+<div ng-controller="WPCFSForm">
+<h1>Root Form</h1>
+<ul ui-sortable ng-model='form_fields'>
+	<li ng-repeat='field in form_fields' ng-controller="WPCFSField">
+		<select ng-model='field.datatype'
+			ng-options='datatype.id as datatype.name for datatype in config.building_blocks.datatypes'>
+		</select>
+		<select ng-model='field.datatype_field'
+			ng-options='id as name for (id,name) in fields'>
+		</select>
+		<hr/>
+		<select ng-model='field.comparison'
+			ng-options='comparison.id as comparison.name for comparison in config.building_blocks.comparisons'>
+		</select>
+
+		<select ng-model='field.input'
+			ng-options='input.id as input.name for input in config.building_blocks.inputs'>
+		</select>
+		<div 
+			ng-if='inputs[field.input].options.extra_config_form'
+			ng-include='inputs[field.input].options.extra_config_form'
+		></div>
+	</li>
+</ul>
+<a ng-click='add_field()'>Add Field</a>
+
+</div>

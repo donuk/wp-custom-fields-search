@@ -40,7 +40,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 					array(
 						array(
 							"datatype"=>"WPCustomFieldsSearch_PostField",
-							"datatype/field"=>"all",
+							"datatype_field"=>"all",
 							"input"=>"WPCustomFieldsSearch_TextBoxInput",
 							"comparison"=>"WPCustomFieldsSearch_WordsIn",
 						)
@@ -72,7 +72,6 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 							'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
 							'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
 							'field_name':'".$this->get_field_name('data')."'
-
 						});
 						
 					});

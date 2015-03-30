@@ -1,0 +1,10 @@
+<div ng-controller='SelectController'>
+<select ng-model='field.source'>
+	<option value='Auto'>Auto</option>
+	<option value='Manual'>Manual</option>
+</select>
+<div ng-if='field.source=="Auto"'>
+	<input ng-model='field.any_message' id='any_message_{{$id}}'/>
+	<label for='any_message_{{id}}'>Blank Prompt (e.g. Any)</label>
+</div>
+</div>
