@@ -32,6 +32,9 @@
 		function getName(){
 			return str_replace("WPCustomFieldsSearch_","",get_class($this));
 		}
+		function getEditorOptions(){
+			return array();
+		}
 	}
 
 	require_once(dirname(__FILE__).'/inputs.php');

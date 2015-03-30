@@ -45,6 +45,11 @@ class WPCustomFieldsSearchPlugin {
 			plugin_dir_url(__FILE__).'/js/wp-custom-fields-search-editor.js',
 			array('jquery','jquery-ui-core','jquery-ui-widget','jquery-ui-sortable')
 		);
+		wp_enqueue_script(
+			"wp-handlers",
+			plugin_dir_url(__FILE__).'/js/wp-handlers.js',
+			array('wp-custom-fields-search-editor')
+		);
 	}
 
 	static function get_javascript_editor_config(){
@@ -71,7 +76,7 @@ class WPCustomFieldsSearchPlugin {
 			$comparisons[$k] = array(
 				"id"=>$comparison->getId(),
 				"name"=>$comparison->getName(),
-//				"options"=>$comparison->getEditorOptions(),
+				"options"=>$comparison->getEditorOptions(),
 			);
 		}
 

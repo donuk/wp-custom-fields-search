@@ -13,6 +13,11 @@
 		}
 		return arr;
 	};
+	var handler_list = {
+		"input":{},
+		"comparison":{},
+		"datatype":{},
+	}
 	$.widget("wpcfs.wp_custom_fields_search_editor",{
 		"options":{
 
@@ -84,12 +89,16 @@
 				})(this,input);
 
 				(function(widget,input){
+				 	var input_config = datatype.options.all_fields[input["datatype/field"]];
 					var input_wrapper = $("<div class='input'></div>").appendTo(wrapper);
 					var input_selector = $("<select class='input'></select>").appendTo(input_wrapper);
-					widget.options.building_blocks.inputs.forEach(function(input,index){
+					var selected_type;
+					widget.options.building_blocks.inputs.forEach(function(input_type,index){
 						var option = $('<option/>').appendTo(input_selector);
-						option.html(input.name);
-						option.attr("value",input.id);
+						option.html(input_type.name);
+						option.attr("value",input_type.id);
+						if(input_type.id==input.input)
+							selected_type = input_type;
 					});
 					input_selector.val(input.input);
 					input_selector.change(function(){
@@ -97,6 +106,9 @@
 						widget.save();
 						widget.refresh();
 					});
+					if(selected_type){
+						widget.input_handler(input_wrapper, input, selected_type);
+					}
 				})(this,input);
 
 				var delete_wrapper=$("<a href='#' class='delete-link'>X</a>").appendTo(wrapper);
@@ -139,8 +151,27 @@
 				});
 			})(this);
 		},
-		"select_datatype": function(input,wrapper){
-		}
+		"input_handler": function(element,input_data,type_config){
+			this.field_handler("input",element,input_data,type_config);
+		},
+		"field_handler": function(type,element,data,type_config){
+			if(!('handler' in type_config.options)) return;
 
+			if(data['handler'] != type_config.options.handler){
+				// Clear options when switching handlers
+				data['handler'] = type_config.options.handler;
+				data['options']={};
+			}
+
+			//TODO: Should this be more OO?
+			return handler_list[type][type_config.options.handler](element,data['options'],type_config,function(options){
+				data['options'] = options;
+				this.save()
+			});
+		},
+		"handlers": handler_list
 	});
+	$.wp_custom_fields_search_add_handler = function(type,name,handler){
+		handler_list[type][name] = handler;
+	};
 })(jQuery);
