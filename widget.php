@@ -69,6 +69,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 						if(index=='__i__') return;
 
 						$(this).wp_custom_fields_search_editor({
+							'root':'".plugin_dir_url(__FILE__)."',
 							'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
 							'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
 							'field_name':'".$this->get_field_name('data')."'
@@ -83,6 +84,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 				</div>
 				<script>
 					jQuery('#$form_id').wp_custom_fields_search_editor({
+						'root':'".plugin_dir_url(__FILE__)."',
 						'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
 						'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
 						'field_name':'".$this->get_field_name('data')."'

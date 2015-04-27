@@ -34,7 +34,7 @@
 				.live('click',function(){ widget.save(); });
 				angular.module('WPCFS')
 				.controller('RootController', ['$scope', function ($scope) {
-					$scope.root = "/wp-content/plugins/wp-custom-fields-search/ng/"; //TODO: Feed this in from WP
+					$scope.root = widget.options.root+"ng/"; 
 					$scope.partials = $scope.root+"partials/";
 					$scope.config = widget.options;
 					$scope.handlers = widget.handlers;
