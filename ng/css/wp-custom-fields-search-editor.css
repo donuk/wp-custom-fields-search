@@ -1,0 +1,18 @@
+.field-deleter {
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	cursor: hand;
+}
+.wpcsf-field {
+	position: relative;
+	border: solid gray 2px;
+	border-radius: 8px;
+	padding: 5px;
+}
+.wpcsf-widget-form table {
+	max-width: 100%;
+}
+.wpcfs-select-options input{
+	max-width: 10em;
+}

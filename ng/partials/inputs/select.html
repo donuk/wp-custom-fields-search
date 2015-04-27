@@ -8,7 +8,7 @@
 		<label for='any_message_{{id}}'>Blank Prompt (e.g. Any)</label>
 	</div>
 	<div ng-if='field.source=="Manual"'>
-		<table>
+		<table class='wpcfs-select-options'>
 			<thead><tr><td></td><th>Value</th><th>Label</th></tr></thead>
 			<tbody ng-model='field.options' ui-sortable>
 				<tr ng-repeat='option in field.options'>

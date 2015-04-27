@@ -26,9 +26,11 @@ Text Domain: wp_custom_fields_search
 
 class WPCustomFieldsSearchPlugin {
 	function __construct(){
+		/** Admin Hooks */
 		add_action('widgets_init',array($this,"widgets_init"));
 		add_action('admin_enqueue_scripts',array($this,"admin_enqueue_scripts"));
 
+		/** Base Types*/
 		add_filter("wp_custom_fields_search_inputs",array($this,"wp_custom_fields_search_inputs"));
 		add_filter("wp_custom_fields_search_datatypes",array($this,"wp_custom_fields_search_datatypes"));
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
@@ -61,9 +63,19 @@ class WPCustomFieldsSearchPlugin {
 			array('wp-custom-fields-search-editor')
 		);
 		wp_enqueue_script(
+			"wpcfs-angular-services",
+			plugin_dir_url(__FILE__).'/ng/js/services.js',
+			array('wp-custom-fields-search-editor')
+		);
+		wp_enqueue_script(
 			"wp-handlers",
 			plugin_dir_url(__FILE__).'/js/wp-handlers.js',
 			array('wp-custom-fields-search-editor')
+		);
+
+		wp_enqueue_style(
+			"wpcfs-angular-css",
+			plugin_dir_url(__FILE__).'/ng/css/wp-custom-fields-search-editor.css'
 		);
 	}
 

@@ -1,17 +1,27 @@
-<div ng-controller="WPCFSForm">
-<h1>Root Form</h1>
-<ul ui-sortable ng-model='form_fields'>
-	<li ng-repeat='field in form_fields' ng-controller="WPCFSField">
+<div ng-controller="WPCFSForm" class='wpcfs-widget-form'>
+<ul ui-sortable ng-model='form_fields' class='wpcfs-fields-list'>
+	<li ng-repeat='field in form_fields' ng-controller="WPCFSField" class='wpcsf-field'>
+		<label for='label_{{id}}'>Label</label>
+		<input type='text' ng-model='field.label' id='label_{{id}}'/>
+		<br/>
+
 		<select ng-model='field.datatype'
 			ng-options='datatype.id as datatype.name for datatype in config.building_blocks.datatypes'>
 		</select>
 		<select ng-model='field.datatype_field'
 			ng-options='id as name for (id,name) in fields'>
 		</select>
-		<hr/>
+		<div 
+			ng-if='datatypes[field.datatype].options.extra_config_form'
+			ng-include='datatypes[field.datatype].options.extra_config_form'
+		></div>
 		<select ng-model='field.comparison'
 			ng-options='comparison.id as comparison.name for comparison in config.building_blocks.comparisons'>
 		</select>
+		<div 
+			ng-if='comparisons[field.comparison].options.extra_config_form'
+			ng-include='comparisons[field.comparison].options.extra_config_form'
+		></div>
 
 		<select ng-model='field.input'
 			ng-options='input.id as input.name for input in config.building_blocks.inputs'>
@@ -20,6 +30,8 @@
 			ng-if='inputs[field.input].options.extra_config_form'
 			ng-include='inputs[field.input].options.extra_config_form'
 		></div>
+		<a ng-click='remove_field()' title='Remove Field' class='deleter field-deleter'>X</a>
+		<hr/>
 	</li>
 </ul>
 <a ng-click='add_field()'>Add Field</a>
