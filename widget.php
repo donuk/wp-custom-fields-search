@@ -24,7 +24,39 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 	}
 
 	function widget($args,$instance){
-		echo "<h1>".htmlspecialchars($instance["title"])."</h1>";
+		$data = json_decode($instance['data'],true);
+		$input_classes = apply_filters("wp_custom_fields_search_inputs",array());
+		$keyed_inputs = array();
+		foreach($input_classes as $input){
+			$keyed_inputs[$input->getId()] = $input;
+		}
+
+		$index = 0;
+		$wrapped_inputs = array();
+		$post_data = $this->_was_posted($args) ? $_REQUEST : array();
+		foreach($data['inputs'] as $k=>$input){
+			$input['index'] = ++$index;
+			$wrapped_inputs[] = new WPCFS_InputWrapper(
+				$keyed_inputs[$input['input']],
+				$input,
+				$post_data
+			);
+		}
+		
+		$this->_show_template("wpcfs-search-form",array(
+			"inputs"=>$wrapped_inputs,
+			'form_id'=>$args['widget_id']
+		));
+	}
+	function _was_posted($args){
+		return $_REQUEST['wpcfs-search-source'] == $args['widget_id'];
+	}
+	function _show_template($_template_name,$vars){
+		extract($vars,EXTR_SKIP);
+		$template = get_query_template($_template_name);
+		if(!$template) $template = dirname(__FILE__).'/templates/wpcfs-search-form.php';
+
+		include($template);
 	}
 	function update($new_instance,$old_instance){
 		return array(
@@ -93,5 +125,28 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 				</script>
 			";
 		}
+	}
+}
+
+class WPCFS_InputWrapper {
+	functioN __construct($type,$params,$post_data){
+		$this->type = $type;
+		$this->params = $params;
+		$this->params['id'] = rand();
+		$this->params['html_name'] = "wpcfs-".$params['index'];
+		$this->post_data = $post_data;
+	}
+	function getCSSClasses(){
+		return strtolower($this->params['type'])." ".str_replace(" ","_",strtolower($this->params['label']));
+	}
+	function getHTMLId(){
+		return $this->params['id'];
+	}
+
+	function getLabel(){
+		return $this->params['label'];
+	}
+	function render(){
+		return $this->type->render($this->params,$this->post_data);
 	}
 }

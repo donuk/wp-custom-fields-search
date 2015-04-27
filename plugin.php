@@ -24,6 +24,7 @@ Text Domain: wp_custom_fields_search
  */
 
 
+require_once(dirname(__FILE__).'/frontend.php');
 class WPCustomFieldsSearchPlugin {
 	function __construct(){
 		/** Admin Hooks */
@@ -34,6 +35,7 @@ class WPCustomFieldsSearchPlugin {
 		add_filter("wp_custom_fields_search_inputs",array($this,"wp_custom_fields_search_inputs"));
 		add_filter("wp_custom_fields_search_datatypes",array($this,"wp_custom_fields_search_datatypes"));
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
+
 	}
 
 	function widgets_init(){
@@ -142,5 +144,9 @@ class WPCustomFieldsSearchPlugin {
 		);
 		return $comparisons;
 	}
+
+
+
+
 }
 new WPCustomFieldsSearchPlugin();
