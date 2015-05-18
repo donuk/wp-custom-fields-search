@@ -43,10 +43,15 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 			);
 		}
 		
+		echo $args['before_widget'];
+		echo $args['before_title'];
+		echo "Search Form";
+		echo $args['after_title'];
 		$this->_show_template("wpcfs-search-form",array(
 			"inputs"=>$wrapped_inputs,
 			'form_id'=>$args['widget_id']
 		));
+		echo $args['after_widget'];
 	}
 	function _was_posted($args){
 		return $_REQUEST['wpcfs-search-source'] == $args['widget_id'];
