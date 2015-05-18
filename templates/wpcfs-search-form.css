@@ -1,0 +1,19 @@
+form.wpcfs-search-form ul {
+	list-style: none;
+}
+form.wpcfs-search-form > ul > li {
+	clear: both;
+	padding: 5px;
+}
+
+form.wpcfs-search-form ul label {
+	width: 30%;
+	float: left;
+}
+
+form.wpcfs-search-form ul input ,
+form.wpcfs-search-form ul select {
+	margin: 2%;
+	width: 65%;
+	float: right;
+}

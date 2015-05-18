@@ -37,9 +37,9 @@
 <a ng-click='add_field()'>Add Field</a>
 
 <div>
-<a ng-click='advanced=!advanced'>Toggle Advanced Options</a>
-<div ng-show='advanced' class='slide'>
-	Advanced Options
+<a ng-click='options._show_advanced=!options._show_advanced'>Toggle Advanced Options</a>
+<div ng-show='options._show_advanced' class='slide'>
+	<input type='checkbox' id='include-frontend-css' ng-model='options.include_frontend_css'/><label for='include-frontend-css'>Include Template Frontend CSS Files</label>
 </div>
 </div>
 </div>

@@ -25,6 +25,9 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 
 	function widget($args,$instance){
 		$data = json_decode($instance['data'],true);
+		if($data['options']['include_frontend_css']){
+			wp_enqueue_style( 'wp-custom-fields-search', plugins_url('templates/wpcfs-search-form.css', __FILE__) );
+		}
 		$input_classes = apply_filters("wp_custom_fields_search_inputs",array());
 		$keyed_inputs = array();
 		foreach($input_classes as $input){
@@ -107,7 +110,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 
 						$(this).wp_custom_fields_search_editor({
 							'root':'".plugin_dir_url(__FILE__)."',
-							'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
+							'form_config':".($instance['data']?$instance['data']:"{inputs:[],options:{}}").",
 							'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
 							'field_name':'".$this->get_field_name('data')."'
 						});
@@ -122,7 +125,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 				<script>
 					jQuery('#$form_id').wp_custom_fields_search_editor({
 						'root':'".plugin_dir_url(__FILE__)."',
-						'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
+						'form_config':".($instance['data']?$instance['data']:"{inputs:[],options:{}}").",
 						'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
 						'field_name':'".$this->get_field_name('data')."'
 

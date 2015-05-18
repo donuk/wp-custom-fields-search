@@ -43,7 +43,15 @@
 					$scope.inputs  = array2dict($scope.config.building_blocks.inputs);
 					$scope.comparisons  = array2dict($scope.config.building_blocks.comparisons); 
 
+
 					$scope.form_fields = $scope.config.form_config.inputs;
+					if(!$scope.config.form_config.options){
+						$scope.config.form_config.options = {};
+					}
+					$scope.options = $scope.config.form_config.options;
+					if(!('include_frontend_css' in $scope.options)){
+						$scope.options['include_frontend_css'] = true;
+					}
 
 					$scope.save = function(){
 						widget.save();

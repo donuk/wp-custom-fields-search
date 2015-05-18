@@ -1,5 +1,4 @@
 <form class='wpcfs-search-form'>
-<h1>Form</h1>
 <ul>
 <?php
 	foreach($inputs as $input){
