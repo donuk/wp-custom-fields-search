@@ -1,4 +1,4 @@
-<?
+<?php
 	function humanize($string){
 		return trim(join(" ",preg_split("/(_)|(?=[A-Z])/",$string)));
 	}
