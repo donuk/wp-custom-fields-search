@@ -1,4 +1,4 @@
-angular.module('WPCFS', ['ui.sortable'])
+angular.module('WPCFS', ['ui.sortable','ngAnimate'])
 .controller('WPCFSForm', ['$scope', function ($scope) {
 	$scope.sortableOptions = {
 		"containment": "#field-list"

@@ -46,7 +46,12 @@ class WPCustomFieldsSearchPlugin {
 	function admin_enqueue_scripts(){
 		wp_enqueue_script(
 			"angularjs",
-			"https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js",
+			"//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js",
+			array('jquery')
+		);
+		wp_enqueue_script(
+			"angularjs-animate",
+			"//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.js",
 			array('jquery')
 		);
 		wp_enqueue_script(
@@ -68,6 +73,11 @@ class WPCustomFieldsSearchPlugin {
 			"wpcfs-angular-services",
 			plugin_dir_url(__FILE__).'/ng/js/services.js',
 			array('wp-custom-fields-search-editor')
+		);
+		wp_enqueue_script(
+			"wpcfs-angular-animations",
+			plugin_dir_url(__FILE__).'/ng/js/animations.js',
+			array('wp-custom-fields-search-editor','angularjs-animate')
 		);
 		wp_enqueue_script(
 			"wp-handlers",
