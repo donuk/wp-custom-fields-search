@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * FIXME: 
  * Situations to consider...
