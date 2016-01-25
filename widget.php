@@ -27,12 +27,17 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 		require_once("engine.php");
 		$components = array();
 		$data =json_decode($instance['data'],true);
+		$index = 0;
 		foreach($data['inputs'] as $config){
 			$clsname = $config['input'];
 			$config['class'] = new $clsname();
+			$config['index'] = ++$index;
 			array_push($components,$config);
 		}
 		$template_file = apply_filters("wpcfs_form_template",dirname(__FILE__).'/templates/form.php',$instance);
+		$hidden = "<input type='hidden' name='wpcfs' value='".htmlspecialchars($args['widget_id'])."'/>";
+		$method = "get";
+		$results_page = "/index.php/search/";
 		include($template_file);
 	}
 	function update($new_instance,$old_instance){

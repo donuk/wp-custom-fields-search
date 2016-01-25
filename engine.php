@@ -1,7 +1,14 @@
 <?php
 	class WPCustomFieldsSearch_Input {
+		var $template = "text";
 		function render($options){
+			$template_file = apply_filters("wpcfs_form_input",
+				dirname(__FILE__).'/templates/input-'.$this->template.'.php',
+				$this->template,$options);
+			$html_name = "f".$options['index'];
+			include($template_file);
 		}
+
 		function getId(){
 			return get_class($this);
 		}
