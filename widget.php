@@ -24,7 +24,16 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 	}
 
 	function widget($args,$instance){
-		echo "<h1>".htmlspecialchars($instance["title"])."</h1>";
+		require_once("engine.php");
+		$components = array();
+		$data =json_decode($instance['data'],true);
+		foreach($data['inputs'] as $config){
+			$clsname = $config['input'];
+			$config['class'] = new $clsname();
+			array_push($components,$config);
+		}
+		$template_file = apply_filters("wpcfs_form_template",dirname(__FILE__).'/templates/form.php',$instance);
+		include($template_file);
 	}
 	function update($new_instance,$old_instance){
 		return array(

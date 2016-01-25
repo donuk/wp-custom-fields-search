@@ -1,5 +1,8 @@
 <?php
 	class WPCustomFieldsSearch_TextBoxInput extends WPCustomFieldsSearch_Input {
+		function render($config){
+			echo "<input type='text'/>";
+		}
 	}
 
 	class WPCustomFieldsSearch_SelectInput extends WPCustomFieldsSearch_Input {

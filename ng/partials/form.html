@@ -2,6 +2,7 @@
 <h1>Root Form</h1>
 <ul ui-sortable ng-model='form_fields'>
 	<li ng-repeat='field in form_fields' ng-controller="WPCFSField">
+		<input ng-model="field.label"/>
 		<select ng-model='field.datatype'
 			ng-options='datatype.id as datatype.name for datatype in config.building_blocks.datatypes'>
 		</select>

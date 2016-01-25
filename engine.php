@@ -1,5 +1,7 @@
-<?
+<?php
 	class WPCustomFieldsSearch_Input {
+		function render($options){
+		}
 		function getId(){
 			return get_class($this);
 		}

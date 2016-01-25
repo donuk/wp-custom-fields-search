@@ -104,7 +104,7 @@ class WPCustomFieldsSearchPlugin {
 	}
 	function wp_custom_fields_search_inputs($inputs){
 		require_once(dirname(__FILE__).'/engine.php');
-		$inputs = $inputs+array(
+		$inputs = $inputs + array(
 			new WPCustomFieldsSearch_TextBoxInput(),
 			new WPCustomFieldsSearch_SelectInput(),
 		);
@@ -112,7 +112,7 @@ class WPCustomFieldsSearchPlugin {
 	}
 	function wp_custom_fields_search_datatypes($datatypes){
 		require_once(dirname(__FILE__).'/engine.php');
-		$datatypes = $datatypes+array(
+		$datatypes = $datatypes + array(
 			new WPCustomFieldsSearch_PostField(),
 			new WPCustomFieldsSearch_CustomField(),
 		);
