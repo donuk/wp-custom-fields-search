@@ -9,40 +9,67 @@
 			include($template_file);
 		}
 
-		function getId(){
+		function get_id(){
 			return get_class($this);
 		}
-		function getName(){
+		function get_name(){
 			return str_replace("WPCustomFieldsSearch_","",get_class($this));
 		}
-		function getEditorOptions(){
+		function get_editor_options(){
 			return array();
+		}
+		function is_submitted($options,$data){
+			return $this->get_submitted_value($options,$data);
+		}
+		function get_submitted_value($options,$data){
+			$html_name="f".$options['index'];
+			return $data[$html_name];
 		}
 	}
 
 	class WPCustomFieldsSearch_DataType{
-		function getId(){
+		function get_id(){
 			return get_class($this);
 		}
-		function getName(){
+		function get_name(){
 			return str_replace("WPCustomFieldsSearch_","",get_class($this));
 		}
-		function getEditorOptions(){
+		function get_editor_options(){
 			return array(
 				"all_fields"=>$this->getFieldMap(),
 			);
 		}
+
+		function add_join($config,$join){
+			global $wpdb;
+			$alias = "wpcfs".$config['index'];
+			$posts_table = $wpdb->prefix."post";
+			$join.=" LEFT JOIN ".$wpdb->prefix.$this->get_table_name($config)." AS $alias ON $alias.post_id = $posts_table.post_id";
+			return $join;
+		}
+
+		function get_field_aliases($config){
+			return array( $this->get_field_alias($config,$config['datatype_field']));
+		}
+
+		function get_field_alias($config,$field_name){
+			return "wpcfs".$config['index'].".".$field_name;
+		}
 	}
 
 	class WPCustomFieldsSearch_Comparison {
-		function getId(){
+		function get_id(){
 			return get_class($this);
 		}
-		function getName(){
+		function get_name(){
 			return str_replace("WPCustomFieldsSearch_","",get_class($this));
 		}
-		function getEditorOptions(){
+		function get_editor_options(){
 			return array();
+		}
+
+		function get_where($config,$value,$field_alias){
+			return $field."='".mysql_escape_string($value)."'";
 		}
 	}
 

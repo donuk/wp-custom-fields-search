@@ -32,6 +32,75 @@ class WPCustomFieldsSearchPlugin {
 		add_filter("wp_custom_fields_search_inputs",array($this,"wp_custom_fields_search_inputs"));
 		add_filter("wp_custom_fields_search_datatypes",array($this,"wp_custom_fields_search_datatypes"));
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
+
+		if($this->is_search_submitted()){
+			add_filter('template_include',array($this,'show_search_results_template'),99);
+			add_filter('posts_orderby',array($this,'posts_orderby'));
+			add_filter('posts_join',array($this,'posts_join'));
+			add_filter('posts_where',array($this,'posts_where'));
+			add_filter('posts_groupby',array($this,'posts_groupby'));
+		}
+	}
+
+	function is_search_submitted(){
+		return $_REQUEST['wpcfs'];
+	}
+	function get_submitted_form(){
+		static $submitted;
+		if(!isset($submitted)){
+			$wpcfs = $_REQUEST['wpcfs'];
+			if(substr($wpcfs,0,23)=="wp_custom_fields_search"){
+				$submitted = json_decode(get_option("widget_wp_custom_fields_search")[substr($wpcfs,24)]['data'],true);
+			} else {
+				$submitted = false;
+			}
+			if($submitted){
+				require_once(dirname(__FILE__).'/engine.php');
+				$index = 0;
+				foreach($submitted['inputs'] as &$input){
+					$input['datatype'] = new $input['datatype'];
+					$input['input'] = new $input['input'];
+					$input['comparison'] = new $input['comparison'];
+					$input['index'] = ++$index;
+				}
+			}
+		}
+		return $submitted;
+	}
+	function show_search_results_template($template){
+		$new_template = locate_template(array('wpcfs-search.php','search.php','index.php'));
+		if($new_template) return $new_template;
+		else return $template;
+	}
+
+
+	function posts_orderby($orderby){
+		return $orderby;
+	}
+	function posts_groupby($groupby){
+		return $groupby;
+	}
+	function posts_join($join){
+		$form = $this->get_submitted_form();
+		foreach($form['inputs'] as $index=>$input){
+			$submitted = $input['input']->is_submitted($input,$_REQUEST);
+			if($submitted){
+				$join = $input['datatype']->add_join($input,$join);
+			}
+		}
+		return $join;
+	}
+	function posts_where($where){
+		$form = $this->get_submitted_form();
+		foreach($form['inputs'] as $index=>$input){
+			$submitted = $input['input']->get_submitted_value($input,$_REQUEST);
+			$wheres = array();
+			foreach($input['datatype']->get_field_aliases($input) as $alias){
+				$wheres[]= $input['comparison']->get_where($input,$submitted,$alias);
+			}
+			$where.=" AND ( ".join(" OR ",$wheres)." )";
+		}
+		return $where;
 	}
 
 	function widgets_init(){
@@ -67,6 +136,17 @@ class WPCustomFieldsSearchPlugin {
 		);
 	}
 
+	function parse_request(&$wp){
+		if(array_key_exists("wpcfs",$_REQUEST)){
+			//exit();
+		}
+	}
+	function show_search_template_for_searches($template){
+		if($_REQUEST['wpcfs']){
+			$template = "search";
+		}
+		return $template;
+	}
 	static function get_javascript_editor_config(){
 		error_reporting(E_ALL);
 		$inputs = apply_filters("wp_custom_fields_search_inputs",array());
@@ -75,23 +155,23 @@ class WPCustomFieldsSearchPlugin {
 
 		foreach($inputs as $k=>$input){
 			$inputs[$k] = array(
-				"id"=>$input->getId(),
-				"name"=>$input->getName(),
-				"options"=>$input->getEditorOptions(),
+				"id"=>$input->get_id(),
+				"name"=>$input->get_name(),
+				"options"=>$input->get_editor_options(),
 			);
 		}
 		foreach($datatypes as $k=>$datatype){
 			$datatypes[$k] = array(
-				"id"=>$datatype->getId(),
-				"name"=>$datatype->getName(),
-				"options"=>$datatype->getEditorOptions(),
+				"id"=>$datatype->get_id(),
+				"name"=>$datatype->get_name(),
+				"options"=>$datatype->get_editor_options(),
 			);
 		}
 		foreach($comparisons as $k=>$comparison){
 			$comparisons[$k] = array(
-				"id"=>$comparison->getId(),
-				"name"=>$comparison->getName(),
-				"options"=>$comparison->getEditorOptions(),
+				"id"=>$comparison->get_id(),
+				"name"=>$comparison->get_name(),
+				"options"=>$comparison->get_editor_options(),
 			);
 		}
 
