@@ -48,4 +48,17 @@
 		function getAvailableFields(){
 			return array_values($this->getFieldMap());
 		}
+
+		function get_table_name(){
+			global $wpdb;
+			return $wpdb->postmeta;
+		}
+		function get_field_alias($config,$field_name){
+			return $this->get_table_alias($config).".meta_value";
+		}
+		function add_join($config,$join){
+			$join = parent::add_join($config,$join);
+			$alias = $this->get_table_alias($config);
+			return $join." AND $alias.meta_key='".mysql_escape_string($config['datatype_field'])."' ";
+		}
 	}

@@ -13,6 +13,10 @@
 		<select ng-model='field.comparison'
 			ng-options='comparison.id as comparison.name for comparison in config.building_blocks.comparisons'>
 		</select>
+		<div 
+			ng-if='comparisons[field.comparison].options.extra_config_form'
+			ng-include='comparisons[field.comparison].options.extra_config_form'
+		></div>
 
 		<select ng-model='field.input'
 			ng-options='input.id as input.name for input in config.building_blocks.inputs'>

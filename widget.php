@@ -37,7 +37,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 		$template_file = apply_filters("wpcfs_form_template",dirname(__FILE__).'/templates/form.php',$instance);
 		$hidden = "<input type='hidden' name='wpcfs' value='".htmlspecialchars($args['widget_id'])."'/>";
 		$method = "get";
-		$results_page = "/index.php/search/";
+		$results_page = "/";
 		include($template_file);
 	}
 	function update($new_instance,$old_instance){

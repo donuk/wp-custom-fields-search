@@ -42,9 +42,9 @@
 
 		function add_join($config,$join){
 			global $wpdb;
-			$alias = "wpcfs".$config['index'];
-			$posts_table = $wpdb->prefix."post";
-			$join.=" LEFT JOIN ".$wpdb->prefix.$this->get_table_name($config)." AS $alias ON $alias.post_id = $posts_table.post_id";
+			$alias = $this->get_table_alias($config);
+			$posts_table = $wpdb->posts;
+			$join.=" LEFT JOIN ".$this->get_table_name($config)." AS $alias ON $alias.post_id = $posts_table.id";
 			return $join;
 		}
 
@@ -53,7 +53,11 @@
 		}
 
 		function get_field_alias($config,$field_name){
-			return "wpcfs".$config['index'].".".$field_name;
+			return $this->get_table_alias($config).".".$field_name;
+		}
+
+		function get_table_alias($config){
+			return "wpcfs".$config['index'];
 		}
 	}
 
@@ -69,7 +73,7 @@
 		}
 
 		function get_where($config,$value,$field_alias){
-			return $field."='".mysql_escape_string($value)."'";
+			return $field_alias."='".mysql_escape_string($value)."'";
 		}
 	}
 
