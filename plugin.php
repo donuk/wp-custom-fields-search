@@ -195,6 +195,7 @@ class WPCustomFieldsSearchPlugin {
 		$datatypes = $datatypes + array(
 			new WPCustomFieldsSearch_PostField(),
 			new WPCustomFieldsSearch_CustomField(),
+			new WPCustomFieldsSearch_Category(),
 		);
 		return $datatypes;
 	}

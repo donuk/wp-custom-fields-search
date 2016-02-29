@@ -19,7 +19,8 @@
 			return array();
 		}
 		function is_submitted($options,$data){
-			return $this->get_submitted_value($options,$data);
+			$html_name="f".$options['index'];
+            return array_key_exists($html_name,$data);
 		}
 		function get_submitted_value($options,$data){
 			$html_name="f".$options['index'];

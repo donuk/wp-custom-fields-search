@@ -62,3 +62,24 @@
 			return $join." AND $alias.meta_key='".mysql_escape_string($config['datatype_field'])."' ";
 		}
 	}
+
+    class WPCustomFieldsSearch_Category extends WPCustomFieldsSearch_DataType {
+
+        function getFieldMap(){
+            return array("term_id"=>"ID","name"=>"Name");
+        }
+
+		function add_join($config,$join){
+            global $wpdb;
+
+            $alias = $this->get_table_alias($config);
+            $alias2 = $alias."_2";
+            $alias3 = $alias."_3";
+            
+            $join.=" LEFT JOIN $wpdb->term_relationships AS $alias2 ON $wpdb->posts.ID = $alias2.object_id ";
+            $join.=" LEFT JOIN $wpdb->term_taxonomy AS $alias3 ON $alias3.term_taxonomy_id = $alias2.term_taxonomy_id ";
+            $join.=" LEFT JOIN $wpdb->terms AS $alias ON $alias3.term_id = $alias.term_id ";
+
+            return $join;
+        }
+    }
