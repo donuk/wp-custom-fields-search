@@ -91,4 +91,18 @@
             $options['labels'][] = "is_wp_term";
             return $options;
         }
+        function recurse_category($id,$field,$trace=array()){
+            $categories = get_categories(array('parent'=>$id));
+            $values = array();
+            foreach($categories as $category){
+                $full_trace[] = array_merge($trace,array($category));
+                $values[] = array("value"=>$category->$field,"label"=> $category->name);
+                $values = array_merge($values,$this->recurse_category($category->term_id,$field,$full_trace));
+            }
+            return $values;
+        }
+
+        function get_suggested_values($config){
+            return $this->recurse_category(0,$config['datatype_field']); #TODO - Have this id selected in the editor UI
+        }
     }

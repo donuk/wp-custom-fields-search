@@ -14,7 +14,8 @@
 
 		function render($config){
 			if($config['source']=='Auto'){
-				throw new Exception("Not Implemented Yet");
+                $datatype = new $config['datatype']();
+                $config['options'] = $datatype->get_suggested_values($config);
 			}
 			return parent::render($config);
 		}

@@ -93,6 +93,8 @@ class WPCustomFieldsSearchPlugin {
 	function posts_where($where){
 		$form = $this->get_submitted_form();
 		foreach($form['inputs'] as $index=>$input){
+			if(!$input['input']->is_submitted($input,$_REQUEST)) continue;
+
 			$submitted = $input['input']->get_submitted_value($input,$_REQUEST);
 			$wheres = array();
 			foreach($input['datatype']->get_field_aliases($input) as $alias){
