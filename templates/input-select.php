@@ -2,7 +2,7 @@
 
 <?php foreach($options['options'] as $option) {
 ?>
-	<option value="<?php echo htmlspecialchars($option['value']); ?>">
+	<option value="<?php echo htmlspecialchars($option['value']); ?>" <?php if($option['value']==$query[$html_name]) { ?> selected='selected'<?php } ?> >
 		<?php echo htmlspecialchars($option['label']);?>
 	</option>
 <?php } ?>

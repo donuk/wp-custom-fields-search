@@ -23,6 +23,12 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 		);
 	}
 
+
+    function get_query_if_submitted($instance){
+        if($_GET['wpcfs']==$instance['widget_id']){
+            return $_GET;
+        }
+    }   
 	function widget($args,$instance){
 		require_once("engine.php");
 		$components = array();
@@ -38,6 +44,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 		$hidden = "<input type='hidden' name='wpcfs' value='".htmlspecialchars($args['widget_id'])."'/>";
 		$method = "get";
 		$results_page = "/";
+        $query = $this->get_query_if_submitted($args);
 		include($template_file);
 	}
 	function update($new_instance,$old_instance){

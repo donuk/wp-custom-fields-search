@@ -1,7 +1,7 @@
 <?php
 	class WPCustomFieldsSearch_Input {
 		var $template = "text";
-		function render($options){
+		function render($options,$query){
 			$template_file = apply_filters("wpcfs_form_input",
 				dirname(__FILE__).'/templates/input-'.$this->template.'.php',
 				$this->template,$options);

@@ -9,7 +9,7 @@ SEARCH
 		<?php echo $config['label']; ?>
 	</dt>
 	<dd>
-		<?php echo $config['class']->render($config); ?>
+		<?php echo $config['class']->render($config,$query); ?>
 	</dd>
 	<?php } ?>
 </dl>
