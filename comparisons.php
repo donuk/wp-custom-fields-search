@@ -42,7 +42,7 @@ class WPCustomFieldsSearch_SubCategoryOf extends WPCustomFieldsSearch_Comparison
     function get_editor_options(){
         return array_merge(parent::get_editor_options(),array(
             "valid_for"=>array(
-                "datatype"=>"is_wp_term"
+                "datatype"=>["is_wp_term"]
             )
         ));
     }

@@ -31,6 +31,42 @@ angular.module('WPCFS', ['ui.sortable'])
 		var datatype_options = $scope.datatypes[$scope.field.datatype];
 		$scope.fields = datatype_options.options.all_fields;
 	});
+
+    $scope.get_valid_comparisons = function(){
+        var comparisons = [];
+        angular.forEach($scope.config.building_blocks.comparisons,
+            function(comparison){
+                var valid = true;
+                if(comparison['options']['valid_for']){
+                    console.log(comparison);
+                    angular.forEach(comparison['options']['valid_for'],function(restrictions,type){
+                        angular.forEach(restrictions,function(value){
+                            switch(type){
+                                case 'datatype':
+                                    var datatype = $scope.config.building_blocks.datatypes.find(function(element){ return element.id==$scope.field.datatype});
+                                    if(datatype.options.labels){
+                                        console.log(datatype.options.labels,value);
+                                        valid = valid && (datatype.options.labels.indexOf(value)>-1);
+                                    }
+                                    else valid=false;
+                                    break;
+                                default:
+                                    throw "Cannot restrict by type '"+type+"' in '"+comparison.name+"'";
+                            }
+                        });
+                    });
+                }
+
+                if(valid)
+                    comparisons.push(comparison);
+            }
+       );
+        return comparisons;
+    };
+    $scope.$watch("field.datatype",function(){
+        $scope.valid_comparisons = $scope.get_valid_comparisons();
+    });
+
 }]).controller('SelectController', ['$scope', function($scope) {
 	if(!$scope.field.any_message) $scope.field.any_message="Any";
 	if(!$scope.field.options) $scope.field.options=[{"value":1,"label":"One"},{"value":2,"label":"Two"}];

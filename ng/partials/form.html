@@ -11,7 +11,7 @@
 		</select>
 		<hr/>
 		<select ng-model='field.comparison'
-			ng-options='comparison.id as comparison.name for comparison in config.building_blocks.comparisons'>
+			ng-options='comparison.id as comparison.name for comparison in valid_comparisons'>
 		</select>
 		<div 
 			ng-if='comparisons[field.comparison].options.extra_config_form'

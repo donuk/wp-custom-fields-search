@@ -47,7 +47,7 @@
 
 					$scope.save = function(){
 						widget.save();
-					}
+					};
 				}]);
 			})(this);
 
