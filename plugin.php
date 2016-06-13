@@ -208,6 +208,7 @@ class WPCustomFieldsSearchPlugin {
 			new WPCustomFieldsSearch_GreaterThan(),
 			new WPCustomFieldsSearch_LessThan(),
 			new WPCustomFieldsSearch_Range(),
+			new WPCustomFieldsSearch_SubCategoryOf(),
 		);
 		return $comparisons;
 	}

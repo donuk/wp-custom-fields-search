@@ -37,3 +37,34 @@ class WPCustomFieldsSearch_LessThan extends WPCustomFieldsSearch_Comparison {
 }
 class WPCustomFieldsSearch_Range extends WPCustomFieldsSearch_Comparison {
 }
+
+class WPCustomFieldsSearch_SubCategoryOf extends WPCustomFieldsSearch_Comparison {
+    function get_editor_options(){
+        return array_merge(parent::get_editor_options(),array(
+            "valid_for"=>array(
+                "datatype"=>"is_wp_term"
+            )
+        ));
+    }
+    function collect_ids($field,$category_list){
+        $to_return = array();
+        foreach($category_list as $category){
+            $to_return[] = $category->$field;
+            $to_return = array_unique(array_merge($to_return,$this->collect_ids($field,get_categories(array("child_of"=>$category->term_id)))));
+        }
+        return $to_return;
+    }
+    function get_where($config,$value,$field_alias){
+        global $wpdb;
+        $field = $config['datatype_field'];
+        if($field == "term_id"){
+            $dummy_category->term_id = $value;
+            $parent_categories = array($dummy_category);
+        } else {
+            $parent_categories = get_categories(array("name"=>$value));
+        }
+        $child_categories = $this->collect_ids($field,$parent_categories);
+        
+        return $field_alias." IN ('".join("','",$child_categories)."')";
+    }
+}

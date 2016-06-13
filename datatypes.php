@@ -64,6 +64,8 @@
 	}
 
     class WPCustomFieldsSearch_Category extends WPCustomFieldsSearch_DataType {
+        /** FIXME: This doesn't deal with heirarchical categories.  Probably should.
+        */
 
         function getFieldMap(){
             return array("term_id"=>"ID","name"=>"Name");
@@ -81,5 +83,12 @@
             $join.=" LEFT JOIN $wpdb->terms AS $alias ON $alias3.term_id = $alias.term_id ";
 
             return $join;
+        }
+
+        function get_editor_options(){
+            $options = parent::get_editor_options();
+            if(!$options['labels']) $options['labels'] = array();
+            $options['labels']['is_wp_term'] = true;
+            return $options;
         }
     }
