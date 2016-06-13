@@ -15,7 +15,7 @@
 		function render($config,$query){
 			if($config['source']=='Auto'){
                 $datatype = new $config['datatype']();
-                $config['options'] = $datatype->get_suggested_values($config);
+                $config['options'] = array_merge(array(array("value"=>"","label"=>$config['any_message'])),$datatype->get_suggested_values($config));
 			}
 			return parent::render($config,$query);
 		}
