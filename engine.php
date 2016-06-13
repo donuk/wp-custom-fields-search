@@ -20,7 +20,7 @@
 		}
 		function is_submitted($options,$data){
 			$html_name="f".$options['index'];
-            return array_key_exists($html_name,$data);
+            return array_key_exists($html_name,$data) && $data[$html_name]!=="";
 		}
 		function get_submitted_value($options,$data){
 			$html_name="f".$options['index'];
