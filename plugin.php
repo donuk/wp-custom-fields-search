@@ -97,10 +97,15 @@ class WPCustomFieldsSearchPlugin {
 
 			$submitted = $input['input']->get_submitted_value($input,$_REQUEST);
 			$wheres = array();
-			foreach($input['datatype']->get_field_aliases($input) as $alias){
-				$wheres[]= $input['comparison']->get_where($input,$submitted,$alias);
-			}
-			$where.=" AND ( ".join(" OR ",$wheres)." )";
+            if(!is_array($submitted)){
+                $submitted = array($submitted);
+            }
+            foreach($submitted as $value){
+    			foreach($input['datatype']->get_field_aliases($input) as $alias){
+	    			$wheres[]= $input['comparison']->get_where($input,$value,$alias);
+		    	}
+            }
+			$where.=" AND ( ".join(" OR ",$wheres)." )"; #TODO: Make the AND/OR configurable
 		}
 		return $where;
 	}
@@ -189,6 +194,7 @@ class WPCustomFieldsSearchPlugin {
 		$inputs = $inputs + array(
 			new WPCustomFieldsSearch_TextBoxInput(),
 			new WPCustomFieldsSearch_SelectInput(),
+			new WPCustomFieldsSearch_CheckboxInput(),
 		);
 		return $inputs;
 	}
