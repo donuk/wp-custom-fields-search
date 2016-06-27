@@ -29,6 +29,8 @@
 	}
 
 	class WPCustomFieldsSearch_DataType{
+        var $multijoin = false;
+
 		function get_id(){
 			return get_class($this);
 		}
@@ -41,24 +43,28 @@
 			);
 		}
 
-		function add_join($config,$join){
+		function add_joins($config,$join,$count){
 			global $wpdb;
-			$alias = $this->get_table_alias($config);
-			$posts_table = $wpdb->posts;
-			$join.=" LEFT JOIN ".$this->get_table_name($config)." AS $alias ON $alias.post_id = $posts_table.id";
+            if(!$this->multijoin) $count=1;
+            for($index = 0 ; $index<$count; $index++){
+    			$alias = $this->get_table_alias($config,$index);
+	    		$posts_table = $wpdb->posts;
+		    	$join.=" LEFT JOIN ".$this->get_table_name($config)." AS $alias ON $alias.post_id = $posts_table.id";
+            }
 			return $join;
 		}
 
-		function get_field_aliases($config){
-			return array( $this->get_field_alias($config,$config['datatype_field']));
+		function get_field_aliases($config,$count){
+			return array( $this->get_field_alias($config,$config['datatype_field'],$count));
 		}
 
-		function get_field_alias($config,$field_name){
-			return $this->get_table_alias($config).".".$field_name;
+		function get_field_alias($config,$field_name,$count){
+			return $this->get_table_alias($config,$count).".".$field_name;
 		}
 
-		function get_table_alias($config){
-			return "wpcfs".$config['index'];
+		function get_table_alias($config,$count){
+            if(!$this->multijoin) $count=1;
+			return "wpcfs".$config['index']."_$count";
 		}
 	}
 
