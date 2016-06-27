@@ -1,14 +1,14 @@
 <div ng-controller='SelectController'>
-	<select ng-model='field.source'>
+	<p>Data Source: <select ng-model='field.source'>
 		<option value='Auto'>Auto</option>
 		<option value='Manual'>Manual</option>
-	</select>
+	</select></p>
 	<div ng-if='field.source=="Auto"'>
 		<input ng-model='field.any_message' id='any_message_{{$id}}'/>
 		<label for='any_message_{{id}}'>Blank Prompt (e.g. Any)</label>
 	</div>
 	<div ng-if='field.source=="Manual"'>
-		<table>
+		<table class='wpcfs-key-value-table'>
 			<thead><tr><td></td><th>Value</th><th>Label</th></tr></thead>
 			<tbody ng-model='field.options' ui-sortable>
 				<tr ng-repeat='option in field.options'>

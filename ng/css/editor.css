@@ -1,0 +1,14 @@
+.wp_custom_fields_search_editor ul.form_fields li {
+    border: solid gray 2px;
+    border-radius: 5px;
+    padding: 5px;
+}
+.wpcfs-key-value-table {
+    width: 100%;
+}
+.wpcfs-key-value-table input{
+    width: 100%;
+}
+.wpcfs-ng-wrapper {
+    display: inline-block;
+}

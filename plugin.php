@@ -141,6 +141,8 @@ class WPCustomFieldsSearchPlugin {
 			plugin_dir_url(__FILE__).'/js/wp-handlers.js',
 			array('wp-custom-fields-search-editor')
 		);
+        wp_register_style( 'wpcfs_css', plugins_url("wp-custom-fields-search") . '/ng/css/editor.css', false, '1.0.0' );
+        wp_enqueue_style( 'wpcfs_css' );
 	}
 
 	function parse_request(&$wp){

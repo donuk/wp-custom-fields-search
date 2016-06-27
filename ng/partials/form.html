@@ -1,6 +1,6 @@
 <div ng-controller="WPCFSForm">
 <h1>Root Form</h1>
-<ul ui-sortable ng-model='form_fields'>
+<ul class='form_fields' ui-sortable ng-model='form_fields'>
 	<li ng-repeat='field in form_fields' ng-controller="WPCFSField">
 		<input ng-model="field.label"/>
 		<select ng-model='field.datatype'
@@ -16,14 +16,17 @@
 		<div 
 			ng-if='comparisons[field.comparison].options.extra_config_form'
 			ng-include='comparisons[field.comparison].options.extra_config_form'
+            class='wpcfs-ng-wrapper'
 		></div>
 
+        <hr/>
 		<select ng-model='field.input'
 			ng-options='input.id as input.name for input in config.building_blocks.inputs'>
 		</select>
 		<div 
 			ng-if='inputs[field.input].options.extra_config_form'
 			ng-include='inputs[field.input].options.extra_config_form'
+            class='wpcfs-ng-wrapper'
 		></div>
 	</li>
 </ul>
