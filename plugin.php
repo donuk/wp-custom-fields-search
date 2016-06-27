@@ -213,8 +213,7 @@ class WPCustomFieldsSearchPlugin {
 		require_once(dirname(__FILE__).'/engine.php');
 		$comparisons = $comparisons+array(
 			new WPCustomFieldsSearch_Equals(),
-			new WPCustomFieldsSearch_WordsIn(),
-			new WPCustomFieldsSearch_PhraseIn(),
+			new WPCustomFieldsSearch_TextIn(),
 			new WPCustomFieldsSearch_GreaterThan(),
 			new WPCustomFieldsSearch_LessThan(),
 			new WPCustomFieldsSearch_Range(),

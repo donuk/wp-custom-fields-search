@@ -1,6 +1,21 @@
 <?php
 	class WPCustomFieldsSearch_TextBoxInput extends WPCustomFieldsSearch_Input {
 		var $template = "text";
+		function get_editor_options(){
+			$options = parent::get_editor_options();
+			$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/inputs/textbox.html';
+			$options['split_words'] = '';
+			return $options;
+		}
+		function get_submitted_value($options,$data){
+			$html_name="f".$options['index'];
+			$value = $data[$html_name];
+            if($options['split_words']){
+                return explode(" ",$value);
+            } else {
+                return array($value);
+            }
+		}
 	}
 
 	class WPCustomFieldsSearch_SelectInput extends WPCustomFieldsSearch_Input {
