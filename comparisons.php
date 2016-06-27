@@ -7,8 +7,8 @@ class WPCustomFieldsSearch_TextIn extends WPCustomFieldsSearch_Comparison {
 		return $field_alias." LIKE '%".mysql_escape_string($value)."%'";
 	}
 }
-class WPCustomFieldsSearch_GreaterThan extends WPCustomFieldsSearch_Comparison {
-	function get_where($config,$value,$field_alias){
+class WPCustomFieldsSearch_OrderedComparison extends WPCustomFieldsSearch_Comparison {
+	function get_ordered_where($config,$value,$field_alias,$comparison){
 		$value = mysql_escape_string($value);
 		switch($config['numeric']){
 		case 'Numeric':
@@ -18,8 +18,8 @@ class WPCustomFieldsSearch_GreaterThan extends WPCustomFieldsSearch_Comparison {
 			$value = "'$value'";
 			break;
 		}
-		return "$field_alias>$value";
-	}
+		return "$field_alias$comparison$value";
+    }
 	function get_editor_options(){
 		$options = parent::get_editor_options();
 		$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/comparisons/numeric.html';
@@ -27,9 +27,30 @@ class WPCustomFieldsSearch_GreaterThan extends WPCustomFieldsSearch_Comparison {
 		return $options;
 	}
 }
-class WPCustomFieldsSearch_LessThan extends WPCustomFieldsSearch_Comparison {
+class WPCustomFieldsSearch_GreaterThan extends WPCustomFieldsSearch_OrderedComparison {
+	function get_where($config,$value,$field_alias){
+        return $this->get_ordered_where($config,$value,$field_alias,">");
+	}
 }
-class WPCustomFieldsSearch_Range extends WPCustomFieldsSearch_Comparison {
+class WPCustomFieldsSearch_LessThan extends WPCustomFieldsSearch_OrderedComparison {
+	function get_where($config,$value,$field_alias){
+        return $this->get_ordered_where($config,$value,$field_alias,"<");
+	}
+}
+class WPCustomFieldsSearch_Range extends WPCustomFieldsSearch_OrderedComparison {
+	function get_where($config,$value,$field_alias){
+        list($min,$max) = split(":",$value);
+        $params = array();
+        if($min){
+            $params[] = $this->get_ordered_where($config,$min,$field_alias,">");
+        }
+        if($max){
+            $params[] = $this->get_ordered_where($config,$max,$field_alias,"<");
+        }
+        if(!$params) $params = array(1);
+
+        return "( ".join(" AND ",$params)." )";
+	}
 }
 
 class WPCustomFieldsSearch_SubCategoryOf extends WPCustomFieldsSearch_Comparison {
