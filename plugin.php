@@ -100,12 +100,16 @@ class WPCustomFieldsSearchPlugin {
             if(!is_array($submitted)){
                 $submitted = array($submitted);
             }
+            $join = ($input['multi_match'] == "Any") ? "OR" : "AND";
             foreach($submitted as $value){
-    			foreach($input['datatype']->get_field_aliases($input) as $alias){
-	    			$wheres[]= $input['comparison']->get_where($input,$value,$alias);
+                $sub_wheres = array();
+                foreach($input['datatype']->get_field_aliases($input) as $alias){
+	    			$sub_wheres[]= $input['comparison']->get_where($input,$value,$alias);
 		    	}
+                
+                $wheres[] = "(".join(" OR ",$sub_wheres).")";
             }
-			$where.=" AND ( ".join(" OR ",$wheres)." )"; #TODO: Make the AND/OR configurable
+			$where.=" AND ( ".join(" $join ",$wheres)." )"; #TODO: Make the AND/OR configurable
 		}
 		return $where;
 	}

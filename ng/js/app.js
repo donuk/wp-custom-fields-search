@@ -27,6 +27,7 @@ angular.module('WPCFS', ['ui.sortable'])
 	};
 
 }]).controller('WPCFSField', ['$scope', function($scope) {
+	if(!$scope.field.multi_match) $scope.field.multi_match="All";
 	$scope.$watch("field.datatype",function(){
 		var datatype_options = $scope.datatypes[$scope.field.datatype];
 		$scope.fields = datatype_options.options.all_fields;

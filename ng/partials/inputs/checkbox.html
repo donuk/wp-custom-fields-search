@@ -3,6 +3,7 @@
 		<option value='Auto'>Auto</option>
 		<option value='Manual'>Manual</option>
 	</select></p>
+    <p>Matches If <select ng-model='field.multi_match'><option>Any</option><option>All</option></select> Present</p>
 	<div ng-if='field.source=="Manual"'>
 		<table class='wpcfs-key-value-table'>
 			<thead><tr><td></td><th>Value</th><th>Label</th></tr></thead>
