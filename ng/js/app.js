@@ -22,7 +22,7 @@ angular.module('WPCFS', ['ui.sortable'])
 	};
 
     $scope.remove_field = function(field) {
-        $scope.form_fields.pop(field);
+        $scope.form_fields.splice($scope.form_fields.indexOf(field),1);
     }
 
     angular.forEach($scope.form_fields,function(field){
