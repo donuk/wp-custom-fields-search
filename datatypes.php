@@ -4,13 +4,13 @@
 		function getFieldMap(){
 			global $wpdb;
 			return array(
-				"post_title"	=>	"Title",
-				"post_author"	=>	"Author",
-				"post_date"	=>	"Date",
-				"post_content"	=>	"Content",
-				"post_excerpt"	=>	"Excerpt",
-				"all"		=>	"All",
-				"post_id"	=>	"ID",
+				"post_title"	=>	__("Title"),
+				"post_author"	=>	__("Author"),
+				"post_date"	=>	__("Date"),
+				"post_content"	=>	__("Content"),
+				"post_excerpt"	=>	__("Excerpt"),
+				"all"		=>	__("All"),
+				"post_id"	=>	__("ID"),
 			);
 		}
 		function getAvailableFields(){
@@ -35,6 +35,24 @@
 			global $wpdb;
 			return $wpdb->posts.".".$field_name;
 		}
+
+        function get_suggested_values($config){
+            global $wpdb;
+            switch($config['datatype_field']){
+                case 'post_title': case 'post_date': case 'post_content': case 'post_excerpt': case 'all':
+                    $map = $this->getFieldMap();
+                    trigger_error("Cannot auto-populate select for ".$map[$config['datatype_field']]);
+                    return array();
+                case 'post_author':
+                    $q = $wpdb->get_results("SELECT GROUP_CONCAT(DISTINCT post_author) AS author FROM $wpdb->posts");
+                    $authors = $wpdb->get_results("SELECT ID,user_nicename FROM $wpdb->users WHERE ID IN (".$q[0]->author.")");
+                    $response = array();
+                    foreach($authors as $row){
+                        $response[] = array( "value"=>$row->ID, "label"=>$row->user_nicename);
+                    }
+                    return $response;
+            }
+        }
 	}
 	class WPCustomFieldsSearch_CustomField extends WPCustomFieldsSearch_DataType {
         function get_name(){ return __("Custom Post Field"); }
