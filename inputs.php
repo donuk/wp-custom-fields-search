@@ -16,9 +16,11 @@
                 return array($value);
             }
 		}
+        function get_name(){ return __("Text Input"); }
 	}
 
 	class WPCustomFieldsSearch_SelectInput extends WPCustomFieldsSearch_Input {
+        function get_name(){ return __("Drop Down"); }
 		var $template = "select";
 		function get_editor_options(){
 			$options = parent::get_editor_options();
@@ -36,6 +38,7 @@
 		}
 	}
 	class WPCustomFieldsSearch_CheckboxInput extends WPCustomFieldsSearch_Input {
+        function get_name(){ return __("Checkboxes"); }
 		var $template = "checkbox";
 		function get_editor_options(){
 			$options = parent::get_editor_options();

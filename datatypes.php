@@ -1,5 +1,6 @@
 <?php
 	class WPCustomFieldsSearch_PostField extends WPCustomFieldsSearch_DataType {
+        function get_name(){ return __("Core Post Field"); }
 		function getFieldMap(){
 			global $wpdb;
 			return array(
@@ -36,6 +37,7 @@
 		}
 	}
 	class WPCustomFieldsSearch_CustomField extends WPCustomFieldsSearch_DataType {
+        function get_name(){ return __("Custom Post Field"); }
 		function getFieldMap(){
 			global $wpdb;
 			$results = $wpdb->get_results("SELECT DISTINCT(meta_key) FROM $wpdb->postmeta ORDER BY meta_key");
@@ -67,6 +69,7 @@
 	}
 
     class WPCustomFieldsSearch_Category extends WPCustomFieldsSearch_DataType {
+        function get_name(){ return __("Category Field"); }
         var $multijoin = true;
 
         function getFieldMap(){

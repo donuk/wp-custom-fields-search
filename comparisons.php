@@ -1,8 +1,11 @@
 <?php 
 
 class WPCustomFieldsSearch_Equals extends WPCustomFieldsSearch_Comparison {
+    function get_name(){ return __("Exact Match"); }
 }
 class WPCustomFieldsSearch_TextIn extends WPCustomFieldsSearch_Comparison {
+    function get_name(){ return __("Contains Text"); }
+
 	function get_where($config,$value,$field_alias){
 		return $field_alias." LIKE '%".mysql_escape_string($value)."%'";
 	}
@@ -28,16 +31,21 @@ class WPCustomFieldsSearch_OrderedComparison extends WPCustomFieldsSearch_Compar
 	}
 }
 class WPCustomFieldsSearch_GreaterThan extends WPCustomFieldsSearch_OrderedComparison {
+    function get_name(){ return __("Greater Than"); }
 	function get_where($config,$value,$field_alias){
         return $this->get_ordered_where($config,$value,$field_alias,">");
 	}
 }
 class WPCustomFieldsSearch_LessThan extends WPCustomFieldsSearch_OrderedComparison {
+    function get_name(){ return __("Less Than"); }
+
 	function get_where($config,$value,$field_alias){
         return $this->get_ordered_where($config,$value,$field_alias,"<");
 	}
 }
 class WPCustomFieldsSearch_Range extends WPCustomFieldsSearch_OrderedComparison {
+    function get_name(){ return __("In Range"); }
+
 	function get_where($config,$value,$field_alias){
         list($min,$max) = split(":",$value);
         $params = array();
@@ -54,6 +62,8 @@ class WPCustomFieldsSearch_Range extends WPCustomFieldsSearch_OrderedComparison 
 }
 
 class WPCustomFieldsSearch_SubCategoryOf extends WPCustomFieldsSearch_Comparison {
+    function get_name(){ return __("In category or Sub-category"); }
+
     function get_editor_options(){
         return array_merge(parent::get_editor_options(),array(
             "valid_for"=>array(
