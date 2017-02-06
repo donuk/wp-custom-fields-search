@@ -18,12 +18,7 @@ angular.module('WPCFS', ['ui.sortable'])
 		return result;
 	};
 	$scope.add_field = function(){
-		$scope.form_fields.push({
-			"datatype":array_values($scope.datatypes)[0].id,
-			"datatype_field":array_keys(array_values($scope.datatypes)[0].options.all_fields)[0],
-			"input":array_values($scope.inputs)[0].id,
-			"comparison":array_values($scope.comparisons)[0].id
-		});
+		$scope.form_fields.push({"label": "Untitled Field", "expand":true});
 	};
 
     $scope.remove_field = function(field) {
@@ -38,7 +33,7 @@ angular.module('WPCFS', ['ui.sortable'])
 	if(!$scope.field.multi_match) $scope.field.multi_match="All";
 	$scope.$watch("field.datatype",function(){
 		var datatype_options = $scope.datatypes[$scope.field.datatype];
-		$scope.fields = datatype_options.options.all_fields;
+		$scope.fields = datatype_options ? datatype_options.options.all_fields : [];
 	});
 
     $scope.get_valid_comparisons = function(){
@@ -46,14 +41,16 @@ angular.module('WPCFS', ['ui.sortable'])
         angular.forEach($scope.config.building_blocks.comparisons,
             function(comparison){
                 var valid = true;
-                if(comparison['options']['valid_for']){
+                if(!comparison['options']){
+                    valid = false;
+                } else if(comparison['options']['valid_for']){
                     console.log(comparison);
                     angular.forEach(comparison['options']['valid_for'],function(restrictions,type){
                         angular.forEach(restrictions,function(value){
                             switch(type){
                                 case 'datatype':
                                     var datatype = $scope.config.building_blocks.datatypes.find(function(element){ return element.id==$scope.field.datatype});
-                                    if(datatype.options.labels){
+                                    if(datatype && datatype.options.labels){
                                         console.log(datatype.options.labels,value);
                                         valid = valid && (datatype.options.labels.indexOf(value)>-1);
                                     }

@@ -52,6 +52,14 @@
     vertical-align: top;
 }
 
+.wpcfs-floating-prompt p {
+    position: absolute;
+    right: 10px;
+}
+.wpcfs-floating-prompt {
+    position: relative;
+}
+
 .wpcfs-clear{
     width: 100%;
 }

@@ -21,29 +21,32 @@
         <div class='full-form' ng-show='field.expand'>
             <div style='clear:both'/>
             <hr/>
+            <div class='wpcfs-floating-prompt' ng-if='!field.datatype'><p>Select Datatype</p></div>
             <select ng-model='field.datatype'
                 ng-options='datatype.id as datatype.name for datatype in config.building_blocks.datatypes'>
             </select>
-            <select ng-model='field.datatype_field'
+            <select ng-if='field.datatype' ng-model='field.datatype_field'
                 ng-options='id as name for (id,name) in fields'>
             </select>
             <hr/>
+            <div class='wpcfs-floating-prompt' ng-if='!field.comparison'><p>Select Search Comparison</p></div>
             <select ng-model='field.comparison'
                 ng-options='comparison.id as comparison.name for comparison in valid_comparisons'>
             </select>
             <div 
-                ng-if='comparisons[field.comparison].options.extra_config_form'
+                ng-if='field.comparison && comparisons[field.comparison].options.extra_config_form'
                 ng-include='comparisons[field.comparison].options.extra_config_form'
                 class='wpcfs-ng-wrapper'
                 ng-class="{'wpcfs-clear': inputs[field.comparison].options.clear_extra_config_form}"
             ></div>
 
             <hr/>
+            <div class='wpcfs-floating-prompt' ng-if='!field.input'><p>Select Input Method</p></div>
             <select ng-model='field.input'
                 ng-options='input.id as input.name for input in config.building_blocks.inputs'>
             </select>
             <div 
-                ng-if='inputs[field.input].options.extra_config_form'
+                ng-if='field.input && inputs[field.input].options.extra_config_form'
                 ng-include='inputs[field.input].options.extra_config_form'
                 class='wpcfs-ng-wrapper'
                 ng-class="{'wpcfs-clear': inputs[field.input].options.clear_extra_config_form}"
