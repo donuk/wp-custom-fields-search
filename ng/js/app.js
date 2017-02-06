@@ -26,6 +26,14 @@ angular.module('WPCFS', ['ui.sortable'])
 		});
 	};
 
+    $scope.remove_field = function(field) {
+        $scope.form_fields.pop(field);
+    }
+
+    angular.forEach($scope.form_fields,function(field){
+        field.expand = false;
+    });
+
 }]).controller('WPCFSField', ['$scope', function($scope) {
 	if(!$scope.field.multi_match) $scope.field.multi_match="All";
 	$scope.$watch("field.datatype",function(){

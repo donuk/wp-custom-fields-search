@@ -12,10 +12,10 @@
 			<thead><tr><td></td><th>Value</th><th>Label</th></tr></thead>
 			<tbody ng-model='field.options' ui-sortable>
 				<tr ng-repeat='option in field.options'>
-					<td>DRAG</td>
+					<td><a class='icon drag'>DRAG</a></td>
 					<td><input ng-model='option.value'/></td>
 					<td><input ng-model='option.label'/></td>
-					<td><a ng-click='remove_option(option)'>X</a></td>
+					<td><a ng-click='remove_option(option)' class='icon delete'>X</a></td>
 				</tr>
 			</tbody>
 			<tfoot><tr><td></td><td><a ng-click='add_option()'>Add</a></td></tr></thead>

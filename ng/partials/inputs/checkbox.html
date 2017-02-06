@@ -1,15 +1,15 @@
-<div ng-controller='SelectController'>
+<div ng-controller='SelectController' style='width: 100%; clear: both;'>
+    <p>Matches If <select ng-model='field.multi_match'><option>Any</option><option>All</option></select> Present</p>
 	<p>Data Source: <select ng-model='field.source'>
 		<option value='Auto'>Auto</option>
 		<option value='Manual'>Manual</option>
 	</select></p>
-    <p>Matches If <select ng-model='field.multi_match'><option>Any</option><option>All</option></select> Present</p>
 	<div ng-if='field.source=="Manual"'>
 		<table class='wpcfs-key-value-table'>
 			<thead><tr><td></td><th>Value</th><th>Label</th></tr></thead>
 			<tbody ng-model='field.options' ui-sortable>
 				<tr ng-repeat='option in field.options'>
-					<td>DRAG</td>
+					<td><a class='drag icon'>DRAG</a></td>
 					<td><input ng-model='option.value'/></td>
 					<td><input ng-model='option.label'/></td>
 					<td><a ng-click='remove_option(option)'>X</a></td>

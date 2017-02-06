@@ -25,6 +25,7 @@
 		function get_editor_options(){
 			$options = parent::get_editor_options();
 			$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/inputs/select.html';
+			$options['clear_extra_config_form'] = true;
 			$options['any_label'] = 'Any';
 			return $options;
 		}
@@ -43,6 +44,7 @@
 		function get_editor_options(){
 			$options = parent::get_editor_options();
 			$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/inputs/checkbox.html';
+			$options['clear_extra_config_form'] = true;
 			return $options;
 		}
 

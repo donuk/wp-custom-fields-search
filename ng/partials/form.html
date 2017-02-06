@@ -1,35 +1,58 @@
-<div ng-controller="WPCFSForm">
-<h1>Root Form</h1>
+<div ng-controller="WPCFSForm" class='wpcfs-form'>
 <ul class='form_fields' ui-sortable ng-model='form_fields'>
-	<li ng-repeat='field in form_fields' ng-controller="WPCFSField">
-		<input ng-model="field.label"/>
-		<select ng-model='field.datatype'
-			ng-options='datatype.id as datatype.name for datatype in config.building_blocks.datatypes'>
-		</select>
-		<select ng-model='field.datatype_field'
-			ng-options='id as name for (id,name) in fields'>
-		</select>
-		<hr/>
-		<select ng-model='field.comparison'
-			ng-options='comparison.id as comparison.name for comparison in valid_comparisons'>
-		</select>
-		<div 
-			ng-if='comparisons[field.comparison].options.extra_config_form'
-			ng-include='comparisons[field.comparison].options.extra_config_form'
-            class='wpcfs-ng-wrapper'
-		></div>
+	<li ng-repeat='field in form_fields' ng-controller="WPCFSField" ng-class="{expanded:field.expand}">
+        <div class='preview row'>
+            <div class='cell'>
+                <a class='drag icon'>DRAG</a>
+            </div>
+            <div class='cell'>
+                <input ng-model="field.label"/>
+            </div>
+            <div class='cell'>
+            <a class='expand icon' ng-click='field.expand=!field.expand'>
+                Expand
+            </a>
+            <a class='delete icon' ng-click='remove_field(field)'>
+                Remove
+            </a>
+            </div>
+        </div>
 
-        <hr/>
-		<select ng-model='field.input'
-			ng-options='input.id as input.name for input in config.building_blocks.inputs'>
-		</select>
-		<div 
-			ng-if='inputs[field.input].options.extra_config_form'
-			ng-include='inputs[field.input].options.extra_config_form'
-            class='wpcfs-ng-wrapper'
-		></div>
+        <div class='full-form' ng-show='field.expand'>
+            <div style='clear:both'/>
+            <hr/>
+            <select ng-model='field.datatype'
+                ng-options='datatype.id as datatype.name for datatype in config.building_blocks.datatypes'>
+            </select>
+            <select ng-model='field.datatype_field'
+                ng-options='id as name for (id,name) in fields'>
+            </select>
+            <hr/>
+            <select ng-model='field.comparison'
+                ng-options='comparison.id as comparison.name for comparison in valid_comparisons'>
+            </select>
+            <div 
+                ng-if='comparisons[field.comparison].options.extra_config_form'
+                ng-include='comparisons[field.comparison].options.extra_config_form'
+                class='wpcfs-ng-wrapper'
+                ng-class="{'wpcfs-clear': inputs[field.comparison].options.clear_extra_config_form}"
+            ></div>
+
+            <hr/>
+            <select ng-model='field.input'
+                ng-options='input.id as input.name for input in config.building_blocks.inputs'>
+            </select>
+            <div 
+                ng-if='inputs[field.input].options.extra_config_form'
+                ng-include='inputs[field.input].options.extra_config_form'
+                class='wpcfs-ng-wrapper'
+                ng-class="{'wpcfs-clear': inputs[field.input].options.clear_extra_config_form}"
+            ></div>
+        </div>
+        <div style='clear:both'/>
 	</li>
 </ul>
-<a ng-click='add_field()'>Add Field</a>
+<a ng-click='add_field()' class='add icon'>Add</a><a ng-click='add_field()' class='icon-text'>New Field</a>
 
+        <div style='clear:both'/>
 </div>
