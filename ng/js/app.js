@@ -3,6 +3,9 @@ angular.module('WPCFS', ['ui.sortable'])
 	$scope.sortableOptions = {
 		"containment": "#field-list"
 	};
+    $scope.tab = "fields";
+    $scope.tabs = [ "fields", "settings" ];
+    $scope.set_tab = function(tab){ $scope.tab = tab; };
 	var array_values = function(dict){
 		var result = [];
 		for(var i in dict){

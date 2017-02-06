@@ -1,4 +1,19 @@
 <div ng-controller="WPCFSForm" class='wpcfs-form'>
+<ul ng-if='tabs.length>1' class='wpcfs-form-tabs row'>
+    <li ng-repeat='local_tab in tabs' class='cell' ng-class='{"selected": tab==local_tab, "unselected": tab!=local_tab }'>
+        <a class='icon {{local_tab}} tab_select' ng-click='set_tab(local_tab)'>{{local_tab}}</a>
+    </li>
+    <li class='cell tab_filler'>
+    </li>
+</ul>
+        <div style='clear:both'/>
+<div class='wpcfs-form-tab' ng-if='tab == "settings"'>
+    <div ng-repeat='page in config.settings_pages'>
+        <h2 ng-if='page.show_title'>{{page.title}}</h2>
+        <div ng-include='page.template'></div>
+    </div>
+</div>
+<div class='wpcfs-form-tab' ng-if='tab == "fields"'>
 <ul class='form_fields' ui-sortable ng-model='form_fields'>
 	<li ng-repeat='field in form_fields' ng-controller="WPCFSField" ng-class="{expanded:field.expand}">
         <div class='preview row'>
@@ -56,6 +71,6 @@
 	</li>
 </ul>
 <a ng-click='add_field()' class='add icon'>Add</a><a ng-click='add_field()' class='icon-text'>New Field</a>
-
+</div>
         <div style='clear:both'/>
 </div>

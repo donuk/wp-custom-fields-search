@@ -44,6 +44,8 @@
 					$scope.comparisons  = array2dict($scope.config.building_blocks.comparisons); 
 
 					$scope.form_fields = $scope.config.form_config.inputs;
+                    if(!$scope.config.form_config.settings) $scope.config.form_config.settings = {};
+                    $scope.settings = $scope.config.form_config.settings;
 
 					$scope.save = function(){
 						widget.save();

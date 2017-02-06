@@ -23,6 +23,18 @@
     display: block;
 }
 
+.wp_custom_fields_search_editor .unselected .tab_select {
+    background-color: #ccc;
+    border-bottom: solid gray 1px;
+}
+.wp_custom_fields_search_editor .selected .tab_select {
+    border: solid gray 1px;
+    border-bottom: none;
+}
+.wp_custom_fields_search_editor .tab_filler {
+    border-bottom: solid gray 1px;
+    width: 100%;
+}
 .wp_custom_fields_search_editor a {
     cursor: pointer;
 }
@@ -36,7 +48,9 @@
     background-repeat: no-repeat;
 }
 .wp_custom_fields_search_editor a.delete.icon { background-image: url(icons/stop32.png); }
-.wp_custom_fields_search_editor a.expand.icon { background-image: url(icons/wrench32.png); }
+.wp_custom_fields_search_editor a.expand.icon { background-image: url(icons/spanner32.png); }
+.wp_custom_fields_search_editor a.settings.icon { background-image: url(icons/spanner32.png); }
+.wp_custom_fields_search_editor a.fields.icon { background-image: url(icons/linedpaper32.png); }
 .wp_custom_fields_search_editor a.drag.icon { background-image: url(icons/drag32.png); }
 .wp_custom_fields_search_editor a.add.icon { background-image: url(icons/plus32.png); }
 

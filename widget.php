@@ -43,7 +43,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 		$template_file = apply_filters("wpcfs_form_template",dirname(__FILE__).'/templates/form.php',$instance);
 		$hidden = "<input type='hidden' name='wpcfs' value='".htmlspecialchars($args['widget_id'])."'/>";
 		$method = "get";
-		$results_page = "/";
+		$results_page = apply_filters("wpcfs_results_page","/",$data);
         $query = $this->get_query_if_submitted($args);
 		include($template_file);
 	}
@@ -71,6 +71,8 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 		);
 		$instance=array_merge($defaults,$instance);
 
+        $settings_pages = apply_filters("wpcfs_settings_pages",array());
+
 		$form_id = $this->get_field_id('edit-form');
 		// TODO: Could this be implemented with is_active_sidebar???
 		if($this->number=="__i__"){
@@ -90,8 +92,9 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 						if(index=='__i__') return;
 
 						$(this).wp_custom_fields_search_editor({
-							'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
+							'form_config':".($instance['data']?$instance['data']:"{inputs:[],settings:{}}").",
 							'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
+                            'settings_pages': ".json_encode($settings_pages).",
 							'field_name':'".$this->get_field_name('data')."'
 						});
 						
@@ -104,8 +107,9 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 				</div>
 				<script>
 					jQuery('#$form_id').wp_custom_fields_search_editor({
-						'form_config':".($instance['data']?$instance['data']:"{inputs:[]}").",
+						'form_config':".($instance['data']?$instance['data']:"{inputs:[],settings:{}}").",
 						'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
+                        'settings_pages': ".json_encode($settings_pages).",
 						'field_name':'".$this->get_field_name('data')."'
 
 					});
