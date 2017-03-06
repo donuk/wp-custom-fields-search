@@ -1,9 +1,8 @@
 .wp_custom_fields_search_editor ul.form_fields li {
     padding: 5px;
-}
-.wp_custom_fields_search_editor ul.form_fields li.expanded {
     border: solid gray 1px;
     border-radius: 5px;
+    background: white;
 }
 .wpcfs-key-value-table {
     width: 100%;
