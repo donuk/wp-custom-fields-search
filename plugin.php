@@ -38,6 +38,8 @@ class WPCustomFieldsSearchPlugin {
 		add_filter("wp_custom_fields_search_datatypes",array($this,"wp_custom_fields_search_datatypes"));
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
 
+        add_shortcode("wpcfs-preset",array($this,"shortcode"));
+
 		if($this->is_search_submitted()){
 			add_filter('template_include',array($this,'show_search_results_template'),99);
 			add_filter('posts_orderby',array($this,'posts_orderby'));
@@ -280,5 +282,25 @@ class WPCustomFieldsSearchPlugin {
 		);
 		return $comparisons;
 	}
+
+    function shortcode($atts){
+        $atts = shortcode_atts(array(
+            "id"=>null
+        ),$atts);
+        if(!$atts["id"]) throw new Exception("Bad Shortcode");
+        $this->show_preset($atts['id']);
+    }
+    static function show_preset($id){
+        require_once("search_form.php");
+        $config = get_option("wp-custom-fields-search");
+        foreach($config['presets'] as $preset){
+            if($preset['id']==$id) {
+                WPCFSSearchForm::show_form($preset);
+            }
+        }
+    }
 }
 new WPCustomFieldsSearchPlugin();
+function wpcfs_show_preset($id){
+    WPCustomFieldsSearchPlugin::show_preset($id);
+}

@@ -30,22 +30,9 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
         }
     }   
 	function widget($args,$instance){
-		require_once("engine.php");
-		$components = array();
+		require_once("search_form.php");
 		$data =json_decode($instance['data'],true);
-		$index = 0;
-		foreach($data['inputs'] as $config){
-			$clsname = $config['input'];
-			$config['class'] = new $clsname();
-			$config['index'] = ++$index;
-			array_push($components,$config);
-		}
-		$template_file = apply_filters("wpcfs_form_template",dirname(__FILE__).'/templates/form.php',$instance);
-		$hidden = "<input type='hidden' name='wpcfs' value='".htmlspecialchars($args['widget_id'])."'/>";
-		$method = "get";
-		$results_page = apply_filters("wpcfs_results_page","/",$data);
-        $query = $this->get_query_if_submitted($args);
-		include($template_file);
+        WPCFSSearchForm::show_form($data);
 	}
 	function update($new_instance,$old_instance){
 		return array(
