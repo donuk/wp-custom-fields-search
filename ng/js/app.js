@@ -1,5 +1,19 @@
 angular.module('WPCFS', ['ui.sortable'])
 .controller('WPCFSForm', ['$scope', function ($scope) {
+    $scope.datatypes  = array2dict($scope.config.building_blocks.datatypes); 
+    $scope.inputs  = array2dict($scope.config.building_blocks.inputs);
+    $scope.comparisons  = array2dict($scope.config.building_blocks.comparisons); 
+
+    var pull_config = function(){
+        $scope.form_fields = $scope.config.form_config.inputs;
+        if(!$scope.config.form_config.settings) $scope.config.form_config.settings = {};
+        $scope.settings = $scope.config.form_config.settings;
+    };
+    pull_config();
+    $scope.$watch('config.form_config.id',pull_config);
+
+
+
 	$scope.sortableOptions = {
 		"containment": "#field-list"
 	};
@@ -47,14 +61,12 @@ angular.module('WPCFS', ['ui.sortable'])
                 if(!comparison['options']){
                     valid = false;
                 } else if(comparison['options']['valid_for']){
-                    console.log(comparison);
                     angular.forEach(comparison['options']['valid_for'],function(restrictions,type){
                         angular.forEach(restrictions,function(value){
                             switch(type){
                                 case 'datatype':
                                     var datatype = $scope.config.building_blocks.datatypes.find(function(element){ return element.id==$scope.field.datatype});
                                     if(datatype && datatype.options.labels){
-                                        console.log(datatype.options.labels,value);
                                         valid = valid && (datatype.options.labels.indexOf(value)>-1);
                                     }
                                     else valid=false;
@@ -86,4 +98,68 @@ angular.module('WPCFS', ['ui.sortable'])
 	$scope.add_option = function(){
 		$scope.field.options.push({});
 	};
+}]).controller('PresetsController', [ '$scope', '$filter', '$http', function ($scope,$filter,$http) {
+   $scope.form_config = $scope.config.form_config;
+   if(!$scope.form_config) $scope.form_config = [];
+    console.log("SET CONFIG",$scope.form_config);
+   $scope.presets = $scope.form_config;
+    $scope.preset = null;
+
+   $scope.add_preset = function(){
+        var preset = {
+            "name": "Untitled Preset",
+            "unsaved": true,
+            "id": 1,
+            "inputs": [],
+            "modified": false,
+            "state": "New",
+        };
+        while($filter('filter')($scope.presets,function(other){ return preset.id==other.id; }).length>0)
+            preset.id+=1;
+        $scope.presets.push(preset);
+        $scope.edit_preset(preset);
+   };
+
+   $scope.edit_preset = function(preset){
+        $scope.preset = preset;
+   };
+
+    $scope.save_preset = function(preset){
+        preset.state = "Saving";
+        data = angular.copy(preset);
+        data.action = $scope.config.save_callback;
+
+        console.log("SERIALIZING",data);
+        $http({
+            "method":"POST",
+            "url":ajaxurl,
+            "data": "action="+data.action+"&data="+$filter('json')(data),
+            "headers": {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(){
+            preset.state="Saved";
+            preset.modified=false;
+        },function(){
+            preset.state="Error";
+        });
+    };
+
+    if($scope.presets.length==0){
+        $scope.add_preset();
+    } else if(!$scope.preset){
+        $scope.preset = $scope.presets[0];
+    }
+}]).controller('PresetController', [ '$scope', function ($scope) {
+
+    var update_child_config = function(){
+        $scope.config = {
+            "form_config": $scope.preset,
+            "building_blocks": $scope.config.building_blocks,
+        };
+    };
+    $scope.$watch("preset",update_child_config);
+    update_child_config();
+}]).controller('PresetModifiedController', [ '$scope', function($scope){
+    $scope.$watch("preset",function(){
+        $scope.preset.modified=true;
+    });
 }]);

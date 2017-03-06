@@ -112,7 +112,7 @@
 
         function get_editor_options(){
             $options = parent::get_editor_options();
-            if(!$options['labels']) $options['labels'] = array();
+            if(!array_key_exists('labels',$options)) $options['labels'] = array();
             $options['labels'][] = "is_wp_term";
             return $options;
         }

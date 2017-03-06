@@ -24,10 +24,15 @@ Text Domain: wp_custom_fields_search
  */
 
 
+
+class WPCustomFieldsSearchValidationException extends Exception {}
 class WPCustomFieldsSearchPlugin {
 	function __construct(){
 		add_action('widgets_init',array($this,"widgets_init"));
 		add_action('admin_enqueue_scripts',array($this,"admin_enqueue_scripts"));
+        add_action('admin_menu', array($this,'admin_menu'));
+
+        add_action('wp_ajax_wpcfs_save_preset',array($this,'save_preset'));
 
 		add_filter("wp_custom_fields_search_inputs",array($this,"wp_custom_fields_search_inputs"));
 		add_filter("wp_custom_fields_search_datatypes",array($this,"wp_custom_fields_search_datatypes"));
@@ -125,7 +130,7 @@ class WPCustomFieldsSearchPlugin {
 	function admin_enqueue_scripts(){
 		wp_enqueue_script(
 			"angularjs",
-			"https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js",
+			"https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js",
 			array('jquery')
 		);
 		wp_enqueue_script(
@@ -151,6 +156,53 @@ class WPCustomFieldsSearchPlugin {
         wp_register_style( 'wpcfs_css', plugins_url("wp-custom-fields-search") . '/ng/css/editor.css', false, '1.0.0' );
         wp_enqueue_style( 'wpcfs_css' );
 	}
+
+    function admin_menu(){
+        add_menu_page('WP Custom Fields Search Presets','WP Custom Fields Search', 'manage_options','wp-custom-fields-search',array($this,'presets_page'));
+    }
+
+    function presets_page(){
+        if($_POST){
+            // Save something...
+            // Return
+        }
+        $config = get_option("wp-custom-fields-search");
+        $presets = $config['presets'];
+        include(dirname(__FILE__).'/templates/presets-page.php');
+
+    }
+    function save_preset($data){
+        try {
+            $data = json_decode(stripslashes($_POST['data']),true);
+            $id = $data['id'];
+            if($data===null) throw new WPCustomFieldsSearchValidationException("data is required");
+            $config = get_option("wp-custom-fields-search");
+
+            $found = null;
+            if(!$config['presets']) $config['presets'] = array();
+            error_log("SAVING $id");
+            foreach($config['presets'] as $key=>$preset){
+                error_log("CHECKING $preset[id]");
+                if($preset['id']==$id){
+                    $found = $key;
+                }
+            }
+            unset($data['action']);
+            if($found!==null) $config['presets'][$found] = $data;
+            else $config['presets'][] = $data;
+
+            update_option("wp-custom-fields-search",$config);
+            echo "OK";
+        } catch(WPCustomFieldsSearchValidationException $e){
+            header("HTTP/1.1 400 Invalid Data");
+            echo "Error {$e->getMessage()}";
+            throw $e;
+        } catch(Exception $e){
+            header("HTTP/1.1 500 Internal Error");
+            echo "Error {$e->getMessage()}";
+            throw $e;
+        }
+    }
 
 	function parse_request(&$wp){
 		if(array_key_exists("wpcfs",$_REQUEST)){

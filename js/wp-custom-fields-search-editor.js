@@ -1,20 +1,21 @@
+var array2dict = function(arr,key_fun){
+    if(!key_fun) key_fun = function(el){ return el.id };
+    var output = {};
+    arr.forEach(function(item){
+        output[key_fun(item)] = item;
+    });
+    return output;
+};
 (function($){
 	var handler_list = {
 		"input":{},
 		"comparison":{},
 		"datatype":{},
-	}
-	var array2dict = function(arr,key_fun){
-		if(!key_fun) key_fun = function(el){ return el.id };
-		var output = {};
-		arr.forEach(function(item){
-			output[key_fun(item)] = item;
-		});
-		return output;
 	};
 	$.widget("wpcfs.wp_custom_fields_search_editor",{
 		"options":{
-
+            "mode": "widget",
+            "root_template": "form.html",
 		},
 		"save": function(){
 			this.options.value_element.val(JSON.stringify(this.options.form_config));
@@ -22,31 +23,29 @@
 		"_create": function(){
 			//Instantiate Angular App and pass config into the angular environment
 
-			this.element.addClass("wp_custom_fields_search_editor");
-			this.options.value_element = $("<input type='hidden' name='"+this.options.field_name+"' value=''/>").appendTo(this.element);
+            if(this.options.mode=="widget"){
 
-			var angular_root = $("<div ng-controller='RootController' ng-include='partials+\"/form.html\"'></div>").appendTo(this.element);
+                this.element.addClass("wp_custom_fields_search_editor");
+                this.options.value_element = $("<input type='hidden' name='"+this.options.field_name+"' value=''/>").appendTo(this.element);
+
+            }
+			var angular_root = $("<div ng-controller='RootController' ng-include='partials+\"/"+this.options.root_template+"\"'></div>").appendTo(this.element);
+            
 
 			(function(widget){
-				widget.save();
-				$('.widget-control-actions input')
-				.live('mouseenter',function(){ widget.save(); })
-				.live('click',function(){ widget.save(); });
+                if(widget.options.mode=="widget"){
+    				widget.save();
+	    			$('.widget-control-actions input')
+		    		.live('mouseenter',function(){ widget.save(); })
+			    	.live('click',function(){ widget.save(); });
+                }
+
 				angular.module('WPCFS')
 				.controller('RootController', ['$scope', function ($scope) {
 					$scope.root = "/wp-content/plugins/wp-custom-fields-search/ng/"; //TODO: Feed this in from WP
 					$scope.partials = $scope.root+"partials/";
 					$scope.config = widget.options;
 					$scope.handlers = widget.handlers;
-
-					$scope.datatypes  = array2dict($scope.config.building_blocks.datatypes); 
-					$scope.inputs  = array2dict($scope.config.building_blocks.inputs);
-					$scope.comparisons  = array2dict($scope.config.building_blocks.comparisons); 
-
-					$scope.form_fields = $scope.config.form_config.inputs;
-                    if(!$scope.config.form_config.settings) $scope.config.form_config.settings = {};
-                    $scope.settings = $scope.config.form_config.settings;
-
 					$scope.save = function(){
 						widget.save();
 					};
