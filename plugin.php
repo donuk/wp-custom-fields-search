@@ -180,18 +180,8 @@ class WPCustomFieldsSearchPlugin {
             if($data===null) throw new WPCustomFieldsSearchValidationException("data is required");
             $config = get_option("wp-custom-fields-search");
 
-            $found = null;
             if(!$config['presets']) $config['presets'] = array();
-            error_log("SAVING $id");
-            foreach($config['presets'] as $key=>$preset){
-                error_log("CHECKING $preset[id]");
-                if($preset['id']==$id){
-                    $found = $key;
-                }
-            }
-            unset($data['action']);
-            if($found!==null) $config['presets'][$found] = $data;
-            else $config['presets'][] = $data;
+            $config['presets'][$id] = $data;
 
             update_option("wp-custom-fields-search",$config);
             echo "OK";
@@ -293,11 +283,8 @@ class WPCustomFieldsSearchPlugin {
     static function show_preset($id){
         require_once("search_form.php");
         $config = get_option("wp-custom-fields-search");
-        foreach($config['presets'] as $preset){
-            if($preset['id']==$id) {
-                WPCFSSearchForm::show_form($preset);
-            }
-        }
+        $preset = $config['presets'][$id];
+        WPCFSSearchForm::show_form($preset,"preset-$id");
     }
 }
 new WPCustomFieldsSearchPlugin();
