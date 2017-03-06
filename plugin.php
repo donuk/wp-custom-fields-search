@@ -39,6 +39,7 @@ class WPCustomFieldsSearchPlugin {
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
 
         add_shortcode("wpcfs-preset",array($this,"shortcode"));
+        add_action("parse_query",array($this,"parse_query"));
 
 		if($this->is_search_submitted()){
 			add_filter('template_include',array($this,'show_search_results_template'),99);
@@ -58,7 +59,10 @@ class WPCustomFieldsSearchPlugin {
 			$wpcfs = $_REQUEST['wpcfs'];
 			if(substr($wpcfs,0,23)=="wp_custom_fields_search"){
 				$submitted = json_decode(get_option("widget_wp_custom_fields_search")[substr($wpcfs,24)]['data'],true);
-			} else {
+			} elseif(substr($wpcfs,0,7)=="preset-") {
+				$config = get_option("wp-custom-fields-search");
+                $submitted = $config['presets'][substr($wpcfs,7)];
+            } else {
 				$submitted = false;
 			}
 			if($submitted){
@@ -196,11 +200,12 @@ class WPCustomFieldsSearchPlugin {
         }
     }
 
-	function parse_request(&$wp){
-		if(array_key_exists("wpcfs",$_REQUEST)){
-			//exit();
-		}
-	}
+    function parse_query($wpquery){
+        if($this->is_search_submitted()){
+            $wpquery->is_search = true;
+            $wpquery->is_home = false;
+        }
+    }
 	function show_search_template_for_searches($template){
 		if($_REQUEST['wpcfs']){
 			$template = "search";

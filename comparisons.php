@@ -10,6 +10,19 @@ class WPCustomFieldsSearch_TextIn extends WPCustomFieldsSearch_Comparison {
 		return $field_alias." LIKE '%".mysql_escape_string($value)."%'";
 	}
 }
+class WPCustomFieldsSearch_WordsIn extends WPCustomFieldsSearch_Comparison {
+    function get_name(){ return __("Contains Text"); }
+
+	function get_where($config,$value,$field_alias){
+        //FIXME: This will behave badly when comparing to multiple fields
+        $words = explode(" ",$value);
+        $queries = array();
+        foreach($words as $word){
+		    $queries[] =  $field_alias." LIkE '%".mysql_escape_string($word)."%'";
+        }
+        return join($queries," AND ");
+	}
+}
 class WPCustomFieldsSearch_OrderedComparison extends WPCustomFieldsSearch_Comparison {
 	function get_ordered_where($config,$value,$field_alias,$comparison){
 		$value = mysql_escape_string($value);

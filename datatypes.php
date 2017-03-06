@@ -84,6 +84,15 @@
             }
             return $join;
 		}
+        function get_suggested_values($config){
+            global $wpdb;
+            $values = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT meta_value FROM $wpdb->postmeta WHERE meta_key=%s ORDER BY meta_value",$config['datatype_field']));
+            $return = array();
+            foreach($values as $value){
+                $return[] = array("value"=>$value,"label"=>$value);
+            }
+            return $return;
+        }
 	}
 
     class WPCustomFieldsSearch_Category extends WPCustomFieldsSearch_DataType {

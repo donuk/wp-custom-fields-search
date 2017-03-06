@@ -32,7 +32,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 	function widget($args,$instance){
 		require_once("search_form.php");
 		$data =json_decode($instance['data'],true);
-        WPCFSSearchForm::show_form($data);
+        WPCFSSearchForm::Show_form($data,$args['widget_id']);
 	}
 	function update($new_instance,$old_instance){
 		return array(
