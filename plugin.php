@@ -40,7 +40,7 @@ class WPCustomFieldsSearchPlugin {
 		add_filter("wp_custom_fields_search_datatypes",array($this,"wp_custom_fields_search_datatypes"));
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
 
-        add_shortcode("wpcfs-preset",array($this,"shortcode"));
+        add_shortcode("wp-custom-fields-search",array($this,"shortcode"));
         add_action("parse_query",array($this,"parse_query"));
 
 		if($this->is_search_submitted()){
@@ -296,12 +296,12 @@ class WPCustomFieldsSearchPlugin {
 
     function shortcode($atts){
         $atts = shortcode_atts(array(
-            "id"=>null
+            "preset"=>"0"
         ),$atts);
-        if(!$atts["id"]) throw new Exception("Bad Shortcode");
-        $this->show_preset($atts['id']);
+        $this->show_preset($atts['preset']);
     }
     static function show_preset($id){
+        if($id=="default") $id=0;
         require_once("search_form.php");
         $config = get_option("wp-custom-fields-search");
         $preset = $config['presets'][$id];
@@ -311,4 +311,7 @@ class WPCustomFieldsSearchPlugin {
 new WPCustomFieldsSearchPlugin();
 function wpcfs_show_preset($id){
     WPCustomFieldsSearchPlugin::show_preset($id);
+}
+function wp_custom_fields_search($id="default"){
+    return wpcfs_show_preset($id);
 }

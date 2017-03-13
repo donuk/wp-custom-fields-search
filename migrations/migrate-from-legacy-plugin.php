@@ -87,6 +87,8 @@
 
         if(strpos($k,"preset-")===0){
             $type="preset";
+            $new_config['id'] = substr($k,7);
+            if($new_config['id']=="default") $new_config['id']=0;
         } elseif(is_numeric($k)){
             $type="widget";
         } else {
