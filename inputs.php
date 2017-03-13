@@ -38,6 +38,10 @@
 			return parent::render($config,$query);
 		}
 	}
+	class WPCustomFieldsSearch_RadioButtons extends WPCustomFieldsSearch_SelectInput {
+        function get_name(){ return __("Radio Buttons"); }
+		var $template = "radio-buttons";
+    }
 	class WPCustomFieldsSearch_CheckboxInput extends WPCustomFieldsSearch_Input {
         function get_name(){ return __("Checkboxes"); }
 		var $template = "checkbox";

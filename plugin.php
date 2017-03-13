@@ -269,6 +269,7 @@ class WPCustomFieldsSearchPlugin {
 			new WPCustomFieldsSearch_TextBoxInput(),
 			new WPCustomFieldsSearch_SelectInput(),
 			new WPCustomFieldsSearch_CheckboxInput(),
+			new WPCustomFieldsSearch_RadioButtons(),
 			new WPCustomFieldsSearch_HiddenInput(),
 		);
 		return $inputs;
