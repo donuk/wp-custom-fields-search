@@ -313,6 +313,8 @@ new WPCustomFieldsSearchPlugin();
 function wpcfs_show_preset($id){
     WPCustomFieldsSearchPlugin::show_preset($id);
 }
-function wp_custom_fields_search($id="default"){
-    return wpcfs_show_preset($id);
+if(!function_exists('wp_custom_fields_search')){
+    function wp_custom_fields_search($id="default"){
+        return wpcfs_show_preset($id);
+    }
 }
