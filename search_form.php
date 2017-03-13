@@ -1,7 +1,7 @@
 <?php
     class WPCFSSearchForm {
-        static function get_query_if_submitted($instance){
-            if($_GET['wpcfs']==$instance['widget_id']){
+        static function get_query_if_submitted($submit_id){
+            if($_GET['wpcfs']==$submit_id){
                 return $_GET;
             }
         }   
@@ -21,7 +21,7 @@
             $hidden = "<input type='hidden' name='wpcfs' value='".htmlspecialchars($submit_id)."'/>";
             $method = "get";
             $results_page = apply_filters("wpcfs_results_page","/",$data);
-            $query = self::get_query_if_submitted($args);
+            $query = self::get_query_if_submitted($submit_id);
             include($template_file);
         }
     }
