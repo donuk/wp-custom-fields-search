@@ -56,3 +56,21 @@
 			return parent::render($config,$query);
 		}
 	}
+	class WPCustomFieldsSearch_HiddenInput extends WPCustomFieldsSearch_Input {
+        var $show_in_form = false;
+
+		function get_editor_options(){
+			$options = parent::get_editor_options();
+			$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/inputs/hidden.html';
+            $options['constant_value'] = '';
+			return $options;
+		}
+		function get_submitted_value($options,$data){
+            return $options['constant_value'];
+		}
+
+        function get_name(){ return __("Hidden Constant"); }
+		function is_submitted($options,$data){
+            return true;
+        }
+	}

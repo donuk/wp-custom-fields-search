@@ -13,7 +13,9 @@
                 $clsname = $config['input'];
                 $config['class'] = new $clsname();
                 $config['index'] = ++$index;
-                array_push($components,$config);
+                if($config['class']->show_in_form){
+                    array_push($components,$config);
+                }
             }
             $template_file = apply_filters("wpcfs_form_template",dirname(__FILE__).'/templates/form.php',$instance);
             $hidden = "<input type='hidden' name='wpcfs' value='".htmlspecialchars($submit_id)."'/>";

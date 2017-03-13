@@ -16,7 +16,7 @@
         $mappings = array(
             "joiner"=>array(
                 "PostDataJoiner"=>"WPCustomFieldsSearch_PostField",
-                "PostTypeJoiner"=>"WPCustomFieldsSearch_PostTypeField",
+                "PostTypeJoiner"=>"WPCustomFieldsSearch_PostField",
                 "CategoryJoiner"=>"WPCustomFieldsSearch_Category",
             ),
             "comparison"=>array(
@@ -44,14 +44,15 @@
                     case 'CategoryJoiner':
                         $new_input['datatype_field']='term_id';
                         break;
+                    case "PostTypeJoiner":
+                        $new_input['datatype_field']='post_type';
+                        break;
+                        
                 }
                 switch($old_input['comparison']){
                     case "WordsLikeComparison":
                         $new_input['split_words'] = "True";
                         $new_input['multi_match'] = "All";
-                        break;
-                    case "HiddenField":
-                        $new_input['constant_value'] = $old_input['constant-value'];
                         break;
                 }
                 switch($old_input['input']){
@@ -78,6 +79,9 @@
                         } else {
                             $new_input['source'] = 'Auto';
                         }
+                        break;
+                    case "HiddenField":
+                        $new_input['constant_value'] = $old_input['constant-value'];
                         break;
                 }
 
