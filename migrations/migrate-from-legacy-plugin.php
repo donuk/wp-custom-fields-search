@@ -1,5 +1,7 @@
 <?php
     $old_settings = get_option("db_customsearch_widget");
+    if(!$old_settings) return;
+
     $new_settings = array(
         "widget"=>array(),
         "preset"=>array()
@@ -108,8 +110,14 @@
 
     $sidebars = get_option("sidebars_widgets");
     foreach($sidebars as $menu_name=>$widgets){
+        $new_widgets = array();
         foreach($widgets as $k=>$v){
-            $sidebars[$menu_name][$k] = str_replace("db_customsearch_widget","wp_custom_fields_search",$v);
+            $new_widgets[] = $v;
+            $alt = str_replace("db_customsearch_widget","wp_custom_fields_search",$v);
+            if($alt!=$v){
+                $new_widgets[] = $alt;
+            }
         }
+        $sidebars[$menu_name] = $new_widgets;
     }
     update_option('sidebars_widgets',$sidebars);
