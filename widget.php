@@ -15,7 +15,7 @@
  */
 class WPCustomFieldsSearchWidget extends WP_Widget {
 	function __construct(){
-		parent::__construct('wp_custom_fields_search',
+		parent::__construct('wp-custom-fields-search',
 			__("WPCFS Custom Search Form","wp_custom_fields_search" ),
 			array(
 				"description"=>__("Customisable search form (from WP Custom Fields Search)","wp_custom_fields_search")
