@@ -66,6 +66,14 @@
             if(!$this->multijoin) $count=1;
 			return "wpcfs".$config['index']."_$count";
 		}
+
+        function _array_to_suggestions_list($array){
+            $return = array();
+            foreach($array as $value){
+                $return[] = array("value"=>$value,"label"=>$value);
+            }
+            return $return;
+        }
 	}
 
 	class WPCustomFieldsSearch_Comparison {

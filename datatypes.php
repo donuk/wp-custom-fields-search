@@ -9,6 +9,7 @@
 				"post_date"	=>	__("Date"),
 				"post_content"	=>	__("Content"),
 				"post_excerpt"	=>	__("Excerpt"),
+				"post_type"	=>	__("Post Type"),
 				"all"		=>	__("All"),
 				"post_id"	=>	__("ID"),
 			);
@@ -51,9 +52,12 @@
                         $response[] = array( "value"=>$row->ID, "label"=>$row->user_nicename);
                     }
                     return $response;
+                case 'post_type':
+                    return $this->_array_to_suggestions_list($wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_type FROM $wpdb->posts WHERE post_status='publish'")));
             }
         }
 	}
+
 	class WPCustomFieldsSearch_CustomField extends WPCustomFieldsSearch_DataType {
         function get_name(){ return __("Custom Post Field"); }
 		function getFieldMap(){
@@ -87,11 +91,7 @@
         function get_suggested_values($config){
             global $wpdb;
             $values = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT meta_value FROM $wpdb->postmeta WHERE meta_key=%s ORDER BY meta_value",$config['datatype_field']));
-            $return = array();
-            foreach($values as $value){
-                $return[] = array("value"=>$value,"label"=>$value);
-            }
-            return $return;
+            return $this->_array_to_suggestions_list($values);
         }
 	}
 
