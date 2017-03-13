@@ -50,7 +50,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 							"datatype"=>"WPCustomFieldsSearch_PostField",
 							"datatype_field"=>"all",
 							"input"=>"WPCustomFieldsSearch_TextBoxInput",
-							"comparison"=>"WPCustomFieldsSearch_WordsIn",
+							"comparison"=>"WPCustomFieldsSearch_TextIn",
 						)
 					)
 				)
