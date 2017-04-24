@@ -33,14 +33,16 @@ class WPCustomFieldsSearch_OrderedComparison extends WPCustomFieldsSearch_Compar
 class WPCustomFieldsSearch_GreaterThan extends WPCustomFieldsSearch_OrderedComparison {
     function get_name(){ return __("Greater Than"); }
 	function get_where($config,$value,$field_alias){
-        return $this->get_ordered_where($config,$value,$field_alias,">");
+        $comparison = $config['inclusive'] ? ">=" : ">";
+        return $this->get_ordered_where($config,$value,$field_alias,$comparison);
 	}
 }
 class WPCustomFieldsSearch_LessThan extends WPCustomFieldsSearch_OrderedComparison {
     function get_name(){ return __("Less Than"); }
 
 	function get_where($config,$value,$field_alias){
-        return $this->get_ordered_where($config,$value,$field_alias,"<");
+        $comparison = $config['inclusive'] ? "<=" : "<";
+        return $this->get_ordered_where($config,$value,$field_alias,$comparison);
 	}
 }
 class WPCustomFieldsSearch_Range extends WPCustomFieldsSearch_OrderedComparison {
@@ -50,10 +52,12 @@ class WPCustomFieldsSearch_Range extends WPCustomFieldsSearch_OrderedComparison 
         list($min,$max) = split(":",$value);
         $params = array();
         if($min){
-            $params[] = $this->get_ordered_where($config,$min,$field_alias,">");
+            $comparison = $config['inclusive'] ? ">=" : ">";
+            $params[] = $this->get_ordered_where($config,$min,$field_alias,$comparison);
         }
         if($max){
-            $params[] = $this->get_ordered_where($config,$max,$field_alias,"<");
+            $comparison = $config['inclusive'] ? "<=" : "<";
+            $params[] = $this->get_ordered_where($config,$max,$field_alias,$comparison);
         }
         if(!$params) $params = array(1);
 

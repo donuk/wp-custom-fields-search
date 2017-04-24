@@ -9,6 +9,7 @@
 				"post_date"	=>	__("Date"),
 				"post_content"	=>	__("Content"),
 				"post_excerpt"	=>	__("Excerpt"),
+				"post_type"	=>	__("Post Type"),
 				"all"		=>	__("All"),
 				"post_id"	=>	__("ID"),
 			);
@@ -51,9 +52,12 @@
                         $response[] = array( "value"=>$row->ID, "label"=>$row->user_nicename);
                     }
                     return $response;
+                case 'post_type':
+                    return $this->_array_to_suggestions_list($wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_type FROM $wpdb->posts WHERE post_status='publish'")));
             }
         }
 	}
+
 	class WPCustomFieldsSearch_CustomField extends WPCustomFieldsSearch_DataType {
         function get_name(){ return __("Custom Post Field"); }
 		function getFieldMap(){
@@ -87,16 +91,11 @@
         function get_suggested_values($config){
             global $wpdb;
             $values = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT meta_value FROM $wpdb->postmeta WHERE meta_key=%s ORDER BY meta_value",$config['datatype_field']));
-            $return = array();
-            foreach($values as $value){
-                $return[] = array("value"=>$value,"label"=>$value);
-            }
-            return $return;
+            return $this->_array_to_suggestions_list($values);
         }
 	}
 
-    class WPCustomFieldsSearch_Category extends WPCustomFieldsSearch_DataType {
-        function get_name(){ return __("Category Field"); }
+    class WPCustomFieldsSearch_TaxonomyTerm extends WPCustomFieldsSearch_DataType {
         var $multijoin = true;
 
         function getFieldMap(){
@@ -126,7 +125,7 @@
             return $options;
         }
         function recurse_category($id,$field,$trace=array()){
-            $categories = get_categories(array('parent'=>$id));
+            $categories = get_categories(array('parent'=>$id,"taxonomy"=>$this->taxonomy));
             $values = array();
             foreach($categories as $category){
                 $full_trace[] = array_merge($trace,array($category));
@@ -139,4 +138,13 @@
         function get_suggested_values($config){
             return $this->recurse_category(0,$config['datatype_field']); #TODO - Have this id selected in the editor UI
         }
+    }
+
+    class WPCustomFieldsSearch_Category extends WPCustomFieldsSearch_TaxonomyTerm {
+        var $taxonomy = "category";
+        function get_name(){ return __("Category Field"); }
+    }
+    class WPCustomFieldsSearch_Tag extends WPCustomFieldsSearch_TaxonomyTerm {
+        var $taxonomy = "post_tag";
+        function get_name(){ return __("Tag"); }
     }

@@ -8,6 +8,7 @@ Author: Don Benjamin
 Author URI: http://www.webhammer.co.uk/
 Text Domain: wp_custom_fields_search
 */
+define('WP_CUSTOM_FIELDS_SEARCH_VERSION',"0.9.9");
 /*
  * Copyright 2015 Webhammer UK Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -31,6 +32,7 @@ class WPCustomFieldsSearchPlugin {
 		add_action('widgets_init',array($this,"widgets_init"));
 		add_action('admin_enqueue_scripts',array($this,"admin_enqueue_scripts"));
         add_action('admin_menu', array($this,'admin_menu'));
+        add_action('admin_init', array($this,'admin_init'));
 
         add_action('wp_ajax_wpcfs_save_preset',array($this,'save_preset'));
 
@@ -38,7 +40,7 @@ class WPCustomFieldsSearchPlugin {
 		add_filter("wp_custom_fields_search_datatypes",array($this,"wp_custom_fields_search_datatypes"));
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
 
-        add_shortcode("wpcfs-preset",array($this,"shortcode"));
+        add_shortcode("wp-custom-fields-search",array($this,"shortcode"));
         add_action("parse_query",array($this,"parse_query"));
 
 		if($this->is_search_submitted()){
@@ -166,6 +168,20 @@ class WPCustomFieldsSearchPlugin {
     function admin_menu(){
         add_menu_page('WP Custom Fields Search Presets','WP Custom Fields Search', 'manage_options','wp-custom-fields-search',array($this,'presets_page'));
     }
+    function admin_init(){
+        $previous_version = get_option("wp-custom-fields-search-version");
+        $current_version = WP_CUSTOM_FIELDS_SEARCH_VERSION;
+        if($previous_version != $current_version){
+            $this->upgrade_plugin($previous_version,$current_version);
+            update_option("wp-custom-fields-search-version",$current_version);
+        }
+    }
+
+    function upgrade_plugin($old_version,$latest_version){
+        if(!$old_version){
+            require_once(dirname(__FILE__).'/migrations/migrate-from-legacy-plugin.php');
+        }
+    }
 
     function presets_page(){
         if($_POST){
@@ -253,6 +269,8 @@ class WPCustomFieldsSearchPlugin {
 			new WPCustomFieldsSearch_TextBoxInput(),
 			new WPCustomFieldsSearch_SelectInput(),
 			new WPCustomFieldsSearch_CheckboxInput(),
+			new WPCustomFieldsSearch_RadioButtons(),
+			new WPCustomFieldsSearch_HiddenInput(),
 		);
 		return $inputs;
 	}
@@ -262,6 +280,7 @@ class WPCustomFieldsSearchPlugin {
 			new WPCustomFieldsSearch_PostField(),
 			new WPCustomFieldsSearch_CustomField(),
 			new WPCustomFieldsSearch_Category(),
+			new WPCustomFieldsSearch_Tag(),
 		);
 		return $datatypes;
 	}
@@ -280,12 +299,12 @@ class WPCustomFieldsSearchPlugin {
 
     function shortcode($atts){
         $atts = shortcode_atts(array(
-            "id"=>null
+            "preset"=>"0"
         ),$atts);
-        if(!$atts["id"]) throw new Exception("Bad Shortcode");
-        $this->show_preset($atts['id']);
+        $this->show_preset($atts['preset']);
     }
     static function show_preset($id){
+        if($id=="default") $id=0;
         require_once("search_form.php");
         $config = get_option("wp-custom-fields-search");
         $preset = $config['presets'][$id];
@@ -295,4 +314,9 @@ class WPCustomFieldsSearchPlugin {
 new WPCustomFieldsSearchPlugin();
 function wpcfs_show_preset($id){
     WPCustomFieldsSearchPlugin::show_preset($id);
+}
+if(!function_exists('wp_custom_fields_search')){
+    function wp_custom_fields_search($id="default"){
+        return wpcfs_show_preset($id);
+    }
 }
