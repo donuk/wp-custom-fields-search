@@ -8,7 +8,7 @@ Author: Don Benjamin
 Author URI: http://www.webhammer.co.uk/
 Text Domain: wp_custom_fields_search
 */
-define('WP_CUSTOM_FIELDS_SEARCH_VERSION',"1.0.0");
+define('WPCFS_PLUGIN_VERSION',"1.0.0");
 /*
  * Copyright 2015 Webhammer UK Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License"); 
