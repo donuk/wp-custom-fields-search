@@ -112,14 +112,14 @@
     foreach($new_settings['widget'] as $k=>$v){
         $new_settings['widget'][$k] = array('data'=>json_encode($v));
     }
-    update_option("widget_wp_custom_fields_search",$new_settings["widget"]);
+    update_option("widget_wp-custom-fields-search",$new_settings["widget"]);
 
     $sidebars = get_option("sidebars_widgets");
     foreach($sidebars as $menu_name=>$widgets){
         $new_widgets = array();
         foreach($widgets as $k=>$v){
             $new_widgets[] = $v;
-            $alt = str_replace("db_customsearch_widget","wp_custom_fields_search",$v);
+            $alt = str_replace("db_customsearch_widget","wp-custom-fields-search",$v);
             if($alt!=$v){
                 $new_widgets[] = $alt;
             }

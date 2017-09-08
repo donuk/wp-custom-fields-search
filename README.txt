@@ -69,7 +69,7 @@ There are a core set of datatypes, comparisons and inputs which can be expanded 
 * This is a major rebuild from 0.3.28, this should make form configuration significantly easier.
 * This will enable new extended functionalities.
 * This has been tested against the latest versions of wordpress
-* If you are using bespoke or customised versions based on the 0.3 plugin those customisations will almost certainly not be compatible with this upgrade.
+* If you are using bespoke or customised versions based on the 0.3 plugin those customisations will almost certainly not be compatible with this upgrade and you should proceed with caution or keep your installed version
  
 = 0.3.28 =
 This version simply adds a notice warning that the upgrade to 1.0.0 may break compatibility with historic extensions and inviting users to the beta release.

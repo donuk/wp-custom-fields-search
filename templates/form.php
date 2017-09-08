@@ -1,18 +1,15 @@
 <?php echo $args['before_widget']?>
-<?php echo $args['before_title']?>
-SEARCH
-<?php echo $args['after_title']?>
-<form method='<?php echo $method?>' action='<?php echo htmlspecialchars($results_page)?>'>
-<dl>
+<form method='<?php echo $method?>' action='<?php echo htmlspecialchars($results_page)?>' class='wpcfs-search-form'>
 	<?php foreach($components as $config) { ?>
-	<dt>
-		<?php echo $config['label']; ?>
-	</dt>
-	<dd>
-		<?php echo $config['class']->render($config,$query); ?>
-	</dd>
+        <div class='wpcfs-input-wrapper'>
+            <label for="<?php echo htmlspecialchars($config['html_id'])?>" class='wpcfs-label'>
+                <?php echo $config['label']; ?>
+            </label>
+            <div class='wpcfs-input'>
+    	    	<?php echo $config['class']->render($config,$query); ?>
+            </div>
+        </div>
 	<?php } ?>
-</dl>
 
 <input type='submit' value='Search'>
 <?php echo $hidden; ?>

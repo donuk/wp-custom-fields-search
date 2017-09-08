@@ -7,7 +7,8 @@
 			$template_file = apply_filters("wpcfs_form_input",
 				dirname(__FILE__).'/templates/input-'.$this->template.'.php',
 				$this->template,$options);
-			$html_name = "f".$options['index'];
+			$html_name = $options['html_name'];
+			$html_id = $options['html_id'];
 			include($template_file);
 		}
 

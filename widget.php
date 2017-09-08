@@ -32,7 +32,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 	function widget($args,$instance){
 		require_once("search_form.php");
 		$data =json_decode($instance['data'],true);
-        WPCFSSearchForm::Show_form($data,$args['widget_id']);
+        WPCFSSearchForm::show_form($data,$args['widget_id'],$args);
 	}
 	function update($new_instance,$old_instance){
 		return array(
@@ -47,6 +47,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 				array("inputs"=>
 					array(
 						array(
+                            "label"=>"Search Term",
 							"datatype"=>"WPCustomFieldsSearch_PostField",
 							"datatype_field"=>"all",
 							"input"=>"WPCustomFieldsSearch_TextBoxInput",

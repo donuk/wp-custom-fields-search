@@ -4,15 +4,30 @@
             if($_GET['wpcfs']==$submit_id){
                 return $_GET;
             }
-        }   
-        static function show_form($data,$submit_id){
+        }
+
+        static function show_form($data,$submit_id,$args=null){
             require_once("engine.php");
+            if(!$args){
+                // If called as a preset we should set some sensible defaults
+                $args = array(
+                    "before_title"=>"<h4>",
+                    "after_title"=>"</h4>",
+                    "before_widget"=>"<div class='wpcfs-preset'>",
+                    "after_widget"=>"<div>",
+                );
+            }
             $components = array();
             $index = 0;
+            static $counter;
+            $counter++;
+            $form_id = $submit_id."/$counter";
             foreach($data['inputs'] as $config){
                 $clsname = $config['input'];
                 $config['class'] = new $clsname();
                 $config['index'] = ++$index;
+                $config['html_name'] = "f$index";
+                $config['html_id'] = "$form_id/$config[html_name]";
                 if($config['class']->show_in_form){
                     array_push($components,$config);
                 }
