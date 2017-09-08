@@ -68,30 +68,40 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 				<div id='$form_id' class='wp-custom-fields-search-form'>
 				</div>
 				<script>
-					jQuery('.wp-custom-fields-search-form:not(.wp_custom_fields_search_editor)').each(function(el){
-						var $=jQuery;
-						var template_id = '$form_id',
-							template_name='".$this->get_field_name('data')."',
-							id_parts = template_id.split('__i__'),
-							actual_id = $(this).attr('id');
+                    var configure_forms = function(){
+                        jQuery('.wp-custom-fields-search-form:not(.wp_custom_fields_search_editor)').each(function(el){
+                            var $=jQuery;
+                            var template_id = '$form_id',
+                                template_name='".$this->get_field_name('data')."',
+                                id_parts = template_id.split('__i__'),
+                                actual_id = $(this).attr('id');
 
-						var index=actual_id.substr(id_parts[0].length,actual_id.length-id_parts[1].length-id_parts[0].length);
-						var actual_name = template_name.replace('__i__',index);
-						if(index=='__i__') return;
+                            var index=actual_id.substr(id_parts[0].length,actual_id.length-id_parts[1].length-id_parts[0].length);
+                            var actual_name = template_name.replace('__i__',index);
+                        
+                            if(index=='__i__') return;
 
-						$(this).wp_custom_fields_search_editor({
-							'form_config':".($instance['data']?$instance['data']:"{inputs:[],settings:{}}").",
-							'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
-                            'settings_pages': ".json_encode($settings_pages).",
-							'field_name':'".$this->get_field_name('data')."'
-						});
-						
-					});
+                            $(this).wp_custom_fields_search_editor({
+                                'form_config':".($instance['data']?$instance['data']:"{inputs:[],settings:{}}").",
+                                'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
+                                'settings_pages': ".json_encode($settings_pages).",
+                                'field_name':'".$this->get_field_name('data')."'
+                            });
+                            
+                        });
+                    };
+                    configure_forms();
+                    jQuery('body').mouseup(function(){
+                        configure_forms();
+                        setTimeout(configure_forms,1000);
+                        setTimeout(configure_forms,5000);
+                        setTimeout(configure_forms,10000);
+                    });
 				</script>
 			";
 		} else {
 			echo "
-				<div id='$form_id'>
+				<div id='$form_id' class='wp-custom-fields-search-form'>
 				</div>
 				<script>
 					jQuery('#$form_id').wp_custom_fields_search_editor({
