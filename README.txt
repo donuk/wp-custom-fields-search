@@ -2,8 +2,8 @@
 Contributors: don@don-benjamin.co.uk
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@webhammer.co.uk&item_name=Custom Search Donation&currency_code=GBP
 Tags: search,custom fields,widget,sidebar
-Requires at least: 3.0.1
-Tested up to: 4.7.3
+Requires at least: 3.1.1
+Tested up to: 4.8.1
 Stable tag: 1.0.0
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
