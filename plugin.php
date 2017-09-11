@@ -138,7 +138,7 @@ class WPCustomFieldsSearchPlugin {
 	function admin_enqueue_scripts(){
 		wp_enqueue_script(
 			"angularjs",
-			"https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js",
+			plugin_dir_url(__FILE__)."/js/angular.min.js",
 			array('jquery')
 		);
 		wp_enqueue_script(
