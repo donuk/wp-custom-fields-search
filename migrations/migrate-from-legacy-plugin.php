@@ -1,4 +1,5 @@
 <?php
+    if ( ! defined( 'ABSPATH' ) ) exit;
     $old_settings = get_option("db_customsearch_widget");
     if(!$old_settings) return;
 
@@ -99,15 +100,8 @@
             trigger_error("Unrecognised item in legacy settings");
         }
         
-//        $new_config["data"] = json_encode($new_config['data']);
         $new_settings[$type][$k] = $new_config;
     }
-    //echo "<pre>";
-    //var_dump($new_settings);
-    //var_dump($old_settings);
-    //$new_example = unserialize('a:2:{i:2;a:1:{s:4:"data";s:958:"{"inputs":[{"datatype":"WPCustomFieldsSearch_PostField","datatype_field":"all","input":"WPCustomFieldsSearch_TextBoxInput","comparison":"WPCustomFieldsSearch_WordsIn","expand":false,"$$hashKey":"object:13","multi_match":"All","label":"Test Field"},{"label":"Custom Field","expand":false,"$$hashKey":"object:73","multi_match":"All","datatype":"WPCustomFieldsSearch_CustomField","datatype_field":"Test Field","comparison":"WPCustomFieldsSearch_TextIn","input":"WPCustomFieldsSearch_SelectInput","any_message":"Any","options":[{"value":1,"label":"One"},{"value":2,"label":"Two"}],"source":"Auto"},{"label":"Untitled Field","expand":true,"$$hashKey":"object:94","multi_match":"All","datatype":"WPCustomFieldsSearch_CustomField","datatype_field":"Test Field","input":"WPCustomFieldsSearch_CheckboxInput","any_message":"Any","options":[{"value":1,"label":"One"},{"value":2,"label":"Two"}],"source":"Auto","comparison":"WPCustomFieldsSearch_Equals"}],"settings":[]}";}s:12:"_multiwidget";i:1;}');
-    //var_dump($new_example);
-    //var_dump(json_decode($new_example[2]['data'],true));
     update_option("wp-custom-fields-search",array("presets"=>array_values($new_settings['preset'])));
     foreach($new_settings['widget'] as $k=>$v){
         $new_settings['widget'][$k] = array('data'=>json_encode($v));
