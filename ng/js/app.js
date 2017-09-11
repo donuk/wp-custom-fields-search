@@ -133,7 +133,7 @@ angular.module('WPCFS', ['ui.sortable'])
         $http({
             "method":"POST",
             "url":ajaxurl,
-            "data": "action="+data.action+"&data="+$filter('json')(data),
+            "data": "action="+data.action+"&data="+$filter('json')(data)+"&nonce="+$scope.config.save_nonce,
             "headers": {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(){
             preset.state="Saved";

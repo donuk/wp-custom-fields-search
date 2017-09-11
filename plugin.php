@@ -194,6 +194,11 @@ class WPCustomFieldsSearchPlugin {
 
     }
     function save_preset($data){
+        if(!(check_ajax_referer("wpcfs_save_preset","nonce",false) && current_user_can('manage_options'))) {
+            header("HTTP/1.1 403 Forbidden");
+            throw new Exception("403 Forbidden");
+        }
+
         try {
             $data = json_decode(stripslashes($_POST['data']),true);
             $id = $data['id'];
