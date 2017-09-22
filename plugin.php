@@ -178,8 +178,10 @@ class WPCustomFieldsSearchPlugin {
     }
 
     function upgrade_plugin($old_version,$latest_version){
+	if(!current_user_can('manage_options')) return;
         if(!$old_version){
             require_once(dirname(__FILE__).'/migrations/migrate-from-legacy-plugin.php');
+	    wpcfs_upgrade_3_x_to_1_0();
         }
     }
 
@@ -234,7 +236,6 @@ class WPCustomFieldsSearchPlugin {
 		return $template;
 	}
 	static function get_javascript_editor_config(){
-		error_reporting(E_ALL);
 		$inputs = apply_filters("wp_custom_fields_search_inputs",array());
 		$datatypes = apply_filters("wp_custom_fields_search_datatypes",array());
 		$comparisons = apply_filters("wp_custom_fields_search_comparisons",array());
