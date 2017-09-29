@@ -32,7 +32,7 @@
 				return parent::get_field_aliases($config);
 			}
 		}
-		function get_field_alias($config,$field_name,$count){
+		function get_field_alias($config,$field_name,$count=0){
 			global $wpdb;
 			return $wpdb->posts.".".$field_name;
 		}

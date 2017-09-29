@@ -1,5 +1,5 @@
 <?php echo $args['before_widget']?>
-<form method='<?php echo $method?>' action='<?php echo htmlspecialchars($results_page)?>' class='wpcfs-search-form'>
+<form method='<?php echo $method?>' action='<?php echo htmlspecialchars($results_page)?>' class='wpcfs-search-form' id='<?php echo htmlspecialchars($form_id)?>'>
 	<?php foreach($components as $config) { ?>
         <div class='wpcfs-input-wrapper'>
             <label for="<?php echo htmlspecialchars($config['html_id'])?>" class='wpcfs-label'>

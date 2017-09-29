@@ -32,11 +32,13 @@
                     array_push($components,$config);
                 }
             }
-            $template_file = apply_filters("wpcfs_form_template",dirname(__FILE__).'/templates/form.php',$instance);
+            $template_file = apply_filters("wpcfs_form_template",dirname(__FILE__).'/templates/form.php',$data);
             $hidden = "<input type='hidden' name='wpcfs' value='".htmlspecialchars($submit_id)."'/>";
             $method = "get";
             $results_page = apply_filters("wpcfs_results_page","/",$data);
             $query = self::get_query_if_submitted($submit_id);
+
+            $hidden = apply_filters("wpcfs_hidden_elements",$hidden,array("data"=>$data,"form_id"=>$form_id));
             include($template_file);
         }
     }
