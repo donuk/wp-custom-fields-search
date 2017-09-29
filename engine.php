@@ -29,6 +29,11 @@
 			$html_name="f".$options['index'];
 			return $data[$html_name];
 		}
+
+        function get_submitted_values($options,$data){
+            $value = $this->get_submitted_value($options,$data);
+            return (is_array($value)) ? $value : array($value);
+        }
 	}
 
 	class WPCustomFieldsSearch_DataType{
@@ -93,6 +98,10 @@
 		function get_where($config,$value,$field_alias){
 			return $field_alias."='".mysql_escape_string($value)."'";
 		}
+
+        function describe($label,$value){
+             return $label." ".$this->get_name()." ".$value;
+        }
 	}
 
 	require_once(dirname(__FILE__).'/inputs.php');

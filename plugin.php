@@ -49,12 +49,14 @@ class WPCustomFieldsSearchPlugin {
 			add_filter('posts_join',array($this,'posts_join'));
 			add_filter('posts_where',array($this,'posts_where'));
 			add_filter('posts_groupby',array($this,'posts_groupby'));
+			add_filter('get_search_query',array($this,'get_search_query'));
 		}
 	}
 
 	function is_search_submitted(){
 		return $_REQUEST['wpcfs'];
 	}
+
 	function get_submitted_form(){
 		static $submitted;
 		if(!isset($submitted)){
@@ -94,25 +96,15 @@ class WPCustomFieldsSearchPlugin {
 		return $groupby;
 	}
 	function posts_join($join){
-		$form = $this->get_submitted_form();
-		foreach($form['inputs'] as $index=>$input){
-			$submitted = $input['input']->is_submitted($input,$_REQUEST);
-			if($submitted){
-				$join = $input['datatype']->add_joins($input,$join,count($input['input']->get_submitted_value($input,$_REQUEST)));
-			}
+		foreach($this->get_submitted_inputs() as $input){
+            $join = $input['datatype']->add_joins($input,$join,count($input['input']->get_submitted_value($input,$_REQUEST)));
 		}
 		return $join;
 	}
 	function posts_where($where){
-		$form = $this->get_submitted_form();
-		foreach($form['inputs'] as $index=>$input){
-			if(!$input['input']->is_submitted($input,$_REQUEST)) continue;
-
-			$submitted = $input['input']->get_submitted_value($input,$_REQUEST);
+		foreach($this->get_submitted_inputs() as $input){
+			$submitted = $input['input']->get_submitted_values($input,$_REQUEST);
 			$wheres = array();
-            if(!is_array($submitted)){
-                $submitted = array($submitted);
-            }
             $join = ($input['multi_match'] == "Any") ? "OR" : "AND";
             $submitted_index = 0;
             foreach($submitted as $value){
@@ -130,6 +122,32 @@ class WPCustomFieldsSearchPlugin {
 		return $where;
 	}
 
+    function get_submitted_inputs(){
+        $form = $this->get_submitted_form();
+        $inputs = array();
+        foreach($form['inputs'] as $input){
+			if($input['input']->is_submitted($input,$_REQUEST)) 
+                $inputs[] = $input;
+        }
+        return $inputs;
+    }
+
+    function get_search_query($query){
+        $description = array();
+        foreach($this->get_submitted_inputs() as $input){
+            $description[] = $this->describe_search($input);
+        }
+        return join(" &amp; ",$description);
+    }
+    function describe_search($input){
+        $label = $input['label'];
+        $found = array();
+        foreach($input['input']->get_submitted_values($input,$_REQUEST) as $value){
+            $found[] = $input['comparison']->describe($label,$value);
+        }
+        $join = ($input['multi_match'] == "Any") ? " &amp; " : " or ";
+        return join($found," $join ");
+    }
 	function widgets_init(){
 		require_once(dirname(__FILE__).'/widget.php');
 		register_widget("WPCustomFieldsSearchWidget");
