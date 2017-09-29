@@ -145,7 +145,7 @@ class WPCustomFieldsSearchPlugin {
         foreach($input['input']->get_submitted_values($input,$_REQUEST) as $value){
             $found[] = $input['comparison']->describe($label,$value);
         }
-        $join = ($input['multi_match'] == "Any") ? " &amp; " : " or ";
+        $join = ($input['multi_match'] == "Any") ? " or " : " &amp; ";
         return join($found," $join ");
     }
 	function widgets_init(){

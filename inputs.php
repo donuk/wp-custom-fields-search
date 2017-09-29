@@ -11,7 +11,7 @@
 			$html_name="f".$options['index'];
 			$value = $data[$html_name];
             if($options['split_words']){
-                return explode(" ",$value);
+                return array_filter(explode(" ",$value),strlen);
             } else {
                 return array($value);
             }
