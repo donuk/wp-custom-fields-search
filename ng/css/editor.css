@@ -38,7 +38,7 @@
     cursor: pointer;
 }
 
-.wp_custom_fields_search_editor a.icon {
+.wp_custom_fields_search_editor .icon {
     font-size: 0;
     height: 32px;
     width: 32px;
@@ -46,12 +46,12 @@
     float: left;
     background-repeat: no-repeat;
 }
-.wp_custom_fields_search_editor a.delete.icon { background-image: url(icons/stop32.png); }
-.wp_custom_fields_search_editor a.expand.icon { background-image: url(icons/spanner32.png); }
-.wp_custom_fields_search_editor a.settings.icon { background-image: url(icons/spanner32.png); }
-.wp_custom_fields_search_editor a.fields.icon { background-image: url(icons/linedpaper32.png); }
-.wp_custom_fields_search_editor a.drag.icon { background-image: url(icons/drag32.png); }
-.wp_custom_fields_search_editor a.add.icon { background-image: url(icons/plus32.png); }
+.wp_custom_fields_search_editor .delete.icon { background-image: url(icons/stop32.png); }
+.wp_custom_fields_search_editor .expand.icon { background-image: url(icons/spanner32.png); }
+.wp_custom_fields_search_editor .settings.icon { background-image: url(icons/spanner32.png); }
+.wp_custom_fields_search_editor .fields.icon { background-image: url(icons/linedpaper32.png); }
+.wp_custom_fields_search_editor .drag.icon { background-image: url(icons/drag32.png); }
+.wp_custom_fields_search_editor .add.icon { background-image: url(icons/plus32.png); }
 
 .wp_custom_fields_search_editor .icon-text { font-size:16px; display: block; padding-top:5px; }
 

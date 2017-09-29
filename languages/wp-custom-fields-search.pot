@@ -1,0 +1,198 @@
+# Copyright (C) 2017 WP Custom Fields Search
+# This file is distributed under the same license as the WP Custom Fields Search package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Custom Fields Search 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-custom-fields-"
+"search\n"
+"POT-Creation-Date: 2017-09-29 15:58:58+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: comparisons.php:4
+msgid "Exact Match"
+msgstr ""
+
+#: comparisons.php:7
+msgid "Contains Text"
+msgstr ""
+
+#: comparisons.php:34
+msgid "Greater Than"
+msgstr ""
+
+#: comparisons.php:41
+msgid "Less Than"
+msgstr ""
+
+#: comparisons.php:49
+msgid "In Range"
+msgstr ""
+
+#: comparisons.php:69
+msgid "In category or Sub-category"
+msgstr ""
+
+#: datatypes.php:3
+msgid "Core Post Field"
+msgstr ""
+
+#: datatypes.php:7
+msgid "Title"
+msgstr ""
+
+#: datatypes.php:8
+msgid "Author"
+msgstr ""
+
+#: datatypes.php:9
+msgid "Date"
+msgstr ""
+
+#: datatypes.php:10
+msgid "Content"
+msgstr ""
+
+#: datatypes.php:11
+msgid "Excerpt"
+msgstr ""
+
+#: datatypes.php:12
+msgid "Post Type"
+msgstr ""
+
+#: datatypes.php:13
+msgid "All"
+msgstr ""
+
+#: datatypes.php:14 datatypes.php:102
+msgid "ID"
+msgstr ""
+
+#: datatypes.php:45
+msgid "Cannot auto-populate select for "
+msgstr ""
+
+#: datatypes.php:62
+msgid "Custom Post Field"
+msgstr ""
+
+#: datatypes.php:102
+msgid "Name"
+msgstr ""
+
+#: datatypes.php:145
+msgid "Category Field"
+msgstr ""
+
+#: datatypes.php:149
+msgid "Tag"
+msgstr ""
+
+#: inputs.php:19
+msgid "Text Input"
+msgstr ""
+
+#: inputs.php:23
+msgid "Drop Down"
+msgstr ""
+
+#: inputs.php:42
+msgid "Radio Buttons"
+msgstr ""
+
+#: inputs.php:46
+msgid "Checkboxes"
+msgstr ""
+
+#: inputs.php:76
+msgid "Hidden Constant"
+msgstr ""
+
+#: plugin.php:140 plugin.php:148
+msgid " &amp; "
+msgstr ""
+
+#: plugin.php:148
+msgid " or "
+msgstr ""
+
+#: plugin.php:184
+msgid "Untitled Preset"
+msgstr ""
+
+#: plugin.php:185
+msgid "Untitled Field"
+msgstr ""
+
+#: plugin.php:186
+msgid "Cannot restrict by type {type} in {comparison}"
+msgstr ""
+
+#: plugin.php:187
+msgid "Any"
+msgstr ""
+
+#: plugin.php:188
+msgid "One"
+msgstr ""
+
+#: plugin.php:189
+msgid "Two"
+msgstr ""
+
+#: plugin.php:192
+msgid "Auto"
+msgstr ""
+
+#: plugin.php:193
+msgid "Manual"
+msgstr ""
+
+#: plugin.php:194
+msgid "Allow Blank"
+msgstr ""
+
+#: templates/form.php:14
+msgid "Search"
+msgstr ""
+
+#: widget.php:19
+msgid "WPCFS Custom Search Form"
+msgstr ""
+
+#: widget.php:21
+msgid "Customisable search form (from WP Custom Fields Search)"
+msgstr ""
+
+#: widget.php:45
+msgid "New Form"
+msgstr ""
+
+#: widget.php:50
+msgid "Search Term"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP Custom Fields Search"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.webhammer.co.uk/wp-custom-fields-search"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Adds powerful search forms to your wordpress site"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Don Benjamin"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.webhammer.co.uk/"
+msgstr ""

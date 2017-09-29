@@ -42,6 +42,7 @@ class WPCustomFieldsSearchPlugin {
 
         add_shortcode("wp-custom-fields-search",array($this,"shortcode"));
         add_action("parse_query",array($this,"parse_query"));
+        add_action('plugins_loaded',array($this,'plugins_loaded'));
 
 		if($this->is_search_submitted()){
 			add_filter('template_include',array($this,'show_search_results_template'),99);
@@ -137,7 +138,7 @@ class WPCustomFieldsSearchPlugin {
         foreach($this->get_submitted_inputs() as $input){
             $description[] = $this->describe_search($input);
         }
-        return join(" &amp; ",$description);
+        return join(__(" &amp; "),$description);
     }
     function describe_search($input){
         $label = $input['label'];
@@ -145,7 +146,7 @@ class WPCustomFieldsSearchPlugin {
         foreach($input['input']->get_submitted_values($input,$_REQUEST) as $value){
             $found[] = $input['comparison']->describe($label,$value);
         }
-        $join = ($input['multi_match'] == "Any") ? " or " : " &amp; ";
+        $join = ($input['multi_match'] == "Any") ? __(" or ") : __(" &amp; ");
         return join($found," $join ");
     }
 	function widgets_init(){
@@ -179,6 +180,21 @@ class WPCustomFieldsSearchPlugin {
 			plugin_dir_url(__FILE__).'/js/wp-handlers.js',
 			array('wp-custom-fields-search-editor')
 		);
+
+        wp_localize_script('wpcfs-angular-app','objectL10n',array(
+            "untitled_preset"=> __("Untitled Preset"),
+            "untitled_field"=> __("Untitled Field"),
+            "cannot_restrict_by_type" => __("Cannot restrict by type {type} in {comparison}"),
+            "any_message"=> __("Any"),
+            "one" => __("One"),
+            "two" => __("Two"),
+        ));
+        wp_localize_script('wp-handlers','objectL10n',array(
+            "source_auto"=> __("Auto"),
+            "source_manual"=> __("Manual"),
+            "allow_blank"=> __("Allow Blank"),
+        ));
+
         wp_register_style( 'wpcfs_css', plugins_url("wp-custom-fields-search") . '/ng/css/editor.css', false, '1.0.0' );
         wp_enqueue_style( 'wpcfs_css' );
 	}
@@ -193,6 +209,9 @@ class WPCustomFieldsSearchPlugin {
             $this->upgrade_plugin($previous_version,$current_version);
             update_option("wp-custom-fields-search-version",$current_version);
         }
+    }
+    function plugins_loaded(){
+        load_plugin_textdomain('wp-custom-fields-search',false,dirname( plugin_basename(__FILE__)).'/languages/');
     }
 
     function upgrade_plugin($old_version,$latest_version){

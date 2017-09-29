@@ -1,21 +1,24 @@
 <div ng-controller='SelectController' style='width: 100%; clear: both;'>
-    <p>Matches If <select ng-model='field.multi_match'><option>Any</option><option>All</option></select> Present</p>
-	<p>Data Source: <select ng-model='field.source'>
-		<option value='Auto'>Auto</option>
-		<option value='Manual'>Manual</option>
+    <p><span i18n>Matches If</span> <select ng-model='field.multi_match'>
+            <option value='Any' i18n>Any</option>
+            <option value='All' i18n>All</option>
+    </select> <span i18n>Present</span></p>
+	<p i18n>Data Source: <select ng-model='field.source'>
+		<option value='Auto' i18n>Auto</option>
+		<option value='Manual' i18n>Manual</option>
 	</select></p>
 	<div ng-if='field.source=="Manual"'>
 		<table class='wpcfs-key-value-table'>
-			<thead><tr><td></td><th>Value</th><th>Label</th></tr></thead>
+			<thead><tr><td></td><th i18n>Value</th><th i18n>Label</th></tr></thead>
 			<tbody ng-model='field.options' ui-sortable>
 				<tr ng-repeat='option in field.options'>
 					<td><a class='drag icon'>DRAG</a></td>
 					<td><input ng-model='option.value'/></td>
 					<td><input ng-model='option.label'/></td>
-					<td><a ng-click='remove_option(option)'>X</a></td>
+					<td><a ng-click='remove_option(option)' class='icon delete'>X</a></td>
 				</tr>
 			</tbody>
-			<tfoot><tr><td></td><td><a ng-click='add_option()'>Add</a></td></tr></thead>
+			<tfoot><tr><td></td><td><a ng-click='add_option()'><div class='icon add'></div></a></td></tr></thead>
 		</table>
 	</div>
 </div>

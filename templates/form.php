@@ -11,7 +11,7 @@
         </div>
 	<?php } ?>
 
-<input type='submit' value='Search'>
+<input type='submit' value='<?php echo __("Search")?>'>
 <?php echo $hidden; ?>
 </form>
 <?php echo $args['after_widget']?>

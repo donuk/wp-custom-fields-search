@@ -35,7 +35,7 @@ angular.module('WPCFS', ['ui.sortable'])
 		return result;
 	};
 	$scope.add_field = function(){
-		$scope.form_fields.push({"label": "Untitled Field", "expand":true});
+		$scope.form_fields.push({"label": objectL10n.untitled_field, "expand":true});
 	};
 
     $scope.remove_field = function(field) {
@@ -72,7 +72,7 @@ angular.module('WPCFS', ['ui.sortable'])
                                     else valid=false;
                                     break;
                                 default:
-                                    throw "Cannot restrict by type '"+type+"' in '"+comparison.name+"'";
+                                    throw objectL10n.replace('{type}',type).replace('{comparison}',comparison.name);
                             }
                         });
                     });
@@ -89,8 +89,8 @@ angular.module('WPCFS', ['ui.sortable'])
     });
 
 }]).controller('SelectController', ['$scope', function($scope) {
-	if(!$scope.field.any_message) $scope.field.any_message="Any";
-	if(!$scope.field.options) $scope.field.options=[{"value":1,"label":"One"},{"value":2,"label":"Two"}];
+	if(!$scope.field.any_message) $scope.field.any_message=objectL10n.any_message;
+	if(!$scope.field.options) $scope.field.options=[{"value":1,"label":objectL10n.one},{"value":2,"label":objectL10n.two}];
 	$scope.remove_option = function(option){
 		var index = $scope.field.options.indexOf(option);
 		$scope.field.options.splice(index,1);
@@ -101,13 +101,12 @@ angular.module('WPCFS', ['ui.sortable'])
 }]).controller('PresetsController', [ '$scope', '$filter', '$http', function ($scope,$filter,$http) {
    $scope.form_config = $scope.config.form_config;
    if(!$scope.form_config) $scope.form_config = [];
-    console.log("SET CONFIG",$scope.form_config);
    $scope.presets = $scope.form_config;
     $scope.preset = null;
 
    $scope.add_preset = function(){
         var preset = {
-            "name": "Untitled Preset",
+            "name": objectL10n.untitled_preset,
             "unsaved": true,
             "id": 1,
             "inputs": [],
@@ -129,7 +128,6 @@ angular.module('WPCFS', ['ui.sortable'])
         data = angular.copy(preset);
         data.action = $scope.config.save_callback;
 
-        console.log("SERIALIZING",data);
         $http({
             "method":"POST",
             "url":ajaxurl,

@@ -47,7 +47,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 				array("inputs"=>
 					array(
 						array(
-                            "label"=>"Search Term",
+                            "label"=>__("Search Term"),
 							"datatype"=>"WPCustomFieldsSearch_PostField",
 							"datatype_field"=>"all",
 							"input"=>"WPCustomFieldsSearch_TextBoxInput",

@@ -10,12 +10,12 @@
     </div>
     <div>
         <div ng-controller='PresetController' ng-if='preset'>
-            <p>Preset Title <input ng-model='preset.name'/></p>
-            <p>Instantiate this with the shortcode [wpcfs-preset id="{{preset.id}}"]</p>
-            <p>Or with the PHP code &lt;?php wpcfs_show_preset("{{preset.id}}"); ?&gt;</p>
+            <p i18n>Preset Title <input ng-model='preset.name'/></p>
+            <p i18n>Instantiate this with the shortcode [wpcfs-preset id="{{preset.id}}"]</p>
+            <p i18n>Or with the PHP code &lt;?php wpcfs_show_preset("{{preset.id}}"); ?&gt;</p>
 
 
-            <p>Preset: {{config.form_config.id}} {{preset.state}}</p>
+            <p i18n>Preset: {{config.form_config.id}} {{preset.state}}</p>
 
             <div ng-controller='WPCFSForm' ng-include="partials+'/form.html'">
                 

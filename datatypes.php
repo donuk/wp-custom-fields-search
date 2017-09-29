@@ -42,7 +42,7 @@
             switch($config['datatype_field']){
                 case 'post_title': case 'post_date': case 'post_content': case 'post_excerpt': case 'all':
                     $map = $this->getFieldMap();
-                    trigger_error("Cannot auto-populate select for ".$map[$config['datatype_field']]);
+                    trigger_error(__("Cannot auto-populate select for ").$map[$config['datatype_field']]);
                     return array();
                 case 'post_author':
                     $q = $wpdb->get_results("SELECT GROUP_CONCAT(DISTINCT post_author) AS author FROM $wpdb->posts");
@@ -99,7 +99,7 @@
         var $multijoin = true;
 
         function getFieldMap(){
-            return array("term_id"=>"ID","name"=>"Name");
+            return array("term_id"=>__("ID"),"name"=>__("Name"));
         }
 
 		function add_joins($config,$join,$count){
