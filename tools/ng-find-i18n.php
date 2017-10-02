@@ -1,5 +1,4 @@
 <?php
-    $base_dir = $_SERVER['argv'][1];
     $found = array();
 
     function recurse_read($dir_or_file){
@@ -20,24 +19,42 @@
         $ext = preg_replace("/^.*\./","",$file);
         switch($ext){
             case "html":
-                read_html_file($file);
+                translate_strings(get_strings_from_html_file($file),$file);
                 break;
             case "js":
-                //read_js_file($file);
+                translate_strings(get_strings_from_javascript_file($file),$file);
                 break;
         }
     }
 
-    function read_html_file($filename){
+    function translate_strings($strings,$filename){
         global $found;
-        $file = file_get_contents($filename);
-        preg_match_all("/<i18n[^>]*>(.*?)<\/i18n>/s",$file,$matches,PREG_SET_ORDER);
-        foreach($matches as $match){
-            if(!array_key_exists($match[1],$found)) $found[$match[1]] = array();
-            $found[$match[1]][] = $filename;
+        foreach($strings as $string){
+            if(!array_key_exists($string,$found)) $found[$string] = array();
+            $found[$string][]=$filename;
         }
     }
-    recurse_read($base_dir);
+    function get_strings_from_html_file($filename){
+        $file = file_get_contents($filename);
+        preg_match_all("/<i18n[^>]*>(.*?)<\/i18n>/s",$file,$matches,PREG_SET_ORDER);
+        $strings = [];
+        foreach($matches as $match){
+            $strings[] = $match[1];
+        }
+        return $strings;
+    }
+    function get_strings_from_javascript_file($filename){
+        $file = file_get_contents($filename);
+        preg_match_all("/__\([\"'](.*?)[\"']\)/s",$file,$matches,PREG_SET_ORDER);
+        $strings = [];
+        foreach($matches as $match){
+            $strings[] = $match[1];
+        }
+        return $strings;
+    }
+
+    foreach(array_slice($_SERVER['argv'],1) as $dir)
+        recurse_read($dir);
 
     print "<?php /** Auto-generated translation file */\n
         \$translations = array(";

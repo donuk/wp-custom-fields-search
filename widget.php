@@ -90,12 +90,19 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
                             
                         });
                     };
-                    configure_forms();
-                    jQuery('body').mouseup(function(){
-                        configure_forms();
-                        setTimeout(configure_forms,1000);
-                        setTimeout(configure_forms,5000);
-                        setTimeout(configure_forms,10000);
+                    var __translations = {};
+                    var __ = function(phrase){
+                        return __translations[phrase]||phrase;
+                    };
+                    jQuery.get(ajaxurl+'?action=wpcfs_ng_load_translations').then(function(data){
+                       __translations = data;
+                        configure_forms(); 
+                        jQuery('body').mouseup(function(){
+                            configure_forms();
+                            setTimeout(configure_forms,1000);
+                            setTimeout(configure_forms,5000);
+                            setTimeout(configure_forms,10000);
+                        });
                     });
 				</script>
 			";

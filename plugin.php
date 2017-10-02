@@ -183,20 +183,6 @@ class WPCustomFieldsSearchPlugin {
 			array('wp-custom-fields-search-editor')
 		);
 
-        wp_localize_script('wpcfs-angular-app','objectL10n',array(
-            "untitled_preset"=> __("Untitled Preset"),
-            "untitled_field"=> __("Untitled Field"),
-            "cannot_restrict_by_type" => __("Cannot restrict by type {type} in {comparison}"),
-            "any_message"=> __("Any"),
-            "one" => __("One"),
-            "two" => __("Two"),
-        ));
-        wp_localize_script('wp-handlers','objectL10n',array(
-            "source_auto"=> __("Auto"),
-            "source_manual"=> __("Manual"),
-            "allow_blank"=> __("Allow Blank"),
-        ));
-
         wp_register_style( 'wpcfs_css', plugins_url("wp-custom-fields-search") . '/ng/css/editor.css', false, '1.0.0' );
         wp_enqueue_style( 'wpcfs_css' );
 	}

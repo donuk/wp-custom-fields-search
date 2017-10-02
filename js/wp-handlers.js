@@ -7,8 +7,8 @@
 			},instance_config);
 
 		(function(select,options_ui){
-			select.append("<option value='Auto'>"+objectL10n.source_auto+"</option>");
-			select.append("<option value='Manual'>"+objectL10n.source_manual+"</option>");
+			select.append("<option value='Auto'>"+__("Auto")+"</option>");
+			select.append("<option value='Manual'>"+__("Manual")+"</option>");
 			select.val(instance_config.source);
 
 			var show_options = function(){
@@ -20,7 +20,7 @@
 					 })($(
 					"<div>"+
 						"<input type='checkbox' id='"+rand_id+"'/>"+
-						"<label for='"+rand_id+"'>"+objectL10n.allow_blank+" Blank</label>"+
+						"<label for='"+rand_id+"'>"+__("ALlow Blank")+"</label>"+
 						"<input class='any-label'/>"+
 					"</div>"
 					).appendTo(options_ui));
