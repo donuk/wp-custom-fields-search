@@ -1,15 +1,15 @@
 <div ng-controller='SelectController'>
-	<p><span i18n>Data Source</span>: <select ng-model='field.source'>
-		<option value='Auto' i18n>Auto</option>
-		<option value='Manual' i18n>Manual</option>
+	<p><span><i18n>Data Source</i18n></span>: <select ng-model='field.source'>
+		<option value='Auto'><i18n>Auto</i18n></option>
+		<option value='Manual'><i18n>Manual</i18n></option>
 	</select></p>
 	<div ng-if='field.source=="Auto"'>
 		<input ng-model='field.any_message' id='any_message_{{$id}}'/>
-		<label for='any_message_{{id}}' i18n>Blank Prompt (e.g. Any)</label>
+		<label for='any_message_{{id}}'><i18n>Blank Prompt (e.g. Any)</i18n></label>
 	</div>
 	<div ng-if='field.source=="Manual"'>
 		<table class='wpcfs-key-value-table'>
-			<thead><tr><td></td><th i18n>Value</th><th i18n>Label</th></tr></thead>
+			<thead><tr><td></td><th><i18n>Value</i18n></th><th><i18n>Label</i18n></th></tr></thead>
 			<tbody ng-model='field.options' ui-sortable>
 				<tr ng-repeat='option in field.options'>
 					<td><a class='icon drag'>DRAG</a></td>
@@ -18,7 +18,7 @@
 					<td><a ng-click='remove_option(option)' class='icon delete'>X</a></td>
 				</tr>
 			</tbody>
-			<tfoot><tr><td></td><td><a ng-click='add_option()'  class='add icon' i18n>Add</a></td></tr></thead>
+			<tfoot><tr><td></td><td><a ng-click='add_option()'  class='add icon'><i18n>Add</i18n></a></td></tr></thead>
 		</table>
 	</div>
 </div>

@@ -24,19 +24,15 @@
                 <input ng-model="field.label"/>
             </div>
             <div class='cell'>
-            <a class='expand icon' ng-click='field.expand=!field.expand' i18n="Edit Icon">
-                Edit
-            </a>
-            <a class='delete icon' ng-click='remove_field(field)' i18n="Delete Row">
-                Remove
-            </a>
+            <a class='expand icon' ng-click='field.expand=!field.expand'><i18n="Edit Icon">Edit</i18n></a>
+            <a class='delete icon' ng-click='remove_field(field)'><i18n="Delete Row">Remove</i18n></a>
             </div>
         </div>
 
         <div class='full-form' ng-show='field.expand'>
             <div style='clear:both'/>
             <hr/>
-            <div class='wpcfs-floating-prompt' ng-if='!field.datatype'><p i18n>Select Datatype</p></div>
+            <div class='wpcfs-floating-prompt' ng-if='!field.datatype'><p><i18n>Select Datatype</i18n></p></div>
             <select ng-model='field.datatype'
                 ng-options='datatype.id as datatype.name for datatype in config.building_blocks.datatypes'>
             </select>
@@ -44,7 +40,7 @@
                 ng-options='id as name for (id,name) in fields'>
             </select>
             <hr/>
-            <div class='wpcfs-floating-prompt' ng-if='!field.comparison'><p i18n>Select Search Comparison</p></div>
+            <div class='wpcfs-floating-prompt' ng-if='!field.comparison'><p><i18n>Select Search Comparison</i18n></p></div>
             <select ng-model='field.comparison'
                 ng-options='comparison.id as comparison.name for comparison in valid_comparisons'>
             </select>
@@ -56,7 +52,7 @@
             ></div>
 
             <hr/>
-            <div class='wpcfs-floating-prompt' ng-if='!field.input'><p i18n>Select Input Method</p></div>
+            <div class='wpcfs-floating-prompt' ng-if='!field.input'><p><i18n>Select Input Method</i18n></p></div>
             <select ng-model='field.input'
                 ng-options='input.id as input.name for input in config.building_blocks.inputs'>
             </select>
@@ -70,7 +66,7 @@
         <div style='clear:both'/>
 	</li>
 </ul>
-<a ng-click='add_field()' class='add icon' i18n>Add</a><a ng-click='add_field()' class='icon-text' i18n>New Field</a>
+<a ng-click='add_field()' class='add icon'><i18n>Add</i18n></a><a ng-click='add_field()' class='icon-text'><i18n>New Field</i18n></a>
 </div>
         <div style='clear:both'/>
 </div>

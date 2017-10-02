@@ -1,5 +1,25 @@
 angular.module('WPCFS', ['ui.sortable'])
-.controller('WPCFSForm', ['$scope', function ($scope) {
+.factory('i18n',['$http', function($http){
+    var translations = $http.get(ajaxurl+"?action=wpcfs_ng_load_translations");
+    return function(phrase){
+        return translations.then(function(response){
+            if(response.data[phrase])
+                return response.data[phrase];
+            else
+                return phrase;
+        });
+    };
+}])
+.directive('i18n',[ 'i18n', function(i18n){
+   return {
+        "link": function(scope,element,attrs,controller,transcludeFn){
+            i18n(element.html()).then(function(translation){
+                element.replaceWith(translation);
+            });
+        }
+    }
+}])
+.controller('WPCFSForm', ['$scope',function ($scope) {
     $scope.datatypes  = array2dict($scope.config.building_blocks.datatypes); 
     $scope.inputs  = array2dict($scope.config.building_blocks.inputs);
     $scope.comparisons  = array2dict($scope.config.building_blocks.comparisons); 

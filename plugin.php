@@ -36,6 +36,8 @@ class WPCustomFieldsSearchPlugin {
 
         add_action('wp_ajax_wpcfs_save_preset',array($this,'save_preset'));
 
+        add_action('wp_ajax_wpcfs_ng_load_translations',array($this,'ng_load_translations'));
+
 		add_filter("wp_custom_fields_search_inputs",array($this,"wp_custom_fields_search_inputs"));
 		add_filter("wp_custom_fields_search_datatypes",array($this,"wp_custom_fields_search_datatypes"));
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
@@ -352,6 +354,18 @@ class WPCustomFieldsSearchPlugin {
         $config = get_option("wp-custom-fields-search");
         $preset = $config['presets'][$id];
         WPCFSSearchForm::show_form($preset,"preset-$id");
+    }
+
+    function ng_load_translations(){
+        $files = apply_filters("wpcfs_ng_translation_files",array(dirname(__FILE__).'/ng/translations.php'));
+        $all_translations = array();
+        foreach($files as $file){
+            require($file);
+            $all_translations = array_merge($all_translations,$translations);
+        }
+        header("Content-type: application/json");
+        echo json_encode($all_translations);
+        exit(0);
     }
 }
 new WPCustomFieldsSearchPlugin();
