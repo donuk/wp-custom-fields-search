@@ -154,6 +154,7 @@ class WPCustomFieldsSearchPlugin {
 	function widgets_init(){
 		require_once(dirname(__FILE__).'/widget.php');
 		register_widget("WPCustomFieldsSearchWidget");
+        wp_enqueue_style("wpcfs-form",plugin_dir_url(__FILE__).'templates/form.css');
 	}
 
 	function admin_enqueue_scripts(){
