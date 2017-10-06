@@ -34,13 +34,21 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 		$data =json_decode($instance['data'],true);
         WPCFSSearchForm::show_form($data,$args['widget_id'],$args);
 	}
+
+    function strip_hash_keys($data){
+        $data = preg_replace('/"\$\$hashKey":"[^"]*",/','',$data);
+        $data = preg_replace('/,"\$\$hashKey":"[^"]*"/','',$data);
+        $data = preg_replace('/{"\$\$hashKey":"[^"]*}"/','{}',$data);
+        return $data;
+    }
 	function update($new_instance,$old_instance){
 		return array(
-			"data"=>$new_instance['data'],
+			"data"=>$this->strip_hash_keys($new_instance['data']),
 		);
 	}
 
 	function form($instance){
+
 		$defaults = array(
 			"title" => __("New Form","wp_custom_fields_search"),
 			"data" => json_encode(
