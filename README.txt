@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 4.8.1
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -56,6 +56,11 @@ There are a core set of datatypes, comparisons and inputs which can be expanded 
 
 == Changelog ==
  
+= 1.1.0 =
+* Added multi-lingual support
+* Added banners / icons for the wordpress repository
+* No need to upgrade unless you plan to translate the plugin
+
 = 1.0 =
 * This is a major rebuild from 0.3.28, the rebuild should allow for easier extension and configuration
 * If you are using bespoke or customised versions based on the 0.3 plugin those customisations will almost certainly not be compatible with this upgrade.
