@@ -31,8 +31,8 @@
  "No" => __("No"),/*ng/partials/inputs/textbox.html */
  "Yes" => __("Yes"),/*ng/partials/inputs/textbox.html */
  "Preset Title" => __("Preset Title"),/*ng/partials/presets.html */
- "Instantiate this with the shortcode [wpcfs-preset id=\"{{preset.id}}\"]" => __("Instantiate this with the shortcode [wpcfs-preset id=\"{{preset.id}}\"]"),/*ng/partials/presets.html */
- "Or with the PHP code &lt;?php wpcfs_show_preset(\"{{preset.id}}\"); ?&gt;" => __("Or with the PHP code &lt;?php wpcfs_show_preset(\"{{preset.id}}\"); ?&gt;"),/*ng/partials/presets.html */
- "Preset: {{config.form_config.id}} {{preset.state}}" => __("Preset: {{config.form_config.id}} {{preset.state}}"),/*ng/partials/presets.html */
+ "Instantiate this with the shortcode" => __("Instantiate this with the shortcode"),/*ng/partials/presets.html */
+ "Or with the PHP code" => __("Or with the PHP code"),/*ng/partials/presets.html */
+ "Preset:" => __("Preset:"),/*ng/partials/presets.html */
  "ALlow Blank" => __("ALlow Blank"),/*js/wp-handlers.js */
 ); ?>
