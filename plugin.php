@@ -340,7 +340,7 @@ class WPCustomFieldsSearchPlugin {
         require_once("search_form.php");
         $config = get_option("wp-custom-fields-search");
         $preset = $config['presets'][$id];
-        WPCFSSearchForm::show_form($preset,"preset-$id");
+        include(dirname(__FILE__).'/templates/preset-display.php');
     }
 
     function ng_load_translations(){
