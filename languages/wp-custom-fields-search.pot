@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WP Custom Fields Search 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-custom-fields-"
 "search\n"
-"POT-Creation-Date: 2017-10-23 14:19:17+00:00\n"
+"POT-Creation-Date: 2017-10-23 14:57:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -236,26 +236,30 @@ msgid "Yes"
 msgstr ""
 
 #: ng/translations.php:34
-msgid "Preset Title"
+msgid "Please Select A Preset"
 msgstr ""
 
 #: ng/translations.php:35
-msgid "Instantiate this with the shortcode"
+msgid "Preset Title"
 msgstr ""
 
 #: ng/translations.php:36
-msgid "Or with the PHP code"
+msgid "Instantiate this with the shortcode"
 msgstr ""
 
 #: ng/translations.php:37
-msgid "Preset:"
+msgid "Or with the PHP code"
 msgstr ""
 
 #: ng/translations.php:38
-msgid "Export Settings"
+msgid "Preset:"
 msgstr ""
 
 #: ng/translations.php:39
+msgid "Export Settings"
+msgstr ""
+
+#: ng/translations.php:40
 msgid "ALlow Blank"
 msgstr ""
 
@@ -279,11 +283,11 @@ msgstr ""
 msgid "Customisable search form (from WP Custom Fields Search)"
 msgstr ""
 
-#: widget.php:53
+#: widget.php:56
 msgid "New Form"
 msgstr ""
 
-#: widget.php:58
+#: widget.php:61
 msgid "Search Term"
 msgstr ""
 

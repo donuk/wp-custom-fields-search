@@ -1,5 +1,5 @@
-<div ng-controller='PresetsController' class="wp_custom_fields_search_editor" style="min-height: 500px; position: relative">
-<div class='row'>
+<div ng-controller='PresetsController' class="wp_custom_fields_search_editor presets" style="min-height: 500px; position: relative">
+<div class='row presets-page'>
     <div class='cell'>
         <ul>
             <li ng-repeat='preset in presets' ng-click='edit_preset(preset)' ng-controller='PresetModifiedController'>
@@ -9,7 +9,10 @@
         </ul>
     </div>
     <div>
-        <div ng-controller='PresetController' ng-if='preset'>
+        <div ng-if='!preset' class='preset-form'>
+            <h1><i18n>Please Select A Preset</i18n></h1>
+        </div>
+        <div ng-controller='PresetController' ng-if='preset' class='preset-form'>
             <p><i18n>Preset Title</i18n> <input ng-model='preset.name'/></p>
             <p><i18n>Instantiate this with the shortcode</i18n> [wpcfs-preset id="{{preset.id}}"]</p>
             <p><i18n>Or with the PHP code</i18n> &lt;?php wpcfs_show_preset("{{preset.id}}"); ?&gt;</p>
@@ -26,7 +29,7 @@
         
     </div>
 </div>
-    <div style='position: absolute; bottom: 30px;'>
+    <div class='wpcfs-footer'>
         <a download='settings.json' ng-click='warn_no_import()' href='{{export_settings_href}}'><i18n>Export Settings</i18n></a>
     </div>
 </div>

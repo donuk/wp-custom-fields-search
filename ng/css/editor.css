@@ -79,3 +79,20 @@
 #widgets-right .wpcfs-form {
     padding-bottom: 10px;
 }
+
+.wp_custom_fields_search_editor.presets {
+    min-height: 500px;
+    position: relative;
+}
+.wp_custom_fields_search_editor .presets-page {
+    width: 100%;
+}
+.wp_custom_fields_search_editor .preset-form {
+    background: #ccc;
+    border-radius:25px;
+    padding: 25px;
+}
+.wpcfs-footer {
+    position: absolute; 
+    bottom: 30px;
+}

@@ -158,8 +158,10 @@ angular.module('WPCFS', ['ui.sortable'])
 		$scope.field.options.push({});
 	};
 }]).controller('PresetsController', [ '$scope', '$filter', '$http', 'i18n', function ($scope,$filter,$http,i18n) {
-   $scope.form_config = $scope.config.form_config;
-   if(!$scope.form_config) $scope.form_config = [];
+   $scope.form_config = [];
+   angular.forEach($scope.config.form_config,function(preset){
+        $scope.form_config.push(preset);
+   });
    $scope.presets = $scope.form_config;
     $scope.preset = null;
 

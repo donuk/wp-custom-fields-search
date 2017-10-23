@@ -31,6 +31,7 @@
  "Split Words?" => __("Split Words?"),/*ng/partials/inputs/textbox.html */
  "No" => __("No"),/*ng/partials/inputs/textbox.html */
  "Yes" => __("Yes"),/*ng/partials/inputs/textbox.html */
+ "Please Select A Preset" => __("Please Select A Preset"),/*ng/partials/presets.html */
  "Preset Title" => __("Preset Title"),/*ng/partials/presets.html */
  "Instantiate this with the shortcode" => __("Instantiate this with the shortcode"),/*ng/partials/presets.html */
  "Or with the PHP code" => __("Or with the PHP code"),/*ng/partials/presets.html */
