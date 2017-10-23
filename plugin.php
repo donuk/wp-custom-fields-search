@@ -35,6 +35,7 @@ class WPCustomFieldsSearchPlugin {
         add_action('admin_init', array($this,'admin_init'));
 
         add_action('wp_ajax_wpcfs_save_preset',array($this,'save_preset'));
+        add_action('wp_ajax_wpcfs_export_settings',array($this,'export_settings'));
 
         add_action('wp_ajax_wpcfs_ng_load_translations',array($this,'ng_load_translations'));
 
@@ -354,6 +355,19 @@ class WPCustomFieldsSearchPlugin {
         header("Content-type: application/json");
         echo json_encode($all_translations);
         exit(0);
+    }
+    function export_settings(){
+        $export = array(
+            "doc_type"=>"wp-custom-fields-search full export",
+            "plugin_version"=>WPCFS_PLUGIN_VERSION,
+            "format_version"=>"1",
+            "presets"=>get_option("wp-custom-fields-search"),
+            "widget"=>get_option("widget_wp-custom-fields-search"),
+            "sidebars"=>get_option("sidebars_widgets"),
+        );
+        header("Content-type:text/json");
+        echo json_encode($export);
+        exit();
     }
 }
 new WPCustomFieldsSearchPlugin();

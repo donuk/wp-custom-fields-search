@@ -206,7 +206,13 @@ angular.module('WPCFS', ['ui.sortable'])
         } else if(!$scope.preset){
             $scope.preset = $scope.presets[0];
         }
+
+        $scope.export_settings_href = ajaxurl+"?action="+$scope.config.export_callback;
+        $scope.warn_no_import = function(){
+            alert(__("There is currently no import functionality, the settings export is for debug use only"));
+        };
     });
+
 }]).controller('PresetController', [ '$scope', function ($scope) {
 
     var update_child_config = function(){
@@ -216,6 +222,7 @@ angular.module('WPCFS', ['ui.sortable'])
         };
     };
     $scope.$watch("preset",update_child_config);
+
     update_child_config();
 }]).controller('PresetModifiedController', [ '$scope', function($scope){
     $scope.$watch("preset",function(){

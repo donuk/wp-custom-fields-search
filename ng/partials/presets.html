@@ -1,4 +1,4 @@
-<div ng-controller='PresetsController' class="wp_custom_fields_search_editor">
+<div ng-controller='PresetsController' class="wp_custom_fields_search_editor" style="min-height: 500px; position: relative">
 <div class='row'>
     <div class='cell'>
         <ul>
@@ -24,5 +24,9 @@
 
         <input type='button' ng-click='save_preset(preset)' value='Save'/>
         
+    </div>
+</div>
+    <div style='position: absolute; bottom: 30px;'>
+        <a download='settings.json' ng-click='warn_no_import()' href='{{export_settings_href}}'><i18n>Export Settings</i18n></a>
     </div>
 </div>

@@ -6,6 +6,7 @@
  "One" => __("One"),/*ng/js/app.js */
  "Two" => __("Two"),/*ng/js/app.js */
  "Untitled Preset" => __("Untitled Preset"),/*ng/js/app.js */
+ "There is currently no import functionality, the settings export is for debug use only" => __("There is currently no import functionality, the settings export is for debug use only"),/*ng/js/app.js */
  "Alphabetical" => __("Alphabetical"),/*ng/partials/comparisons/numeric.html */
  "Numeric" => __("Numeric"),/*ng/partials/comparisons/numeric.html */
  "Exclusive" => __("Exclusive"),/*ng/partials/comparisons/numeric.html */
@@ -34,5 +35,6 @@
  "Instantiate this with the shortcode" => __("Instantiate this with the shortcode"),/*ng/partials/presets.html */
  "Or with the PHP code" => __("Or with the PHP code"),/*ng/partials/presets.html */
  "Preset:" => __("Preset:"),/*ng/partials/presets.html */
+ "Export Settings" => __("Export Settings"),/*ng/partials/presets.html */
  "ALlow Blank" => __("ALlow Blank"),/*js/wp-handlers.js */
 ); ?>
