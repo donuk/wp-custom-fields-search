@@ -8,8 +8,8 @@ angular.module('WPCFS', ['ui.sortable'])
         };
 
         var d2 = $q.defer();
-        d.resolve(__);
-        i18n.dict = d.promise;
+        d2.resolve(__);
+        i18n.dict = d2.promise;
         return i18n;
     }
 
