@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 4.8.1
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -55,6 +55,10 @@ There are three main sections to the field edit form.  Data-type selection which
 There are a core set of datatypes, comparisons and inputs which can be expanded on with extension plugins.
 
 == Changelog ==
+
+= 1.1.2 =
+* Fixed an issue with the migration
+* Added export option for debugging
  
 = 1.1.1 =
 * Fixed regression for old php versions

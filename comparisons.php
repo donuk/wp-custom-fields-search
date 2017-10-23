@@ -87,6 +87,7 @@ class WPCustomFieldsSearch_SubCategoryOf extends WPCustomFieldsSearch_Comparison
         global $wpdb;
         $field = $config['datatype_field'];
         if($field == "term_id"){
+            $dummy_category = new stdclass();
             $dummy_category->term_id = $value;
             $parent_categories = array($dummy_category);
         } else {
