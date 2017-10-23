@@ -25,6 +25,7 @@ define('WPCFS_PLUGIN_VERSION',"1.1.0");
  */
 
 
+require_once(dirname(__FILE__).'/functions.php');
 
 class WPCustomFieldsSearchValidationException extends Exception {}
 class WPCustomFieldsSearchPlugin {
@@ -230,7 +231,7 @@ class WPCustomFieldsSearchPlugin {
         }
 
         try {
-            $data = json_decode(stripslashes($_POST['data']),true);
+            $data = json_decode(wpcfs_strip_hash_keys(stripslashes($_POST['data'])),true);
             $id = $data['id'];
             if($data===null) throw new WPCustomFieldsSearchValidationException("data is required");
             $config = get_option("wp-custom-fields-search");

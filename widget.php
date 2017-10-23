@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.
  */
+
+require_once(dirname(__FILE__).'/functions.php');
+
 class WPCustomFieldsSearchWidget extends WP_Widget {
 	function __construct(){
 		parent::__construct('wp-custom-fields-search',
@@ -35,15 +38,9 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
         WPCFSSearchForm::show_form($data,$args['widget_id'],$args);
 	}
 
-    function strip_hash_keys($data){
-        $data = preg_replace('/"\$\$hashKey":"[^"]*",/','',$data);
-        $data = preg_replace('/,"\$\$hashKey":"[^"]*"/','',$data);
-        $data = preg_replace('/{"\$\$hashKey":"[^"]*}"/','{}',$data);
-        return $data;
-    }
 	function update($new_instance,$old_instance){
 		return array(
-			"data"=>$this->strip_hash_keys($new_instance['data']),
+			"data"=>wpcfs_strip_hash_keys($new_instance['data']),
 		);
 	}
 
