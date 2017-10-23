@@ -19,6 +19,15 @@
         function get_name(){ return __("Text Input"); }
 	}
 
+
+
+    class WPCustomFieldsSearchClassException extends Exception{}
+    function wpcfs_instantiate_class($class){
+        if(!is_string($class)) throw new WPCustomFieldsSearchClassException("Class name must be a string");
+        if(!class_exists($class)) throw new WPCustomFieldsSearchClassException("Class name must refer to an existing class");
+        return new $class();
+    }
+
 	class WPCustomFieldsSearch_SelectInput extends WPCustomFieldsSearch_Input {
         function get_name(){ return __("Drop Down"); }
 		var $template = "select";
@@ -32,8 +41,12 @@
 
 		function render($config,$query){
 			if($config['source']=='Auto'){
-                $datatype = new $config['datatype']();
-                $config['options'] = array_merge(array(array("value"=>"","label"=>$config['any_message'])),$datatype->get_suggested_values($config));
+                try {
+                    $datatype = wpcfs_instantiate_class($config['datatype']);
+                    $config['options'] = array_merge(array(array("value"=>"","label"=>$config['any_message'])),$datatype->get_suggested_values($config));
+                } catch(WPCustomFieldsSearchClassException $e){
+                    $config['options'] = array();
+                }
 			}
 			return parent::render($config,$query);
 		}
