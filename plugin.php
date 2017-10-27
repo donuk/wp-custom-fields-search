@@ -45,6 +45,7 @@ class WPCustomFieldsSearchPlugin {
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
 
         add_shortcode("wp-custom-fields-search",array($this,"shortcode"));
+        add_shortcode("wpcfs-preset",array($this,"preset_shortcode"));
         add_action("parse_query",array($this,"parse_query"));
         add_action('plugins_loaded',array($this,'plugins_loaded'));
 
@@ -332,6 +333,12 @@ class WPCustomFieldsSearchPlugin {
 		return $comparisons;
 	}
 
+    function preset_shortcode($atts){
+        $atts = shortcode_atts(array(
+            "id"=>"0"
+        ),$atts);
+        $this->show_preset($atts['id']);
+    }
     function shortcode($atts){
         $atts = shortcode_atts(array(
             "preset"=>"0"
