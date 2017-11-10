@@ -13,7 +13,7 @@ describe('translations', function(){
             console.log("Start test");
 
             $httpBackend.when("GET","ajax?action=wpcfs_ng_load_translations").respond(200,{
-                "Bye":"Auf Weidersehen",
+                "Bye":"Auf Wiedersehen",
                 "Hello":"Hallo"
             });
 
