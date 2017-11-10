@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 4.8.1
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -56,6 +56,9 @@ There are a core set of datatypes, comparisons and inputs which can be expanded 
 
 == Changelog ==
 
+= 1.1.5 =
+* Fixed bug causing corruption of form configs on save
+
 = 1.1.4 =
 * Fixed bug whereby shortcodes were not working
 
@@ -83,6 +86,9 @@ There are a core set of datatypes, comparisons and inputs which can be expanded 
  
 == Upgrade Notice ==
  
+= 1.1.5 =
+* This fixes a serious bug introduced in 1.1.3, if you are using either 1.1.3 or 1.1.4 please upgrade.  Not upgrading may result in your form config being lost.
+
 = 1.0 =
 * This is a major rebuild from 0.3.28, this should make form configuration significantly easier.
 * This will enable new extended functionalities.
