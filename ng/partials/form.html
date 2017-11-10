@@ -1,4 +1,5 @@
 <div ng-controller="WPCFSForm" class='wpcfs-form'>
+<div style='min-height: {{min_height}}px;'>
 <div class='form_header'>
     <input ng-model='settings.form_title' placeholder='Name This Form'/>
     <a class='edit icon right' ng-click='show_config_form()'><i18n="Config Icon">Config</i18n></a>
@@ -18,7 +19,7 @@
 
 
 
-<div class='popup' ng-if='popped_up_field' ng-controller='WPCFSField'>
+<div class='popup' ng-if='popped_up_field' ng-controller='WPCFSField' wpcfs-height-source='field'>
         <a class='close icon right top' ng_click='close_edit_form(field)'><i18n>Close</i18n></a>
 
             <div class='config_row'>
@@ -53,11 +54,12 @@
                 <div class='wpcfs-floating-prompt' ng-if='!field.comparison'><p><i18n>How do you want to match the search to the data?</i18n></p></div>
             </div>
 
-        <div class='popup' ng-if='config_popup' ng-controller='ConfigPopup'>
+        <div class='popup' ng-if='config_popup' ng-controller='ConfigPopup' wpcfs-height-source='sub_config'>
             <a class='close icon right top' ng_click='close_config_popup(form,field)'><i18n>Close</i18n></a>
             <div ng-include='include_file'>
             </div>
         </div>
 </div>
 
+</div>
 </div>

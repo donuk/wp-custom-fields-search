@@ -46,4 +46,15 @@ angular.module('WPCFS', ['ui.sortable'])
         });
         return string;
     };
+})
+.directive("wpcfsHeightSource", function(){
+    return {
+        "restrict": "A",
+        "link": function(scope,elem,attrs) {
+            var source_field = attrs.wpcfsHeightSource;
+            scope.$watch(function(){
+                scope.set_min_height(elem.height(), source_field);
+            });
+        }
+    }
 });

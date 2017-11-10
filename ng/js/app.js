@@ -1,5 +1,15 @@
 angular.module('WPCFS')
 .controller('WPCFSForm', ['$scope','i18n',function ($scope,i18n) {
+    $scope.min_height = 0;
+    $scope.heights = {};
+    $scope.set_min_height = function (height,name){
+        $scope.heights[name] = height;
+        var min_height = 0;
+        angular.forEach($scope.heights,function(v,k){
+            if(v>min_height) min_height=v;
+        });
+        $scope.min_height = min_height + 100;
+    };
     $scope.datatypes  = array2dict($scope.config.building_blocks.datatypes); 
     $scope.inputs  = array2dict($scope.config.building_blocks.inputs);
     $scope.comparisons  = array2dict($scope.config.building_blocks.comparisons); 
@@ -30,6 +40,7 @@ angular.module('WPCFS')
     }
     $scope.close_edit_form = function(field){
         $scope.popped_up_field = null;
+        $scope.set_min_height(0,"field");
     }
 }]).controller('WPCFSField', ['$scope', 'replace_all', 'i18n', function($scope, replace_all, i18n) {
     $scope.field = $scope.popped_up_field;
@@ -40,6 +51,7 @@ angular.module('WPCFS')
     };
     $scope.close_config_popup = function(){
         $scope.config_popup = null;
+        $scope.set_min_height(0,"sub_config");
     };
     i18n.dict.then(function(__){
         $scope.$watch("field.datatype",function(){
@@ -169,7 +181,4 @@ angular.module('WPCFS')
 
     update_child_config();
 }]).controller('PresetModifiedController', [ '$scope', function($scope){
-    $scope.$watch("preset",function(){
-        //$scope.preset.modified=true;
-    });
 }]);
