@@ -67,6 +67,13 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
         $settings_pages = apply_filters("wpcfs_settings_pages",array());
 
 		$form_id = $this->get_field_id('edit-form');
+        $default = "{inputs:[],settings:{}}";
+        $form_config = $instance['data']?$instance['data']:$default;
+        if(!json_decode($form_config)){
+            $form_config2 = str_replace('""','"',$form_config);
+            if(json_decode($form_config2)) $form_config = $form_config2;
+            else $form_config = $default;
+        }
 		// TODO: Could this be implemented with is_active_sidebar???
 		if($this->number=="__i__"){
 			echo "
@@ -87,7 +94,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
                             if(index=='__i__') return;
 
                             $(this).wp_custom_fields_search_editor({
-                                'form_config':".($instance['data']?$instance['data']:"{inputs:[],settings:{}}").",
+                                'form_config': $form_config,
                                 'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
                                 'settings_pages': ".json_encode($settings_pages).",
                                 'field_name':'".$this->get_field_name('data')."'
@@ -117,7 +124,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 				</div>
 				<script>
 					jQuery('#$form_id').wp_custom_fields_search_editor({
-						'form_config':".($instance['data']?$instance['data']:"{inputs:[],settings:{}}").",
+						'form_config':$form_config,
 						'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
                         'settings_pages': ".json_encode($settings_pages).",
 						'field_name':'".$this->get_field_name('data')."'
