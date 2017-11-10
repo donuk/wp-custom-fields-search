@@ -178,9 +178,14 @@ class WPCustomFieldsSearchPlugin {
 			array('jquery','jquery-ui-core','jquery-ui-widget','jquery-ui-sortable','angularjs','ng-sortable')
 		);
 		wp_enqueue_script(
+			"wpcfs-angular-services",
+			plugin_dir_url(__FILE__).'/ng/js/services.js',
+			array('wp-custom-fields-search-editor')
+		);
+		wp_enqueue_script(
 			"wpcfs-angular-app",
 			plugin_dir_url(__FILE__).'/ng/js/app.js',
-			array('wp-custom-fields-search-editor')
+			array('wp-custom-fields-search-editor','wpcfs-angular-services')
 		);
 		wp_enqueue_script(
 			"wp-handlers",

@@ -1,0 +1,128 @@
+$icon_padding: 8px;
+$form_field_height: 32px;
+$icon_width: 32px;
+$light_blue: #6bf;
+$lighter_blue: #9cf;
+$text_color: #444;
+
+.wpcfs-form {
+    color: $text_color;
+    position: relative;
+
+    .bordered_item {
+        border: solid black 2px;
+        border-radius: 20px;
+        background: white;
+        padding: 10px;
+    }
+
+    .icon {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        overflow:hidden;
+        font-size: 0px;
+        background-repeat: no-repeat;
+    }
+
+    .icon.delete, .icon.close {
+        background-image: url(icons/close.png);
+    }
+    .icon.edit {
+        background-image: url(icons/cog.png);
+    }
+    .icon.add {
+        background-image: url(icons/plus.png);
+    }
+
+    .icon.left {
+        position: absolute;
+        left: $icon_padding;
+    }
+    .icon.right {
+        position: absolute;
+        right: $icon_padding;
+    }
+    .icon.top {
+        position: absolute;
+        top: $icon_padding;
+    }
+
+    .form_field {
+        @extend .bordered_item;
+        display: block;
+        position: relative;
+        width: 100%;
+        min-height: $form_field_height;
+        padding-top: 7px;
+        background: $light_blue;
+
+        .title, .icon-text {
+            display: block;
+            position: absolute;
+            left: $icon_width + $icon_padding +3px;
+            right: $icon_width + $icon_padding +3px;
+            text-overflow: ellipsis;
+            font-size: 1.5em;
+            line-height: 32px;
+            vertical-align: middle;
+        }
+
+    }
+    .form_field.new_field {
+        background: $lighter_blue;
+
+        a {
+            color: $text_color;
+        }
+    }
+    .form_header {
+        display: block;
+        position: relative;
+        min-height: $form_field_height;
+        width: 100%;
+
+        input {
+            display: block;
+            position: absolute;
+            width: calc( 100% - 90px );
+            left: $icon_width + $icon_padding +3px;
+            right: $icon_width + $icon_padding +3px;
+            border-radius: 5px;
+            top: 3px;
+            bottom: 3px;
+            font-size: 1.5em;
+        }
+    }
+
+    .popup {
+        @extend .bordered_item;
+        width: 95%;
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        background: white;
+        border: solid black 2px;
+        border-radius: 5px;
+
+        .config_row:first-of-type {
+            right: 40px;
+            width: calc( 100% - 80px );
+        }
+        .config_row {
+            padding:10px;
+            margin: 5px;
+        }
+
+        input, select {
+            font-size: 1.5em;
+        }
+    }
+
+    .wpcfs-key-value-table {
+        input {
+            width: calc( 100% - 10px );
+            padding: 5px;
+        }
+    }
+}

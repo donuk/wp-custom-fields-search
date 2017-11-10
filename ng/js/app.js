@@ -1,52 +1,4 @@
-angular.module('WPCFS', ['ui.sortable'])
-.factory('i18n',['$q','$http', function($q,$http){
-    if(typeof __ != 'undefined') {
-        var i18n = function(phrase){
-            var d = $q.defer();
-            d.resolve(__(phrase));
-            return d.promise;
-        };
-
-        var d2 = $q.defer();
-        d2.resolve(__);
-        i18n.dict = d2.promise;
-        return i18n;
-    }
-
-    var translations = $http.get(ajaxurl+"?action=wpcfs_ng_load_translations");
-
-    var i18n = function(phrase){
-        return translations.then(function(response){
-            if(response.data[phrase])
-                return response.data[phrase];
-            else
-                return phrase;
-        });
-    };
-    i18n.dict = translations.then(function(response){
-        return function(k){
-            return response.data[k];
-        };
-    });
-    return i18n;
-}])
-.directive('i18n',[ 'i18n', function(i18n){
-   return {
-        "link": function(scope,element,attrs,controller,transcludeFn){
-            i18n(element.html()).then(function(translation){
-                element.replaceWith(translation);
-            });
-        }
-    }
-}])
-.factory('replace_all', function(){
-    return function(string,replacements){
-        angular.forEach(replacements,function(k,v){
-            string = string.replace(k,v);
-        });
-        return string;
-    };
-})
+angular.module('WPCFS')
 .controller('WPCFSForm', ['$scope','i18n',function ($scope,i18n) {
     $scope.datatypes  = array2dict($scope.config.building_blocks.datatypes); 
     $scope.inputs  = array2dict($scope.config.building_blocks.inputs);
@@ -60,30 +12,8 @@ angular.module('WPCFS', ['ui.sortable'])
     pull_config();
     $scope.$watch('config.form_config.id',pull_config);
 
-
-
 	$scope.sortableOptions = {
 		"containment": "#field-list"
-	};
-
-    $scope.tab = "fields";
-    $scope.tabs = [ "fields", "settings" ];
-    $scope.set_tab = function(tab){ $scope.tab = tab; };
-
-	var array_values = function(dict){
-		var result = [];
-		for(var i in dict){
-			result.push(dict[i]);
-		};
-		return result;
-	};
-
-	var array_keys = function(dict){
-		var result = [];
-		for(var i in dict){
-			result.push(i);
-		};
-		return result;
 	};
 
     i18n.dict.then(function(__){
@@ -92,16 +22,25 @@ angular.module('WPCFS', ['ui.sortable'])
     	};
     });
 
+    $scope.edit_field = function(field){
+        $scope.popped_up_field = field;
+    }
     $scope.remove_field = function(field) {
         $scope.form_fields.splice($scope.form_fields.indexOf(field),1);
     }
-
-    angular.forEach($scope.form_fields,function(field){
-        field.expand = false;
-    });
-
+    $scope.close_edit_form = function(field){
+        $scope.popped_up_field = null;
+    }
 }]).controller('WPCFSField', ['$scope', 'replace_all', 'i18n', function($scope, replace_all, i18n) {
+    $scope.field = $scope.popped_up_field;
 	if(!$scope.field.multi_match) $scope.field.multi_match="All";
+
+    $scope.show_config_form = function(form,field){
+        $scope.config_popup = {"form": form, "field": field};
+    };
+    $scope.close_config_popup = function(){
+        $scope.config_popup = null;
+    };
     i18n.dict.then(function(__){
         $scope.$watch("field.datatype",function(){
             var datatype_options = $scope.datatypes[$scope.field.datatype];
@@ -145,6 +84,9 @@ angular.module('WPCFS', ['ui.sortable'])
         });
     });
 
+}]).controller('ConfigPopup', ['$scope', function($scope) {
+    $scope.include_file = $scope.config_popup.form;
+    $scope.field = $scope.config_popup.field;
 }]).controller('SelectController', ['$scope','i18n', function($scope,i18n) {
     i18n.dict.then(function(__){
     	if(!$scope.field.any_message) $scope.field.any_message=__("Any");
