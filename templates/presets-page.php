@@ -1,4 +1,4 @@
-<h1>Presets Page</h1>
+<h1>Configure WP Custom Fields Search</h1>
 <div id='wpcfs-presets-page'>
 </div>
 <script>

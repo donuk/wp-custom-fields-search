@@ -1,35 +1,38 @@
-<div ng-controller='PresetsController' class="wp_custom_fields_search_editor presets" style="min-height: 500px; position: relative">
+<div ng-controller='PresetsController' class="wpcfs wpcfs-presets" style="min-height: 500px; position: relative">
 <div class='row presets-page'>
-    <div class='cell'>
+    <div class='cell-2 preset-menu' style='vertical-align: top;'>
+        <h2>Presets</h2>
         <ul>
-            <li ng-repeat='preset in presets' ng-click='edit_preset(preset)' ng-controller='PresetModifiedController'>
-                <span ng-if='preset.modified'>*</span>{{preset.name}}
+            <li ng-repeat='preset in presets' ng-click='edit_preset(preset)'>
+                {{ get_preset_title(preset) }}
             </li>
-            <li ng-click='add_preset()'><a class='add icon'></a></li>
+            <li ng-click='add_preset()'><div class='add icon'></div>New Preset</li>
+        </ul>
+        <h2>Import / Export</h2>
+        <ul>
+            <li><a download='settings.json' ng-click='warn_no_import()' href='{{export_settings_href}}'><i18n>Export Settings</i18n></a></li>
         </ul>
     </div>
-    <div>
+    <span ng-controller='PresetController'>
+    <div class='cell-6'>
         <div ng-if='!preset' class='preset-form'>
             <h1><i18n>Please Select A Preset</i18n></h1>
         </div>
-        <div ng-controller='PresetController' ng-if='preset' class='preset-form'>
-            <p><i18n>Preset Title</i18n> <input ng-model='preset.name'/></p>
-            <p><i18n>Instantiate this with the shortcode</i18n> [wpcfs-preset id="{{preset.id}}"]</p>
-            <p><i18n>Or with the PHP code</i18n> &lt;?php wpcfs_show_preset("{{preset.id}}"); ?&gt;</p>
-
-
-            <p><i18n>Preset:</i18n> {{config.form_config.id}} {{preset.state}}</p>
-
+        <div ng-if='preset' class='preset-form'>
+            <h2>Edit Preset {{ get_preset_title(preset) }}</h2>
             <div ng-controller='WPCFSForm' ng-include="partials+'/form.html'">
                 
             </div>
         </div>
 
         <input type='button' ng-click='save_preset(preset)' value='Save'/>
+    </div>
+    <div class='cell-4 preset-blurb'>
+            <p><i18n>Instantiate this preset in any post or page by entering the shortcode</i18n> [wpcfs-preset id="{{preset.id}}"]</p>
+            <p><i18n>Or in your theme files with the PHP code</i18n> &lt;?php wpcfs_show_preset("{{preset.id}}"); ?&gt;</p>
+    </div>
+
         
-    </div>
+    </span>
 </div>
-    <div class='wpcfs-footer'>
-        <a download='settings.json' ng-click='warn_no_import()' href='{{export_settings_href}}'><i18n>Export Settings</i18n></a>
-    </div>
 </div>

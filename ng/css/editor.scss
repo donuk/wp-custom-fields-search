@@ -7,7 +7,7 @@ $text_color: #444;
 $popup_bar_height: 35px;
 $light_yellow: #ffa;
 
-.wpcfs-form {
+.wpcfs {
     color: $text_color;
     position: relative;
 
@@ -166,6 +166,36 @@ $light_yellow: #ffa;
         }
     }
 
+    .preset-form {
+        @extend .bordered_item;
+        padding: 20px 50px ;
+    }
+    .preset-blurb {
+        vertical-align: top;
+        p {
+            padding: 30px;
+        }
+    }
+
+    .preset-menu {
+        font-size: 1.5em;
+        h2 {
+            background: $light_blue;
+            border-top: solid black 1px;
+            border-bottom: solid black 1px;
+            margin: 5px;
+            padding: 5px;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        li {
+            height: $icon_width + $icon_padding;
+            line-height: $icon_width + $icon_padding;
+            vertical-align: middle;
+        }
+    }
+
     .wpcfs-floating-prompt {
         position: relative;
     }
@@ -188,6 +218,7 @@ $light_yellow: #ffa;
         }
     }
     .cell-10 { @extend .cell; width: 80%; }
+    .cell-6 { @extend .cell; width: 48%; }
     .cell-5 { @extend .cell; width: 40%; }
     .cell-4 { @extend .cell; width: 32%; }
     .cell-2 { @extend .cell; width: 16%; }

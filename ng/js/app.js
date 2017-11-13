@@ -147,6 +147,9 @@ angular.module('WPCFS')
     $scope.preset = null;
 
     i18n.dict.then(function(__){
+       $scope.get_preset_title = function(preset){
+            return preset.settings.form_title || preset.name || __("Untitled Preset");
+       };
        $scope.add_preset = function(){
             var preset = {
                 "name": __("Untitled Preset"),
