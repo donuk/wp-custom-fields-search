@@ -20,13 +20,17 @@
 
 
 <div class='popup' ng-if='popped_up_field' ng-controller='WPCFSField' wpcfs-height-source='field'>
+    <div class='popup-header'>
         <a class='close icon right top' ng_click='close_edit_form(field)'><i18n>Close</i18n></a>
+    </div>
+    <div class='popup-content'>
 
             <div class='config_row'>
-                <input ng-model='field.label'>
+                <input ng-model='field.label' focus-me="true">
+                <div class='wpcfs-floating-prompt' ng-if='!field.label'><p><i18n>What should this field be called?</i18n></p></div>
             </div>
 
-            <div class='config_row'>
+            <div class='config_row' ng-if='field.label'>
                 <select ng-model='field.input'
                     ng-options='input.id as input.name for input in config.building_blocks.inputs'>
                 </select>
@@ -55,10 +59,14 @@
             </div>
 
         <div class='popup' ng-if='config_popup' ng-controller='ConfigPopup' wpcfs-height-source='sub_config'>
-            <a class='close icon right top' ng_click='close_config_popup(form,field)'><i18n>Close</i18n></a>
-            <div ng-include='include_file'>
+            <div class='popup-header'>
+                <a class='close icon right top' ng_click='close_config_popup(form,field)'><i18n>Close</i18n></a>
+            </div>
+            <div class='popup-content'>
+                <div ng-include='include_file'></div>
             </div>
         </div>
+    </div>
 </div>
 
 </div>

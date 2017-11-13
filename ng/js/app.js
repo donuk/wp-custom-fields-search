@@ -28,7 +28,9 @@ angular.module('WPCFS')
 
     i18n.dict.then(function(__){
     	$scope.add_field = function(){
-	    	$scope.form_fields.push({"label": __("Untitled Field"), "expand":true});
+	    	var new_field = {};
+	    	$scope.form_fields.push(new_field);
+            $scope.edit_field(new_field);
     	};
     });
 

@@ -57,4 +57,14 @@ angular.module('WPCFS', ['ui.sortable'])
             });
         }
     }
-});
+})
+.directive("focusMe", [ '$timeout', function($timeout){
+    return {
+        "restrict": "A",
+        "link": function(scope,elem,attrs) {
+            $timeout(function(){
+                elem[0].focus();
+            });
+        }
+    }
+}]);

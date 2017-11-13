@@ -4,6 +4,8 @@ $icon_width: 32px;
 $light_blue: #6bf;
 $lighter_blue: #9cf;
 $text_color: #444;
+$popup_bar_height: 35px;
+$light_yellow: #ffa;
 
 .wpcfs-form {
     color: $text_color;
@@ -103,7 +105,20 @@ $text_color: #444;
         left: 30px;
         background: white;
         border: solid black 2px;
-        border-radius: 5px;
+        background: $light_blue;
+        padding: $popup_bar_height 5px 5px;
+
+        .popup-header {
+            margin-top: -$popup_bar_height;
+            .icon.top {
+                top:3px;
+            }
+        }
+          
+        .popup-content {
+            @extend .bordered_item;
+            margin-top: $popup_bar_height;
+        }
 
         .config_row:first-of-type {
             right: 40px;
@@ -124,5 +139,20 @@ $text_color: #444;
             width: calc( 100% - 10px );
             padding: 5px;
         }
+    }
+
+    .wpcfs-floating-prompt {
+        position: relative;
+    }
+    .wpcfs-floating-prompt>*:first-child {
+        background: $light_yellow;
+        position: absolute;
+        display: block;
+        padding: 5px;
+        top: 5px;
+        right: 20px;
+        width: calc( 100% - 60px );
+        border: dashed black 1px;
+        border-radius: 10px;
     }
 }
