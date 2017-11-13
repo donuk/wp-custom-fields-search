@@ -120,7 +120,13 @@ angular.module('WPCFS')
     });
 
 }]).controller('WPCFSSettings', ['$scope', function($scope) {
-
+    $scope.expand = function(page){
+        $scope.expanded = page;
+    };
+    $scope.is_expanded = function(page){
+        return $scope.expanded == page;
+    };
+    $scope.expanded = $scope.config.settings_pages[0];
 }]).controller('ConfigPopup', ['$scope', function($scope) {
     $scope.include_file = $scope.config_popup.form;
     $scope.field = $scope.config_popup.field;

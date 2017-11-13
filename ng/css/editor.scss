@@ -11,6 +11,10 @@ $light_yellow: #ffa;
     color: $text_color;
     position: relative;
 
+            input,select {
+                max-width: 100%;
+            }
+
     .bordered_item {
         border: solid black 2px;
         border-radius: 20px;
@@ -128,9 +132,6 @@ $light_yellow: #ffa;
         .config_row {
             padding:10px;
             margin: 5px;
-            input,select {
-                max-width: 100%;
-            }
         }
 
         input, select {
@@ -142,6 +143,26 @@ $light_yellow: #ffa;
         input {
             width: calc( 100% - 10px );
             padding: 5px;
+        }
+    }
+
+    .settings-popup {
+        .wpcfs-settings-accordion-header {
+            padding-left: $icon_width + $icon_padding;
+            background-position: left;
+            background-repeat: no-repeat;
+            height: $icon_width + $icon_padding;
+            line-height: $icon_width + $icon_padding;
+            vertical-align: middle;
+        }
+        .wpcfs-settings-accordion-header.expanded {
+            background-image: url("icons/open-accordion.png");
+        }
+        .wpcfs-settings-accordion-header.collapsed {
+            background-image: url("icons/closed-accordion.png");
+        }
+        .wpcfs-settings-accordion-content {
+            padding-left: 20px;
         }
     }
 
@@ -159,4 +180,16 @@ $light_yellow: #ffa;
         border: dashed black 1px;
         border-radius: 10px;
     }
+
+    .cell {
+        display: inline-block;
+        input {
+            max-width: 80%;
+        }
+    }
+    .cell-10 { @extend .cell; width: 80%; }
+    .cell-5 { @extend .cell; width: 40%; }
+    .cell-4 { @extend .cell; width: 32%; }
+    .cell-2 { @extend .cell; width: 16%; }
+    .cell-1 { @extend .cell; width: 8%; }
 }

@@ -43,7 +43,7 @@ class WPCustomFieldsSearchPlugin {
 		add_filter("wp_custom_fields_search_inputs",array($this,"wp_custom_fields_search_inputs"));
 		add_filter("wp_custom_fields_search_datatypes",array($this,"wp_custom_fields_search_datatypes"));
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
-        add_filter("wpcfs_settings_pages",array($this,"wpcfs_settings_pages"));
+        add_filter("wpcfs_settings_pages",array($this,"wpcfs_settings_pages"),9);
 
         add_shortcode("wp-custom-fields-search",array($this,"shortcode"));
         add_shortcode("wpcfs-preset",array($this,"preset_shortcode"));

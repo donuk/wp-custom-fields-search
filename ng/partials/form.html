@@ -11,8 +11,8 @@
     </div>
     <div class='popup-content'>
         <div ng-repeat='page in config.settings_pages'>
-            <h1>{{page.title}}</h1>
-            <div ng-include='page.template'>
+            <h3 ng-click='expand(page)' class='wpcfs-settings-accordion-header' ng-class='{ "expanded": is_expanded(page), "collapsed": !is_expanded(page) }'>{{page.title}}</h3>
+            <div class='wpcfs-settings-accordion-content' ng-include='page.template' ng-show='is_expanded(page)'>
             </div>
         </div>
     </div>
