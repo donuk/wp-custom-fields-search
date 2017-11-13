@@ -56,6 +56,11 @@
                     return $this->_array_to_suggestions_list($wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_type FROM $wpdb->posts WHERE post_status='publish'")));
             }
         }
+        function get_editor_options(){
+            $options = parent::get_editor_options();
+            $options['defaults'] = array( "datatype_field"=>"all");
+            return $options;
+        }
 	}
 
 	class WPCustomFieldsSearch_CustomField extends WPCustomFieldsSearch_DataType {
@@ -122,6 +127,7 @@
             $options = parent::get_editor_options();
             if(!array_key_exists('labels',$options)) $options['labels'] = array();
             $options['labels'][] = "is_wp_term";
+            $options['defaults'] = array( "datatype_field"=>"name");
             return $options;
         }
         function recurse_category($id,$field,$trace=array()){

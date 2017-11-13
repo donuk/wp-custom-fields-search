@@ -34,8 +34,13 @@
 		function get_editor_options(){
 			$options = parent::get_editor_options();
 			$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/inputs/select.html';
-			$options['clear_extra_config_form'] = true;
-			$options['any_label'] = 'Any';
+
+            $options['defaults'] = array( 
+                "any_message"=>__("Any"), 
+                "source"=>"Auto",
+	            "options"=>array(array("value"=>1,"label"=>__("One")),array("value"=>2,"label"=>__("Two")))
+            );
+
 			return $options;
 		}
 
@@ -61,7 +66,11 @@
 		function get_editor_options(){
 			$options = parent::get_editor_options();
 			$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/inputs/checkbox.html';
-			$options['clear_extra_config_form'] = true;
+            $options['defaults'] = array( 
+                "any_message"=>__("Any"), 
+                "source"=>"Auto",
+	            "options"=>array(array("value"=>1,"label"=>__("One")),array("value"=>2,"label"=>__("Two")))
+            );
 			return $options;
 		}
 

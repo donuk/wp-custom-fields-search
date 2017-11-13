@@ -10,6 +10,7 @@ angular.module('WPCFS')
         });
         $scope.min_height = min_height + 100;
     };
+    console.log("CONFIG",$scope.config);
     $scope.datatypes  = array2dict($scope.config.building_blocks.datatypes); 
     $scope.inputs  = array2dict($scope.config.building_blocks.inputs);
     $scope.comparisons  = array2dict($scope.config.building_blocks.comparisons); 
@@ -93,6 +94,20 @@ angular.module('WPCFS')
            );
             return comparisons;
         };
+        [ "input" , "datatype", "comparison" ].forEach(function(type){
+            $scope.$watch("field."+type,function(new_option){
+                try {
+                    var config = $scope[type+"s"][new_option]['options'];
+                } catch(err){ 
+                    return false; 
+                }
+
+                if(config.defaults)
+                    angular.forEach(config.defaults,function(v,k){
+                        $scope.field[k] = angular.copy(v);
+                    });
+            });
+        });
         $scope.$watch("field.datatype",function(){
             $scope.valid_comparisons = $scope.get_valid_comparisons();
         });
@@ -102,10 +117,6 @@ angular.module('WPCFS')
     $scope.include_file = $scope.config_popup.form;
     $scope.field = $scope.config_popup.field;
 }]).controller('SelectController', ['$scope','i18n', function($scope,i18n) {
-    i18n.dict.then(function(__){
-    	if(!$scope.field.any_message) $scope.field.any_message=__("Any");
-	    if(!$scope.field.options) $scope.field.options=[{"value":1,"label":__("One")},{"value":2,"label":__("Two")}];
-    });
 	$scope.remove_option = function(option){
 		var index = $scope.field.options.indexOf(option);
 		$scope.field.options.splice(index,1);
