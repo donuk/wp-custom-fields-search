@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 4.8.1
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
