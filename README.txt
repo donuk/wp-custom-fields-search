@@ -56,6 +56,9 @@ There are a core set of datatypes, comparisons and inputs which can be expanded 
 
 == Changelog ==
 
+= 1.1.6 =
+* Fixed bug causing crashes in older PHP versions
+
 = 1.1.5 =
 * Fixed bug causing corruption of form configs on save
 
