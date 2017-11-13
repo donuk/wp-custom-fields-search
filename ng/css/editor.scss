@@ -107,6 +107,7 @@ $light_yellow: #ffa;
         border: solid black 2px;
         background: $light_blue;
         padding: $popup_bar_height 5px 5px;
+        z-index: 20;
 
         .popup-header {
             margin-top: -$popup_bar_height;
@@ -127,6 +128,9 @@ $light_yellow: #ffa;
         .config_row {
             padding:10px;
             margin: 5px;
+            input,select {
+                max-width: 100%;
+            }
         }
 
         input, select {

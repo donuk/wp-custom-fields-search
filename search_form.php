@@ -39,6 +39,7 @@
             $query = self::get_query_if_submitted($submit_id);
 
             $hidden = apply_filters("wpcfs_hidden_elements",$hidden,array("data"=>$data,"form_id"=>$form_id));
+            $settings =$data['settings'];
             include($template_file);
         }
     }

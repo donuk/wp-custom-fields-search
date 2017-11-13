@@ -45,6 +45,12 @@ angular.module('WPCFS')
         $scope.popped_up_field = null;
         $scope.set_min_height(0,"field");
     }
+
+    $scope.show_settings_popup = function(){ $scope.settings_visible = true; }
+    $scope.close_settings_popup = function(){ 
+        $scope.settings_visible = false; 
+        $scope.set_min_height(0,"field");
+    }
 }]).controller('WPCFSField', ['$scope', 'replace_all', 'i18n', function($scope, replace_all, i18n) {
     $scope.field = $scope.popped_up_field;
 	if(!$scope.field.multi_match) $scope.field.multi_match="All";
@@ -112,6 +118,8 @@ angular.module('WPCFS')
             $scope.valid_comparisons = $scope.get_valid_comparisons();
         });
     });
+
+}]).controller('WPCFSSettings', ['$scope', function($scope) {
 
 }]).controller('ConfigPopup', ['$scope', function($scope) {
     $scope.include_file = $scope.config_popup.form;

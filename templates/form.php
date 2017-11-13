@@ -1,4 +1,11 @@
-<?php echo $args['before_widget']?>
+<?php
+    echo $args['before_widget'];
+    if($settings['show_title']) { 
+        echo $args['before_title'];
+        echo $settings['form_title'];
+        echo $args['after_title'];
+    } 
+?>
 <form method='<?php echo $method?>' action='<?php echo htmlspecialchars($results_page)?>' class='wpcfs-search-form' id='<?php echo htmlspecialchars($form_id)?>'>
 	<?php foreach($components as $config) { ?>
         <div class='wpcfs-input-wrapper wpcfs-input-input'>

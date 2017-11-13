@@ -2,7 +2,20 @@
 <div style='min-height: {{min_height}}px;'>
 <div class='form_header'>
     <input ng-model='settings.form_title' placeholder='Name This Form'/>
-    <a class='edit icon right' ng-click='show_config_form()'><i18n="Config Icon">Config</i18n></a>
+    <a class='edit icon right' ng-click='show_settings_popup()'><i18n="Config Icon">Config</i18n></a>
+
+</div>
+<div class='popup settings-popup' ng-if='settings_visible' ng-controller='WPCFSSettings' wpcfs-height-source='settings'>
+    <div class='popup-header'>
+        <a class='close icon right top' ng-click='close_settings_popup()'><i18n>Close</i18n></a>
+    </div>
+    <div class='popup-content'>
+        <div ng-repeat='page in config.settings_pages'>
+            <h1>{{page.title}}</h1>
+            <div ng-include='page.template'>
+            </div>
+        </div>
+    </div>
 </div>
 <ul class='form_fields' ui-sortable ng-model='form_fields'>
 	<li ng-repeat='field in form_fields' class="form_field">
@@ -21,7 +34,7 @@
 
 <div class='popup' ng-if='popped_up_field' ng-controller='WPCFSField' wpcfs-height-source='field'>
     <div class='popup-header'>
-        <a class='close icon right top' ng_click='close_edit_form(field)'><i18n>Close</i18n></a>
+        <a class='close icon right top' ng-click='close_edit_form(field)'><i18n>Close</i18n></a>
     </div>
     <div class='popup-content'>
 
@@ -60,7 +73,7 @@
 
         <div class='popup' ng-if='config_popup' ng-controller='ConfigPopup' wpcfs-height-source='sub_config'>
             <div class='popup-header'>
-                <a class='close icon right top' ng_click='close_config_popup(form,field)'><i18n>Close</i18n></a>
+                <a class='close icon right top' ng-click='close_config_popup(form,field)'><i18n>Close</i18n></a>
             </div>
             <div class='popup-content'>
                 <div ng-include='include_file'></div>
