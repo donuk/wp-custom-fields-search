@@ -1,8 +1,8 @@
 $icon_padding: 8px;
 $form_field_height: 32px;
 $icon_width: 32px;
-$light_blue: #6bf;
-$lighter_blue: #9cf;
+$light_blue: #c000c0;
+$lighter_blue: #f7f;
 $text_color: #444;
 $popup_bar_height: 35px;
 $light_yellow: #ffa;
@@ -186,13 +186,20 @@ $light_yellow: #ffa;
             margin: 5px;
             padding: 5px;
         }
+
         ul {
             margin-left: 20px;
         }
+
         li {
             height: $icon_width + $icon_padding;
             line-height: $icon_width + $icon_padding;
             vertical-align: middle;
+        }
+
+        a   {
+            text-decoration: none;
+            color: black;
         }
     }
 
