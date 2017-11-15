@@ -1,4 +1,6 @@
 <?php
+	require_once(dirname(__FILE__).'/functions.php');
+
 	class WPCustomFieldsSearch_Input {
 		var $template = "text";
         var $show_in_form = true;
@@ -96,7 +98,7 @@
 		}
 
 		function get_where($config,$value,$field_alias){
-			return $field_alias."='".mysql_escape_string($value)."'";
+			return $field_alias."='".wpcfs_escape_string($value)."'";
 		}
 
         function describe($label,$value){
