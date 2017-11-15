@@ -56,6 +56,9 @@ There are a core set of datatypes, comparisons and inputs which can be expanded 
 
 == Changelog ==
 
+= 1.1.7 =
+* Deals with Wordpress' magic quotes
+
 = 1.1.6 =
 * Fixed bug causing crashes in older PHP versions
 

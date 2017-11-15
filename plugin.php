@@ -109,8 +109,9 @@ class WPCustomFieldsSearchPlugin {
 		return $join;
 	}
 	function posts_where($where){
+        $request = stripslashes_deep($_REQUEST);
 		foreach($this->get_submitted_inputs() as $input){
-			$submitted = $input['input']->get_submitted_values($input,$_REQUEST);
+			$submitted = $input['input']->get_submitted_values($input,$request);
 			$wheres = array();
             $join = ($input['multi_match'] == "Any") ? "OR" : "AND";
             $submitted_index = 0;
