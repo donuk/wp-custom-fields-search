@@ -7,12 +7,12 @@ class WPCustomFieldsSearch_TextIn extends WPCustomFieldsSearch_Comparison {
     function get_name(){ return __("Contains Text"); }
 
 	function get_where($config,$value,$field_alias){
-		return $field_alias." LIKE '%".mysql_escape_string($value)."%'";
+		return $field_alias." LIKE '%".wpcfs_escape_string($value)."%'";
 	}
 }
 class WPCustomFieldsSearch_OrderedComparison extends WPCustomFieldsSearch_Comparison {
 	function get_ordered_where($config,$value,$field_alias,$comparison){
-		$value = mysql_escape_string($value);
+		$value = wpcfs_escape_string($value);
 		switch($config['numeric']){
 		case 'Numeric':
 			$field_alias="1*$field_alias";

@@ -3,12 +3,12 @@
 Plugin Name: WP Custom Fields Search
 Plugin URI: http://www.webhammer.co.uk/wp-custom-fields-search
 Description: Adds powerful search forms to your wordpress site
-Version: 1.1.6
+Version: 1.1.7
 Author: Don Benjamin
 Author URI: http://www.webhammer.co.uk/
 Text Domain: wp_custom_fields_search
 */
-define('WPCFS_PLUGIN_VERSION',"1.1.6");
+define('WPCFS_PLUGIN_VERSION',"1.1.7");
 /*
  * Copyright 2015 Webhammer UK Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -110,8 +110,9 @@ class WPCustomFieldsSearchPlugin {
 		return $join;
 	}
 	function posts_where($where){
+        $request = stripslashes_deep($_REQUEST);
 		foreach($this->get_submitted_inputs() as $input){
-			$submitted = $input['input']->get_submitted_values($input,$_REQUEST);
+			$submitted = $input['input']->get_submitted_values($input,$request);
 			$wheres = array();
             $join = ($input['multi_match'] == "Any") ? "OR" : "AND";
             $submitted_index = 0;

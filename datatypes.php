@@ -89,7 +89,7 @@
 			$join = parent::add_joins($config,$join,$count);
             for($a = 0 ; $a<$count ; $a++){
     			$alias = $this->get_table_alias($config,$a);
-	    		$join = str_replace("AS $alias ON ","AS $alias ON $alias.meta_key='".mysql_escape_string($config['datatype_field'])."' AND ",$join);
+	    		$join = str_replace("AS $alias ON ","AS $alias ON $alias.meta_key='".wpcfs_escape_string($config['datatype_field'])."' AND ",$join);
             }
             return $join;
 		}

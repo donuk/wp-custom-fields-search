@@ -2,7 +2,7 @@
     class WPCFSSearchForm {
         static function get_query_if_submitted($submit_id){
             if($_GET['wpcfs']==$submit_id){
-                return $_GET;
+                return stripslashes_deep($_GET);
             }
         }
 
