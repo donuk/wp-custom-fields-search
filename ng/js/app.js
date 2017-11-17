@@ -10,7 +10,6 @@ angular.module('WPCFS')
         });
         $scope.min_height = min_height + 100;
     };
-    console.log("CONFIG",$scope.config);
     $scope.datatypes  = array2dict($scope.config.building_blocks.datatypes); 
     $scope.inputs  = array2dict($scope.config.building_blocks.inputs);
     $scope.comparisons  = array2dict($scope.config.building_blocks.comparisons); 
@@ -42,6 +41,9 @@ angular.module('WPCFS')
         $scope.form_fields.splice($scope.form_fields.indexOf(field),1);
     }
     $scope.close_edit_form = function(field){
+        if(!field.label)
+            $scope.remove_field(field);
+
         $scope.popped_up_field = null;
         $scope.set_min_height(0,"field");
     }
