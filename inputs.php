@@ -67,8 +67,12 @@
 
 		function render($config,$query){
 			if($config['source']=='Auto'){
-                $datatype = new $config['datatype']();
-                $config['options'] = $datatype->get_suggested_values($config);
+                try {
+                    $datatype = wpcfs_instantiate_class($config['datatype']);
+                    $config['options'] = $datatype->get_suggested_values($config);
+                } catch(WPCustomFieldsSearchClassException $e){
+                    $config['options'] = array();
+                }
 			}
 			return parent::render($config,$query);
 		}

@@ -24,7 +24,12 @@
             $form_id = $submit_id."/$counter";
             foreach($data['inputs'] as $config){
                 $clsname = $config['input'];
-                $config['class'] = new $clsname();
+                try {
+                    $config['class'] = wpcfs_instantiate_class($clsname);
+                } catch(WPCustomFieldsSearchClassException $e){
+                    error_log("WP Custom Fields Search - search_form.php ".$e->getMessage());
+                    continue;
+                }
                 $config['index'] = ++$index;
                 $config['html_name'] = "f$index";
                 $config['html_id'] = "$form_id/$config[html_name]";
