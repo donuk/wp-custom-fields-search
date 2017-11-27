@@ -7,7 +7,32 @@ $text_color: #444;
 $popup_bar_height: 35px;
 $light_yellow: #ffa;
 
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-portrait-down {
+  @media (max-width: 900px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1800px) { @content; }
+}
+
 .wpcfs {
+    @include for-tablet-portrait-down {
+        font-size: 10px;
+    }
+    @include for-tablet-landscape-up {
+        font-size: auto;
+    }
     color: $text_color;
     position: relative;
 
@@ -19,7 +44,12 @@ $light_yellow: #ffa;
         border: solid black 2px;
         border-radius: 20px;
         background: white;
-        padding: 10px;
+        @include for-tablet-landscape-up {
+            padding: 10px;
+        }
+        @include for-tablet-portrait-down {
+            padding: 5px;
+        }
     }
 
     .icon {
@@ -126,8 +156,6 @@ $light_yellow: #ffa;
         }
 
         .config_row:first-of-type {
-            right: 40px;
-            width: calc( 100% - 80px );
         }
         .config_row {
             padding:10px;
@@ -168,7 +196,13 @@ $light_yellow: #ffa;
 
     .preset-form {
         @extend .bordered_item;
-        padding: 20px 50px ;
+        @include for-tablet-landscape-up {
+            padding: 20px 50px ;
+        }
+        @include for-tablet-portrait-down {
+            padding: 10px;
+            padding-right: 20px;
+        }
     }
     .preset-blurb {
         vertical-align: top;
@@ -183,12 +217,16 @@ $light_yellow: #ffa;
             background: $light_blue;
             border-top: solid black 1px;
             border-bottom: solid black 1px;
-            margin: 5px;
+            @include for-tablet-landscape-up {
+                margin: 5px;
+            }
             padding: 5px;
         }
 
         ul {
-            margin-left: 20px;
+            @include for-tablet-landscape-up {
+                margin-left: 20px;
+            }
         }
 
         li {
@@ -228,7 +266,7 @@ $light_yellow: #ffa;
     .cell {
         display: inline-block;
         input {
-            max-width: 80%;
+            width: 80%;
         }
     }
     .cell-10 { @extend .cell; width: 80%; }
