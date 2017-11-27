@@ -170,6 +170,9 @@ angular.module('WPCFS')
        $scope.edit_preset = function(preset){
             $scope.preset = preset;
        };
+        $scope.is_selected_preset = function(preset){
+            return preset == $scope.preset;
+        };
 
         $scope.save_preset = function(preset){
             preset.state = "Saving";

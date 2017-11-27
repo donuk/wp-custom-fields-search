@@ -194,7 +194,14 @@ $light_yellow: #ffa;
         li {
             height: $icon_width + $icon_padding;
             line-height: $icon_width + $icon_padding;
+
             vertical-align: middle;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        li.selected {
+            background: $lighter_blue;
         }
 
         a   {
@@ -230,4 +237,18 @@ $light_yellow: #ffa;
     .cell-4 { @extend .cell; width: 32%; }
     .cell-2 { @extend .cell; width: 16%; }
     .cell-1 { @extend .cell; width: 8%; }
+
+    .wpcfs-cta { 
+        @extend .bordered_item;
+        background: $lighter_blue;
+        cursor: pointer;
+      }
+    .wpcfs-cta:hover {
+        background: $light_blue;
+    }
+    .wpcfs-cta:active {
+        background: $light_blue;
+        padding: 11px 9px 9px 11px;
+        
+    }
 }
