@@ -80,10 +80,16 @@ class WPCustomFieldsSearchPlugin {
 			if($submitted){
 				require_once(dirname(__FILE__).'/engine.php');
 				$index = 0;
-				foreach($submitted['inputs'] as &$input){
-					$input['datatype'] = new $input['datatype'];
-					$input['input'] = new $input['input'];
-					$input['comparison'] = new $input['comparison'];
+				foreach($submitted['inputs'] as $k=>&$input){
+                    try {
+                        $input['datatype'] = wpcfs_instantiate_class($input['datatype']);
+                        $input['input'] = wpcfs_instantiate_class($input['input']);
+                        $input['comparison'] = wpcfs_instantiate_class($input['comparison']);
+                    } catch(WPCustomFieldsSearchClassException $e){
+                        error_log("WP Custom Fields Search - get_submitted_form() ".$e->getMessage());
+                        unset($inputs[$k]);
+                        continue;
+                    }
 					$input['index'] = ++$index;
 				}
 			}
