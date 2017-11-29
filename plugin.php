@@ -86,7 +86,7 @@ class WPCustomFieldsSearchPlugin {
                         $input['comparison'] = wpcfs_instantiate_class($input['comparison']);
                     } catch(WPCustomFieldsSearchClassException $e){
                         error_log("WP Custom Fields Search - get_submitted_form() ".$e->getMessage());
-                        unset($inputs[$k]);
+                        unset($submitted['inputs'][$k]);
                         continue;
                     }
 					$input['index'] = ++$index;
