@@ -25,11 +25,11 @@
 			if($config['datatype_field']=='all'){
 				$aliases = array();
 				foreach(array('post_title','post_author','post_content') as $field){
-					$aliases[] = $this->get_field_alias($config,$field);
+					$aliases[] = $this->get_field_alias($config,$field,$count);
 				}
 				return $aliases;
 			} else {
-				return parent::get_field_aliases($config);
+				return parent::get_field_aliases($config,$count);
 			}
 		}
 		function get_field_alias($config,$field_name,$count=0){
