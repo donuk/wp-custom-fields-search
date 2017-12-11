@@ -356,6 +356,10 @@ class WPCustomFieldsSearchPlugin {
         if($id=="default") $id=0;
         require_once("search_form.php");
         $config = get_option("wp-custom-fields-search");
+        if(!array_key_exists($id,$config['presets'])){
+            trigger_error(__("No Such Preset")." ".$id);
+            return;
+        }
         $preset = $config['presets'][$id];
         include(dirname(__FILE__).'/templates/preset-display.php');
     }
