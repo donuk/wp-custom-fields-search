@@ -200,9 +200,20 @@ class WPCustomFieldsSearchPlugin {
 			plugin_dir_url(__FILE__).'/js/wp-handlers.js',
 			array('wp-custom-fields-search-editor')
 		);
+		wp_enqueue_script(
+			"tether",
+			plugin_dir_url(__FILE__)."/js/tether.min.js"
+		);
+		wp_enqueue_script(
+			"bootstrap",
+			plugin_dir_url(__FILE__)."/js/bootstrap.min.js",
+            array("tether")
+		);
 
         wp_register_style( 'wpcfs_css', plugins_url("wp-custom-fields-search") . '/ng/css/editor.css', false, '1.0.0' );
+        wp_register_style( 'wpcfs_bootstrap_css', plugins_url("wp-custom-fields-search") . '/ng/css/bootstrap-contained.css', false, '4.0.0' );
         wp_enqueue_style( 'wpcfs_css' );
+        wp_enqueue_style( 'wpcfs_bootstrap_css' );
 	}
 
     function admin_menu(){

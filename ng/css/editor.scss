@@ -25,7 +25,6 @@ $light_yellow: #ffa;
 @mixin for-big-desktop-up {
   @media (min-width: 1800px) { @content; }
 }
-
 .wpcfs {
     @include for-tablet-portrait-down {
         font-size: 10px;
@@ -213,6 +212,7 @@ $light_yellow: #ffa;
 
     .preset-menu {
         font-size: 1.5em;
+        padding:0px;
         h2 {
             background: $light_blue;
             border-top: solid black 1px;
