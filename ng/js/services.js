@@ -57,6 +57,9 @@ angular.module('WPCFS', ['ui.sortable'])
             "comparison": input.comparison,
             "source": input.source,
             "options": input.options,
+            "split_words": input.split_words,
+            "numeric": input.numeric,
+            "inclusive": input.inclusive,
         };
 
         angular.forEach(serialize_input.extra_serializers,function(serializer){
@@ -76,6 +79,7 @@ angular.module('WPCFS', ['ui.sortable'])
 .factory('serialize_form',[ 'serialize_input', '$filter', function(serialize_input,$filter){
     var serialize_form =  function(form){
         var serialized = {
+            "id": form.id,
             "settings": {
                 "form_title": form.settings.form_title,
                 "show_title": form.settings.show_title,

@@ -205,6 +205,8 @@ $light_yellow: #ffa;
 
             .preset-label {
                 margin-top: $icon_width;
+            }
+            .preset-label, .new-preset-button {
                 font-size: 2em;
             }
         }

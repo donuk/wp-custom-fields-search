@@ -16,7 +16,7 @@
         <ul class='preset-catalogue row'>
             <li ng-repeat='preset in presets' class='col-sm-4 col-md-2 preset-catalogue-wrapper'>
                 <div class='preset-catalogue-item'>
-                    <a class='delete icon left' ng-click='remove_preset(preset)'><i18n>Remove</i18n></a>
+                    <a class='delete icon left' ng-click='delete_preset(preset)'><i18n>Remove</i18n></a>
                     <a class='edit icon right' ng-click='edit_preset(preset)'><i18n>Edit</i18n></a>
                     <p class='preset-label'>{{ get_preset_title(preset) }}</p>
                     <div class='preset-blurb'>
@@ -26,7 +26,7 @@
                 </div>
             </li>
             <li ng-click='add_preset()' class='col-sm-4 col-md-2 preset-catalogue-wrapper'>
-                <div class='preset-catalogue-item'><div class='add icon'></div>New Preset</div></li>
+                <div class='preset-catalogue-item'><div class='add icon'></div><span class='new-preset-button'>New Preset</span></div></li>
         </ul>
         <!--
         <h2>Import / Export</h2>

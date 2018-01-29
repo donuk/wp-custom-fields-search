@@ -196,6 +196,7 @@ angular.module('WPCFS')
             },function(){
                 preset.state="Error";
             });
+            $scope.preset.safe = serialize_form(preset);
             $scope.close_preset_popup();
         };
         $scope.serial = function(){ return serialize_form($scope.preset); };
@@ -205,10 +206,10 @@ angular.module('WPCFS')
                 $http({
                     "method":"POST",
                     "url":ajaxurl,
-                    "data": "action="+$scope.config.delete_callback+"&data="+serialize_form(preset),
+                    "data": "action="+$scope.config.delete_callback+"&id="+preset.id+"&nonce="+$scope.config.delete_nonce,
                     "headers": {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).then(function(){
-                    $scope.presets = $scope.presets.splice($scope.presets.indexOf(preset,1));
+                    $scope.presets.splice($scope.presets.indexOf(preset),1);
                 },function(){
                     preset.state="Error";
                 });
@@ -223,7 +224,7 @@ angular.module('WPCFS')
             $scope.preset = null;
         }
 
-        $scope.edit_preset($scope.presets[0]);
+        //$scope.edit_preset($scope.presets[0]);
 
         $scope.export_settings_href = ajaxurl+"?action="+$scope.config.export_callback;
         $scope.warn_no_import = function(){

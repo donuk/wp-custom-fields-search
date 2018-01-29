@@ -36,6 +36,7 @@ class WPCustomFieldsSearchPlugin {
         add_action('admin_init', array($this,'admin_init'));
 
         add_action('wp_ajax_wpcfs_save_preset',array($this,'save_preset'));
+        add_action('wp_ajax_wpcfs_delete_preset',array($this,'delete_preset'));
         add_action('wp_ajax_wpcfs_export_settings',array($this,'export_settings'));
 
         add_action('wp_ajax_wpcfs_ng_load_translations',array($this,'ng_load_translations'));
@@ -275,6 +276,19 @@ class WPCustomFieldsSearchPlugin {
             echo "Error {$e->getMessage()}";
             throw $e;
         }
+    }
+
+    function delete_preset($data){
+        if(!(check_ajax_referer("wpcfs_delete_preset","nonce",false) && current_user_can('manage_options'))) {
+            header("HTTP/1.1 403 Forbidden");
+            throw new Exception("403 Forbidden");
+        }
+
+        $id = $_POST['id'];
+        $config = get_option("wp-custom-fields-search");
+        unset($config['presets'][$id]);
+        update_option("wp-custom-fields-search",$config);
+        echo "OK";
     }
 
     function parse_query($wpquery){
