@@ -25,7 +25,7 @@ angular.module('WPCFS', ['ui.sortable'])
     };
     i18n.dict = translations.then(function(response){
         return function(k){
-            return response.data[k];
+            return response.data[k] || k;
         };
     });
     return i18n;
@@ -47,6 +47,57 @@ angular.module('WPCFS', ['ui.sortable'])
         return string;
     };
 })
+.factory('serialize_input', function(){
+    var serialize_input =  function(input){
+        var serialized = {
+            "label": input.label,
+            "input": input.input,
+            "datatype": input.datatype,
+            "datatype_field": input.datatype_field,
+            "comparison": input.comparison,
+            "source": input.source,
+            "options": input.options,
+        };
+
+        angular.forEach(serialize_input.extra_serializers,function(serializer){
+            serialized = serializer(input, serialized);
+        });
+
+        return serialized;
+    };
+
+    serialize_input.extra_serializers = [];
+    serialize_input.add_serializer = function(extra){
+        serialize_input.extra_serializers.append(extra);
+    }
+
+    return serialize_input;
+})
+.factory('serialize_form',[ 'serialize_input', '$filter', function(serialize_input,$filter){
+    var serialize_form =  function(form){
+        var serialized = {
+            "settings": {
+                "form_title": form.settings.form_title,
+                "show_title": form.settings.show_title,
+            },
+            "action": form.action,
+            "inputs": form.inputs.map(serialize_input),
+        };
+
+        angular.forEach(serialize_form.extra_serializers,function(serializer){
+            serialized = serializer(input, serialized);
+        });
+
+        return $filter('json')(serialized);
+    };
+
+    serialize_form.extra_serializers = [];
+    serialize_form.add_serializer = function(extra){
+        serialize_form.extra_serializers.append(extra);
+    };
+
+    return serialize_form;
+}])
 .directive("wpcfsHeightSource", function(){
     return {
         "restrict": "A",
@@ -67,4 +118,5 @@ angular.module('WPCFS', ['ui.sortable'])
             });
         }
     }
-}]);
+}])
+;

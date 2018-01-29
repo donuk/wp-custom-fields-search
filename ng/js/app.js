@@ -140,7 +140,7 @@ angular.module('WPCFS')
 	$scope.add_option = function(){
 		$scope.field.options.push({});
 	};
-}]).controller('PresetsController', [ '$scope', '$filter', '$http', 'i18n', function ($scope,$filter,$http,i18n) {
+}]).controller('PresetsController', [ '$scope', '$filter', '$http', 'i18n', 'serialize_form', function ($scope,$filter,$http,i18n, serialize_form) {
    $scope.form_config = [];
    angular.forEach($scope.config.form_config,function(preset){
         $scope.form_config.push(preset);
@@ -169,9 +169,15 @@ angular.module('WPCFS')
 
        $scope.edit_preset = function(preset){
             $scope.preset = preset;
+            $scope.preset.safe = serialize_form(preset);
        };
         $scope.is_selected_preset = function(preset){
             return preset == $scope.preset;
+        };
+        $scope.is_preset_modified = function(preset){
+            var serialized = serialize_form(preset);
+            console.log("MODIFIED?",serialized,$scope.preset.safe);
+            return (serialized!=$scope.preset.safe);
         };
 
         $scope.save_preset = function(preset){
@@ -182,7 +188,7 @@ angular.module('WPCFS')
             $http({
                 "method":"POST",
                 "url":ajaxurl,
-                "data": "action="+data.action+"&data="+$filter('json')(data)+"&nonce="+$scope.config.save_nonce,
+                "data": "action="+data.action+"&data="+serialize_form(data)+"&nonce="+$scope.config.save_nonce,
                 "headers": {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function(){
                 preset.state="Saved";
@@ -190,13 +196,34 @@ angular.module('WPCFS')
             },function(){
                 preset.state="Error";
             });
+            $scope.close_preset_popup();
+        };
+        $scope.serial = function(){ return serialize_form($scope.preset); };
+
+        $scope.delete_preset = function(preset) {
+            if(confirm(__("Are you sure you want to delete this preset '%s'?".replace('%s',preset.name)))){
+                $http({
+                    "method":"POST",
+                    "url":ajaxurl,
+                    "data": "action="+$scope.config.delete_callback+"&data="+serialize_form(preset),
+                    "headers": {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).then(function(){
+                    $scope.presets = $scope.presets.splice($scope.presets.indexOf(preset,1));
+                },function(){
+                    preset.state="Error";
+                });
+            }
         };
 
-        if($scope.presets.length==0){
-            $scope.add_preset();
-        } else if(!$scope.preset){
-            $scope.preset = $scope.presets[0];
+        $scope.close_preset_popup = function(){
+            if($scope.is_preset_modified($scope.preset) && !confirm(__(
+                "You have unsaved changes, are you sure you wish to close this preset"
+            ))) return;
+
+            $scope.preset = null;
         }
+
+        $scope.edit_preset($scope.presets[0]);
 
         $scope.export_settings_href = ajaxurl+"?action="+$scope.config.export_callback;
         $scope.warn_no_import = function(){
@@ -210,6 +237,7 @@ angular.module('WPCFS')
         $scope.config = {
             "form_config": $scope.preset,
             "building_blocks": $scope.config.building_blocks,
+            "settings_pages": $scope.config.settings_pages,
         };
     };
     $scope.$watch("preset",update_child_config);

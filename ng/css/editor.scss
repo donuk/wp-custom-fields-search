@@ -1,9 +1,9 @@
 $icon_padding: 8px;
 $form_field_height: 32px;
 $icon_width: 32px;
-$light_blue: #c000c0;
-$lighter_blue: #f7f;
-$text_color: #444;
+$light_blue: #557ED5;
+$lighter_blue: #868FA3;
+$text_color: #2E4372;
 $popup_bar_height: 35px;
 $light_yellow: #ffa;
 
@@ -53,10 +53,11 @@ $light_yellow: #ffa;
 
     .icon {
         display: inline-block;
-        width: 32px;
+        width: 0px;
         height: 32px;
         overflow:hidden;
         font-size: 0px;
+        padding-left:32px;
         background-repeat: no-repeat;
     }
 
@@ -87,7 +88,7 @@ $light_yellow: #ffa;
         @extend .bordered_item;
         display: block;
         position: relative;
-        width: 100%;
+        width: calc( 100% - 30px );
         min-height: $form_field_height;
         padding-top: 7px;
         background: $light_blue;
@@ -116,6 +117,7 @@ $light_yellow: #ffa;
         position: relative;
         min-height: $form_field_height;
         width: 100%;
+        padding: 10px 0px;
 
         input {
             display: block;
@@ -125,7 +127,7 @@ $light_yellow: #ffa;
             right: $icon_width + $icon_padding +3px;
             border-radius: 5px;
             top: 3px;
-            bottom: 3px;
+            bottom: 8px;
             font-size: 1.5em;
         }
     }
@@ -193,60 +195,25 @@ $light_yellow: #ffa;
         }
     }
 
-    .preset-form {
-        @extend .bordered_item;
-        @include for-tablet-landscape-up {
-            padding: 20px 50px ;
-        }
-        @include for-tablet-portrait-down {
+    .wpcfs-presets {
+        .preset-catalogue-item {
+            border:solid gray 2px;
+            border-radius:10px;
             padding: 10px;
-            padding-right: 20px;
-        }
-    }
-    .preset-blurb {
-        vertical-align: top;
-        p {
-            padding: 30px;
-        }
-    }
+            margin: 5px;
+            position: relative;
 
-    .preset-menu {
-        font-size: 1.5em;
-        padding:0px;
-        h2 {
-            background: $light_blue;
-            border-top: solid black 1px;
-            border-bottom: solid black 1px;
-            @include for-tablet-landscape-up {
-                margin: 5px;
-            }
-            padding: 5px;
-        }
-
-        ul {
-            @include for-tablet-landscape-up {
-                margin-left: 20px;
+            .preset-label {
+                margin-top: $icon_width;
+                font-size: 2em;
             }
         }
 
-        li {
-            height: $icon_width + $icon_padding;
-            line-height: $icon_width + $icon_padding;
-
-            vertical-align: middle;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        li.selected {
-            background: $lighter_blue;
-        }
-
-        a   {
-            text-decoration: none;
-            color: black;
+        .form_header input {
+            width: calc( 100% - 150px );
         }
     }
+    
 
     .wpcfs-floating-prompt {
         position: relative;
