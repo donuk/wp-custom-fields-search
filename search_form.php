@@ -1,7 +1,7 @@
 <?php
     class WPCFSSearchForm {
         static function get_query_if_submitted($submit_id){
-            if($_GET['wpcfs']==$submit_id){
+            if(array_key_exists('wpcfs',$_GET) && $_GET['wpcfs']==$submit_id){
                 return stripslashes_deep($_GET);
             }
         }

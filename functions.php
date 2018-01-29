@@ -12,7 +12,7 @@
 
     function wpcfs_escape_string($string){
         global $wpdb;
-        if(function_exists('mysqli_escape_string')) return mysqli_escape_string($wpdb->dbh,$string);
+        if(function_exists('mysqli_escape_string') && !is_resource($wpdb->dbh)) return mysqli_escape_string($wpdb->dbh,$string);
         elseif(function_exists('mysql_real_escape_string')) return mysql_real_escape_string($string);
         elseif(function_exists('mysql_escape_string')) return mysql_escape_string($string);
         elseif(function_exists('addslashes')) return addslashes($string);

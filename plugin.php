@@ -3,12 +3,12 @@
 Plugin Name: WP Custom Fields Search
 Plugin URI: http://www.webhammer.co.uk/wp-custom-fields-search
 Description: Adds powerful search forms to your wordpress site
-Version: 1.1.7
+Version: 1.1.11
 Author: Don Benjamin
 Author URI: http://www.webhammer.co.uk/
 Text Domain: wp_custom_fields_search
 */
-define('WPCFS_PLUGIN_VERSION',"1.1.7");
+define('WPCFS_PLUGIN_VERSION',"1.1.11");
 /*
  * Copyright 2015 Webhammer UK Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -87,7 +87,7 @@ class WPCustomFieldsSearchPlugin {
                         $input['comparison'] = wpcfs_instantiate_class($input['comparison']);
                     } catch(WPCustomFieldsSearchClassException $e){
                         error_log("WP Custom Fields Search - get_submitted_form() ".$e->getMessage());
-                        unset($inputs[$k]);
+                        unset($submitted['inputs'][$k]);
                         continue;
                     }
 					$input['index'] = ++$index;
@@ -369,6 +369,10 @@ class WPCustomFieldsSearchPlugin {
         if($id=="default") $id=0;
         require_once("search_form.php");
         $config = get_option("wp-custom-fields-search");
+        if(!array_key_exists($id,$config['presets'])){
+            trigger_error(__("No Such Preset")." ".$id);
+            return;
+        }
         $preset = $config['presets'][$id];
         include(dirname(__FILE__).'/templates/preset-display.php');
     }
