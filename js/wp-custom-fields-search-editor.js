@@ -6,12 +6,30 @@ var array2dict = function(arr,key_fun){
     });
     return output;
 };
+
+var wpcfs_assert_supported_browser = function(){
+    if(navigator.appName.indexOf("Internet Explorer")!=-1){
+        
+        var match = navigator.appVersion.match(/MSIE ([0-9]+)($|[^0-9])/);
+        if(match){
+            var version = parseInt(match[1]);
+            if(version<11){
+                throw "Old IE";
+            }
+        }
+    }
+    return true;
+};
+
 (function($){
 	var handler_list = {
 		"input":{},
 		"comparison":{},
 		"datatype":{},
 	};
+
+    
+
 	$.widget("wpcfs.wp_custom_fields_search_editor",{
 		"options":{
             "mode": "widget",

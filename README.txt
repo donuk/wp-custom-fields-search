@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 4.8.1
-Stable tag: 1.1.11
+Stable tag: 1.1.12
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -55,6 +55,9 @@ There are three main sections to the field edit form.  Data-type selection which
 There are a core set of datatypes, comparisons and inputs which can be expanded on with extension plugins.
 
 == Changelog ==
+
+= 1.1.12 =
+* Added a warning that older version of IE (pre 11) are not supported
 
 = 1.1.11 =
 * Fixed a few warnings being shown

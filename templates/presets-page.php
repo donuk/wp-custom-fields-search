@@ -1,3 +1,4 @@
+<?php include(dirname(__FILE__).'/unsupported-message.php') ?>
 <h1>Presets Page</h1>
 <div id='wpcfs-presets-page'>
 </div>
