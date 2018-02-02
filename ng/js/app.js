@@ -9,26 +9,37 @@ angular.module('WPCFS', ['ui.sortable'])
 
         var d2 = $q.defer();
         d2.resolve(__);
-        i18n.dict = d2.promise;
+        i18n.dict = function() { return d2.promise };
         return i18n;
     }
 
-    var translations = $http.get(ajaxurl+"?action=wpcfs_ng_load_translations");
+    var translations;
+    var get_translations = function(){
+        if(!translations) translations = $http.get(ajaxurl+"?action=wpcfs_ng_load_translations");
+        return translations;
+    };
 
-    var i18n = function(phrase){
-        return translations.then(function(response){
+    var service = function(phrase){
+        return service.i18n(phrase);
+    }
+
+    service.i18n = function(phrase){
+        return get_translations().then(function(response){
             if(response.data[phrase])
                 return response.data[phrase];
             else
                 return phrase;
         });
     };
-    i18n.dict = translations.then(function(response){
-        return function(k){
-            return response.data[k];
-        };
-    });
-    return i18n;
+    service.dict = function(){
+        return get_translations().then(function(response){
+            return function(k){
+                return response.data[k];
+            };
+        });
+    };
+
+    return service;
 }])
 .directive('i18n',[ 'i18n', function(i18n){
    return {
@@ -41,7 +52,7 @@ angular.module('WPCFS', ['ui.sortable'])
 }])
 .factory('replace_all', function(){
     return function(string,replacements){
-        angular.forEach(replacements,function(k,v){
+        angular.forEach(replacements,function(v,k){
             string = string.replace(k,v);
         });
         return string;
@@ -86,7 +97,7 @@ angular.module('WPCFS', ['ui.sortable'])
 		return result;
 	};
 
-    i18n.dict.then(function(__){
+    i18n.dict().then(function(__){
     	$scope.add_field = function(){
 	    	$scope.form_fields.push({"label": __("Untitled Field"), "expand":true});
     	};
@@ -102,7 +113,7 @@ angular.module('WPCFS', ['ui.sortable'])
 
 }]).controller('WPCFSField', ['$scope', 'replace_all', 'i18n', function($scope, replace_all, i18n) {
 	if(!$scope.field.multi_match) $scope.field.multi_match="All";
-    i18n.dict.then(function(__){
+    i18n.dict().then(function(__){
         $scope.$watch("field.datatype",function(){
             var datatype_options = $scope.datatypes[$scope.field.datatype];
             $scope.fields = datatype_options ? datatype_options.options.all_fields : [];
@@ -146,7 +157,7 @@ angular.module('WPCFS', ['ui.sortable'])
     });
 
 }]).controller('SelectController', ['$scope','i18n', function($scope,i18n) {
-    i18n.dict.then(function(__){
+    i18n.dict().then(function(__){
     	if(!$scope.field.any_message) $scope.field.any_message=__("Any");
 	    if(!$scope.field.options) $scope.field.options=[{"value":1,"label":__("One")},{"value":2,"label":__("Two")}];
     });
@@ -165,7 +176,7 @@ angular.module('WPCFS', ['ui.sortable'])
    $scope.presets = $scope.form_config;
     $scope.preset = null;
 
-    i18n.dict.then(function(__){
+    i18n.dict().then(function(__){
        $scope.add_preset = function(){
             var preset = {
                 "name": __("Untitled Preset"),
