@@ -1,15 +1,15 @@
-# Copyright (C) 2017 WP Custom Fields Search
+# Copyright (C) 2018 WP Custom Fields Search
 # This file is distributed under the same license as the WP Custom Fields Search package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Custom Fields Search 1.1.0\n"
+"Project-Id-Version: WP Custom Fields Search 1.1.12\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-custom-fields-"
 "search\n"
-"POT-Creation-Date: 2017-10-23 14:57:39+00:00\n"
+"POT-Creation-Date: 2018-02-02 15:58:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: datatypes.php:13 ng/translations.php:22
+#: datatypes.php:13 ng/translations.php:25
 msgid "All"
 msgstr ""
 
@@ -109,185 +109,205 @@ msgstr ""
 msgid "Checkboxes"
 msgstr ""
 
-#: inputs.php:89
+#: inputs.php:93
 msgid "Hidden Constant"
 msgstr ""
 
 #: ng/translations.php:3
-msgid "Untitled Field"
+msgid "Auto"
 msgstr ""
 
 #: ng/translations.php:4
-msgid "Cannot restrict by type {type} in {comparison}"
+msgid "Manual"
 msgstr ""
 
 #: ng/translations.php:5
-msgid "Any"
+msgid "ALlow Blank"
 msgstr ""
 
 #: ng/translations.php:6
-msgid "One"
+msgid "Untitled Field"
 msgstr ""
 
 #: ng/translations.php:7
-msgid "Two"
+msgid "Cannot restrict by type {type} in {comparison}"
 msgstr ""
 
 #: ng/translations.php:8
-msgid "Untitled Preset"
+msgid "Any"
 msgstr ""
 
 #: ng/translations.php:9
+msgid "One"
+msgstr ""
+
+#: ng/translations.php:10
+msgid "Two"
+msgstr ""
+
+#: ng/translations.php:11
+msgid "Untitled Preset"
+msgstr ""
+
+#: ng/translations.php:12
 msgid ""
 "There is currently no import functionality, the settings export is for debug "
 "use only"
 msgstr ""
 
-#: ng/translations.php:10
+#: ng/translations.php:13
 msgid "Alphabetical"
 msgstr ""
 
-#: ng/translations.php:11
+#: ng/translations.php:14
 msgid "Numeric"
 msgstr ""
 
-#: ng/translations.php:12
+#: ng/translations.php:15
 msgid "Exclusive"
 msgstr ""
 
-#: ng/translations.php:13
+#: ng/translations.php:16
 msgid "Inclusive"
 msgstr ""
 
-#: ng/translations.php:14
+#: ng/translations.php:17
 msgid "Edit"
 msgstr ""
 
-#: ng/translations.php:15
+#: ng/translations.php:18
 msgid "Remove"
 msgstr ""
 
-#: ng/translations.php:16
+#: ng/translations.php:19
 msgid "Select Datatype"
 msgstr ""
 
-#: ng/translations.php:17
+#: ng/translations.php:20
 msgid "Select Search Comparison"
 msgstr ""
 
-#: ng/translations.php:18
+#: ng/translations.php:21
 msgid "Select Input Method"
 msgstr ""
 
-#: ng/translations.php:19
+#: ng/translations.php:22
 msgid "Add"
 msgstr ""
 
-#: ng/translations.php:20
+#: ng/translations.php:23
 msgid "New Field"
 msgstr ""
 
-#: ng/translations.php:21
+#: ng/translations.php:24
 msgid "Matches If"
 msgstr ""
 
-#: ng/translations.php:23
+#: ng/translations.php:26
 msgid "Present"
 msgstr ""
 
-#: ng/translations.php:24
+#: ng/translations.php:27
 msgid "Data Source:"
 msgstr ""
 
-#: ng/translations.php:25
-msgid "Auto"
-msgstr ""
-
-#: ng/translations.php:26
-msgid "Manual"
-msgstr ""
-
-#: ng/translations.php:27
+#: ng/translations.php:28
 msgid "Value"
 msgstr ""
 
-#: ng/translations.php:28
+#: ng/translations.php:29
 msgid "Label"
 msgstr ""
 
-#: ng/translations.php:29
+#: ng/translations.php:30
 msgid "Data Source"
 msgstr ""
 
-#: ng/translations.php:30
+#: ng/translations.php:31
 msgid "Blank Prompt (e.g. Any)"
 msgstr ""
 
-#: ng/translations.php:31
+#: ng/translations.php:32
 msgid "Split Words?"
 msgstr ""
 
-#: ng/translations.php:32
+#: ng/translations.php:33
 msgid "No"
 msgstr ""
 
-#: ng/translations.php:33
+#: ng/translations.php:34
 msgid "Yes"
 msgstr ""
 
-#: ng/translations.php:34
+#: ng/translations.php:35
 msgid "Please Select A Preset"
 msgstr ""
 
-#: ng/translations.php:35
+#: ng/translations.php:36
 msgid "Preset Title"
 msgstr ""
 
-#: ng/translations.php:36
+#: ng/translations.php:37
 msgid "Instantiate this with the shortcode"
 msgstr ""
 
-#: ng/translations.php:37
+#: ng/translations.php:38
 msgid "Or with the PHP code"
 msgstr ""
 
-#: ng/translations.php:38
+#: ng/translations.php:39
 msgid "Preset:"
 msgstr ""
 
-#: ng/translations.php:39
+#: ng/translations.php:40
 msgid "Export Settings"
 msgstr ""
 
-#: ng/translations.php:40
-msgid "ALlow Blank"
-msgstr ""
-
-#: plugin.php:145 plugin.php:153
+#: plugin.php:154 plugin.php:162
 msgid " &amp; "
 msgstr ""
 
-#: plugin.php:153
+#: plugin.php:162
 msgid " or "
+msgstr ""
+
+#: plugin.php:360
+msgid "No Such Preset"
 msgstr ""
 
 #: templates/form.php:15
 msgid "Search"
 msgstr ""
 
-#: widget.php:19
+#: templates/unsupported-message.php:6
+msgid "Unsupported Browser"
+msgstr ""
+
+#: templates/unsupported-message.php:7
+msgid ""
+"This browser is no longer supported by the WP Custom Fields Search admin "
+"area, please upgrade to a more modern browser, such as <a href='https://www."
+"mozilla.org/firefox/'>Firefox</a>, <a href='https://ww.google.com/"
+"chrome'>Chrome</a> or a version of Internet Explorer newer than 10."
+msgstr ""
+
+#: templates/unsupported-message.php:8
+msgid "Some functionality may work, but it is recommended that you upgrade."
+msgstr ""
+
+#: widget.php:22
 msgid "WPCFS Custom Search Form"
 msgstr ""
 
-#: widget.php:21
+#: widget.php:24
 msgid "Customisable search form (from WP Custom Fields Search)"
 msgstr ""
 
-#: widget.php:56
+#: widget.php:50
 msgid "New Form"
 msgstr ""
 
-#: widget.php:61
+#: widget.php:55
 msgid "Search Term"
 msgstr ""
 

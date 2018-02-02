@@ -37,7 +37,7 @@
     function get_strings_from_html_file($filename){
         $file = file_get_contents($filename);
         preg_match_all("/<i18n[^>]*>(.*?)<\/i18n>/s",$file,$matches,PREG_SET_ORDER);
-        $strings = [];
+        $strings = array();
         foreach($matches as $match){
             $strings[] = $match[1];
         }
@@ -46,7 +46,7 @@
     function get_strings_from_javascript_file($filename){
         $file = file_get_contents($filename);
         preg_match_all("/__\([\"'](.*?)[\"']\)/s",$file,$matches,PREG_SET_ORDER);
-        $strings = [];
+        $strings = array();
         foreach($matches as $match){
             $strings[] = $match[1];
         }
