@@ -1,4 +1,5 @@
-<h1>Configure WP Custom Fields Search</h1>
+<?php include(dirname(__FILE__).'/unsupported-message.php') ?>
+<h1><?php echo __("Configure WP Custom Fields Search")?></h1>
 <div id='wpcfs-presets-page'>
 </div>
 <script>
