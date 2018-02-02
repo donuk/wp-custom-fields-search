@@ -74,6 +74,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
             if(json_decode($form_config2)) $form_config = $form_config2;
             else $form_config = $default;
         }
+        include(dirname(__FILE__).'/templates/unsupported-message.php');
 		// TODO: Could this be implemented with is_active_sidebar???
 		if($this->number=="__i__"){
 			echo "
