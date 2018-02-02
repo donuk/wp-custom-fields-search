@@ -6,6 +6,8 @@ $lighter_blue: #868FA3;
 $text_color: #2E4372;
 $popup_bar_height: 35px;
 $light_yellow: #ffa;
+$break-small:320px;
+$break-large:1200px;
 
 @mixin for-phone-only {
   @media (max-width: 599px) { @content; }
@@ -42,7 +44,7 @@ $light_yellow: #ffa;
     .bordered_item {
         border: solid black 2px;
         border-radius: 20px;
-        background: white;
+        backGround: white;
         @include for-tablet-landscape-up {
             padding: 10px;
         }
@@ -214,6 +216,18 @@ $light_yellow: #ffa;
         .form_header input {
             width: calc( 100% - 150px );
         }
+
+	.preset-field-list {
+		margin-left: 10px;
+		list-style: initial;
+	}
+
+	.preset-blurb p {
+		font-size: 1em;
+		@media screEn and (min-width: $break-large) {
+			font-size: 1.4em;
+		}
+	}
     }
     
 

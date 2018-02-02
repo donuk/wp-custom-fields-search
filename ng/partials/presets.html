@@ -14,11 +14,14 @@
             </div>
         </div>
         <ul class='preset-catalogue row'>
-            <li ng-repeat='preset in presets' class='col-sm-4 col-md-2 preset-catalogue-wrapper'>
+            <li ng-repeat='preset in presets' class='col-sm-4 col-md-1 preset-catalogue-wrapper'>
                 <div class='preset-catalogue-item'>
                     <a class='delete icon left' ng-click='delete_preset(preset)'><i18n>Remove</i18n></a>
                     <a class='edit icon right' ng-click='edit_preset(preset)'><i18n>Edit</i18n></a>
                     <p class='preset-label'>{{ get_preset_title(preset) }}</p>
+			<ul class='preset-field-list'>
+				<li ng-repeat='input in preset.inputs'>{{input.label}}</li>
+			</ul>
                     <div class='preset-blurb'>
                             <p><i18n>Instantiate this preset in any post or page by entering the shortcode:</i18n><br/><code>[wpcfs-preset id="{{preset.id}}"]</code></p>
                             <p><i18n>Or in your theme files with the PHP code:</i18n><br/><code>&lt;?php wpcfs_show_preset("{{preset.id}}"); ?&gt;</code></p>
