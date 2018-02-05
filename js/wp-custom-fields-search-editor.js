@@ -47,7 +47,7 @@ var wpcfs_assert_supported_browser = function(){
                 this.options.value_element = $("<input type='hidden' name='"+this.options.field_name+"' value=''/>").appendTo(this.element);
 
             }
-			var angular_root = $("<div ng-controller='RootController' ng-include='partials+\"/"+this.options.root_template+"\"'></div>").appendTo(this.element);
+			var angular_root = $("<div ng-controller='RootController' ng-include='partials+\""+this.options.root_template+"\"'></div>").appendTo(this.element);
             
 
 			(function(widget){
