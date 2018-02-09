@@ -125,8 +125,6 @@ This searches on the standard properties associated with a post or page in a sta
 
 There is also an all option which will search on all of the title, content and author fields.
 
-The Post Type is a special case in that if this is not in a search form it will default to displaying only posts of type "Post", if this is specified in the form then this field will be treated like any other.
-
 == Custom Post Field ==
 
 This allows searching on any of the custom fields you have set up for your posts.  This includes all the custom fields you have manually added as well as those added by the wordpress core, and any plugins which use the custom field functionality.
