@@ -188,7 +188,7 @@ class WPCustomFieldsSearchPlugin {
 		);
 		wp_enqueue_script(
 			"wpcfs-angular-services",
-			plugin_dir_url(__FILE__).'/ng/js/services.js',
+			plugin_dir_url(__FILE__).'ng/js/services.js',
 			array('wp-custom-fields-search-editor')
 		);
 		wp_enqueue_script(
@@ -203,11 +203,11 @@ class WPCustomFieldsSearchPlugin {
 		);
 		wp_enqueue_script(
 			"tether",
-			plugin_dir_url(__FILE__)."/js/tether.min.js"
+			plugin_dir_url(__FILE__)."js/tether.min.js"
 		);
 		wp_enqueue_script(
 			"bootstrap",
-			plugin_dir_url(__FILE__)."/js/bootstrap.min.js",
+			plugin_dir_url(__FILE__)."js/bootstrap.min.js",
             array("tether")
 		);
 
