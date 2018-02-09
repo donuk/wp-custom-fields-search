@@ -31,7 +31,8 @@
         global $found;
         foreach($strings as $string){
             if(!array_key_exists($string,$found)) $found[$string] = array();
-            $found[$string][]=$filename;
+            if(!in_array($filename,$found[$string]))
+                $found[$string][]=$filename;
         }
     }
     function get_strings_from_html_file($filename){

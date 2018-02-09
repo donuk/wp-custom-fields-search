@@ -202,7 +202,7 @@ angular.module('WPCFS')
         $scope.serial = function(){ return serialize_form($scope.preset); };
 
         $scope.delete_preset = function(preset) {
-            if(confirm(__("Are you sure you want to delete this preset '%s'?".replace('%s',preset.name)))){
+            if(confirm(__("Are you sure you want to delete this preset '%s'?").replace('%s',preset.name))){
                 $http({
                     "method":"POST",
                     "url":ajaxurl,
