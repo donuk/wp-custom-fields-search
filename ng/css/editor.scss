@@ -1,0 +1,275 @@
+$icon_padding: 8px;
+$form_field_height: 32px;
+$icon_width: 32px;
+$light_blue: #557ED5;
+$lighter_blue: #868FA3;
+$text_color: #2E4372;
+$popup_bar_height: 35px;
+$light_yellow: #ffa;
+$break-small:320px;
+$break-large:1200px;
+
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-portrait-down {
+  @media (max-width: 900px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1800px) { @content; }
+}
+.wpcfs {
+    @include for-tablet-portrait-down {
+        font-size: 10px;
+    }
+    @include for-tablet-landscape-up {
+        font-size: auto;
+    }
+    color: $text_color;
+    position: relative;
+
+            input,select {
+                max-width: 100%;
+            }
+
+    .bordered_item {
+        border: solid black 2px;
+        border-radius: 20px;
+        backGround: white;
+        @include for-tablet-landscape-up {
+            padding: 10px;
+        }
+        @include for-tablet-portrait-down {
+            padding: 5px;
+        }
+    }
+
+    .icon {
+        display: inline-block;
+        width: 0px;
+        height: 32px;
+        overflow:hidden;
+        font-size: 0px;
+        padding-left:32px;
+        background-repeat: no-repeat;
+    }
+
+    .icon.delete, .icon.close {
+        background-image: url(icons/close.png);
+    }
+    .icon.edit {
+        background-image: url(icons/cog.png);
+    }
+    .icon.add {
+        background-image: url(icons/plus.png);
+    }
+
+    .icon.left {
+        position: absolute;
+        left: $icon_padding;
+    }
+    .icon.right {
+        position: absolute;
+        right: $icon_padding;
+    }
+    .icon.top {
+        position: absolute;
+        top: $icon_padding;
+    }
+
+    .form_field {
+        @extend .bordered_item;
+        display: block;
+        position: relative;
+        width: calc( 100% - 30px );
+        min-height: $form_field_height;
+        padding-top: 7px;
+        background: $light_blue;
+
+        .title, .icon-text {
+            display: block;
+            position: absolute;
+            left: $icon_width + $icon_padding +3px;
+            right: $icon_width + $icon_padding +3px;
+            text-overflow: ellipsis;
+            font-size: 1.5em;
+            line-height: 32px;
+            vertical-align: middle;
+        }
+
+    }
+    .form_field.new_field {
+        background: $lighter_blue;
+
+        a {
+            color: $text_color;
+        }
+    }
+    .form_header {
+        display: block;
+        position: relative;
+        min-height: $form_field_height;
+        width: 100%;
+        padding: 10px 0px;
+
+        input {
+            display: block;
+            position: absolute;
+            width: calc( 100% - 90px );
+            left: $icon_width + $icon_padding +3px;
+            right: $icon_width + $icon_padding +3px;
+            border-radius: 5px;
+            top: 3px;
+            bottom: 8px;
+            font-size: 1.5em;
+        }
+    }
+
+    .popup {
+        @extend .bordered_item;
+        width: 95%;
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        background: white;
+        border: solid black 2px;
+        background: $light_blue;
+        padding: $popup_bar_height 5px 5px;
+        z-index: 20;
+
+        .popup-header {
+            margin-top: -$popup_bar_height;
+            .icon.top {
+                top:3px;
+            }
+        }
+          
+        .popup-content {
+            @extend .bordered_item;
+            margin-top: $popup_bar_height;
+        }
+
+        .config_row:first-of-type {
+        }
+        .config_row {
+            padding:10px;
+            margin: 5px;
+        }
+
+        input, select {
+            font-size: 1.5em;
+        }
+    }
+
+    .wpcfs-key-value-table {
+        input {
+            width: calc( 100% - 10px );
+            padding: 5px;
+        }
+    }
+
+    .settings-popup {
+        .wpcfs-settings-accordion-header {
+            padding-left: $icon_width + $icon_padding;
+            background-position: left;
+            background-repeat: no-repeat;
+            height: $icon_width + $icon_padding;
+            line-height: $icon_width + $icon_padding;
+            vertical-align: middle;
+        }
+        .wpcfs-settings-accordion-header.expanded {
+            background-image: url("icons/open-accordion.png");
+        }
+        .wpcfs-settings-accordion-header.collapsed {
+            background-image: url("icons/closed-accordion.png");
+        }
+        .wpcfs-settings-accordion-content {
+            padding-left: 20px;
+        }
+    }
+
+    .wpcfs-presets {
+        .preset-catalogue-item {
+            border:solid gray 2px;
+            border-radius:10px;
+            padding: 10px;
+            margin: 5px;
+            position: relative;
+
+            .preset-label {
+                margin-top: $icon_width;
+            }
+            .preset-label, .new-preset-button {
+                font-size: 2em;
+            }
+        }
+
+        .form_header input {
+            width: calc( 100% - 150px );
+        }
+
+	.preset-field-list {
+		margin-left: 10px;
+		list-style: initial;
+	}
+
+	.preset-blurb p {
+		font-size: 1em;
+		@media screEn and (min-width: $break-large) {
+			font-size: 1.4em;
+		}
+	}
+    }
+    
+
+    .wpcfs-floating-prompt {
+        position: relative;
+    }
+    .wpcfs-floating-prompt>*:first-child {
+        background: $light_yellow;
+        position: absolute;
+        display: block;
+        padding: 5px;
+        top: 5px;
+        right: 20px;
+        width: calc( 100% - 60px );
+        border: dashed black 1px;
+        border-radius: 10px;
+    }
+
+    .cell {
+        display: inline-block;
+        input {
+            width: 80%;
+        }
+    }
+    .cell-10 { @extend .cell; width: 80%; }
+    .cell-6 { @extend .cell; width: 48%; }
+    .cell-5 { @extend .cell; width: 40%; }
+    .cell-4 { @extend .cell; width: 32%; }
+    .cell-2 { @extend .cell; width: 16%; }
+    .cell-1 { @extend .cell; width: 8%; }
+
+    .wpcfs-cta { 
+        @extend .bordered_item;
+        background: $lighter_blue;
+        cursor: pointer;
+      }
+    .wpcfs-cta:hover {
+        background: $light_blue;
+    }
+    .wpcfs-cta:active {
+        background: $light_blue;
+        padding: 11px 9px 9px 11px;
+        
+    }
+}

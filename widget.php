@@ -46,22 +46,8 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 
 	function form($instance){
 
-		$defaults = array(
-			"title" => __("New Form","wp_custom_fields_search"),
-			"data" => json_encode(
-				array("inputs"=>
-					array(
-						array(
-                            "label"=>__("Search Term"),
-							"datatype"=>"WPCustomFieldsSearch_PostField",
-							"datatype_field"=>"all",
-							"input"=>"WPCustomFieldsSearch_TextBoxInput",
-							"comparison"=>"WPCustomFieldsSearch_TextIn",
-						)
-					)
-				)
-			)
-		);
+		$defaults = array();
+
 		$instance=array_merge($defaults,$instance);
 
         $settings_pages = apply_filters("wpcfs_settings_pages",array());

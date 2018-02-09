@@ -1,5 +1,5 @@
 <?php include(dirname(__FILE__).'/unsupported-message.php') ?>
-<h1>Presets Page</h1>
+<h1><?php echo __("Configure WP Custom Fields Search")?></h1>
 <div id='wpcfs-presets-page'>
 </div>
 <script>
@@ -11,7 +11,9 @@
         'settings_pages': <?php echo json_encode(apply_filters('wpcfs_settings_pages',array())) ?>,
 
         'save_callback': "wpcfs_save_preset",
+        'delete_callback': "wpcfs_delete_preset",
         'save_nonce': <?php echo json_encode(wp_create_nonce("wpcfs_save_preset"))?>,
+        'delete_nonce': <?php echo json_encode(wp_create_nonce("wpcfs_delete_preset"))?>,
 
         'export_callback': "wpcfs_export_settings",
         'export_nonce': <?php echo json_encode(wp_create_nonce("wpcfs_export_settings"))?>

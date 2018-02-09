@@ -1,53 +1,15 @@
-angular.module('WPCFS', ['ui.sortable'])
-.factory('i18n',['$q','$http', function($q,$http){
-    if(typeof __ != 'undefined') {
-        var i18n = function(phrase){
-            var d = $q.defer();
-            d.resolve(__(phrase));
-            return d.promise;
-        };
-
-        var d2 = $q.defer();
-        d2.resolve(__);
-        i18n.dict = d2.promise;
-        return i18n;
-    }
-
-    var translations = $http.get(ajaxurl+"?action=wpcfs_ng_load_translations");
-
-    var i18n = function(phrase){
-        return translations.then(function(response){
-            if(response.data[phrase])
-                return response.data[phrase];
-            else
-                return phrase;
-        });
-    };
-    i18n.dict = translations.then(function(response){
-        return function(k){
-            return response.data[k];
-        };
-    });
-    return i18n;
-}])
-.directive('i18n',[ 'i18n', function(i18n){
-   return {
-        "link": function(scope,element,attrs,controller,transcludeFn){
-            i18n(element.html()).then(function(translation){
-                element.replaceWith(translation);
-            });
-        }
-    }
-}])
-.factory('replace_all', function(){
-    return function(string,replacements){
-        angular.forEach(replacements,function(k,v){
-            string = string.replace(k,v);
-        });
-        return string;
-    };
-})
+angular.module('WPCFS')
 .controller('WPCFSForm', ['$scope','i18n',function ($scope,i18n) {
+    $scope.min_height = 0;
+    $scope.heights = {};
+    $scope.set_min_height = function (height,name){
+        $scope.heights[name] = height;
+        var min_height = 0;
+        angular.forEach($scope.heights,function(v,k){
+            if(v>min_height) min_height=v;
+        });
+        $scope.min_height = min_height + 100;
+    };
     $scope.datatypes  = array2dict($scope.config.building_blocks.datatypes); 
     $scope.inputs  = array2dict($scope.config.building_blocks.inputs);
     $scope.comparisons  = array2dict($scope.config.building_blocks.comparisons); 
@@ -60,48 +22,48 @@ angular.module('WPCFS', ['ui.sortable'])
     pull_config();
     $scope.$watch('config.form_config.id',pull_config);
 
-
-
 	$scope.sortableOptions = {
 		"containment": "#field-list"
 	};
 
-    $scope.tab = "fields";
-    $scope.tabs = [ "fields", "settings" ];
-    $scope.set_tab = function(tab){ $scope.tab = tab; };
-
-	var array_values = function(dict){
-		var result = [];
-		for(var i in dict){
-			result.push(dict[i]);
-		};
-		return result;
-	};
-
-	var array_keys = function(dict){
-		var result = [];
-		for(var i in dict){
-			result.push(i);
-		};
-		return result;
-	};
-
     i18n.dict.then(function(__){
     	$scope.add_field = function(){
-	    	$scope.form_fields.push({"label": __("Untitled Field"), "expand":true});
+	    	var new_field = {};
+	    	$scope.form_fields.push(new_field);
+            $scope.edit_field(new_field);
     	};
     });
 
+    $scope.edit_field = function(field){
+        $scope.popped_up_field = field;
+    }
     $scope.remove_field = function(field) {
         $scope.form_fields.splice($scope.form_fields.indexOf(field),1);
     }
+    $scope.close_edit_form = function(field){
+        if(!field.label)
+            $scope.remove_field(field);
 
-    angular.forEach($scope.form_fields,function(field){
-        field.expand = false;
-    });
+        $scope.popped_up_field = null;
+        $scope.set_min_height(0,"field");
+    }
 
+    $scope.show_settings_popup = function(){ $scope.settings_visible = true; }
+    $scope.close_settings_popup = function(){ 
+        $scope.settings_visible = false; 
+        $scope.set_min_height(0,"field");
+    }
 }]).controller('WPCFSField', ['$scope', 'replace_all', 'i18n', function($scope, replace_all, i18n) {
+    $scope.field = $scope.popped_up_field;
 	if(!$scope.field.multi_match) $scope.field.multi_match="All";
+
+    $scope.show_config_form = function(form,field){
+        $scope.config_popup = {"form": form, "field": field};
+    };
+    $scope.close_config_popup = function(){
+        $scope.config_popup = null;
+        $scope.set_min_height(0,"sub_config");
+    };
     i18n.dict.then(function(__){
         $scope.$watch("field.datatype",function(){
             var datatype_options = $scope.datatypes[$scope.field.datatype];
@@ -140,16 +102,37 @@ angular.module('WPCFS', ['ui.sortable'])
            );
             return comparisons;
         };
+        [ "input" , "datatype", "comparison" ].forEach(function(type){
+            $scope.$watch("field."+type,function(new_option){
+                try {
+                    var config = $scope[type+"s"][new_option]['options'];
+                } catch(err){ 
+                    return false; 
+                }
+
+                if(config.defaults)
+                    angular.forEach(config.defaults,function(v,k){
+                        $scope.field[k] = angular.copy(v);
+                    });
+            });
+        });
         $scope.$watch("field.datatype",function(){
             $scope.valid_comparisons = $scope.get_valid_comparisons();
         });
     });
 
+}]).controller('WPCFSSettings', ['$scope', function($scope) {
+    $scope.expand = function(page){
+        $scope.expanded = page;
+    };
+    $scope.is_expanded = function(page){
+        return $scope.expanded == page;
+    };
+    $scope.expanded = $scope.config.settings_pages[0];
+}]).controller('ConfigPopup', ['$scope', function($scope) {
+    $scope.include_file = $scope.config_popup.form;
+    $scope.field = $scope.config_popup.field;
 }]).controller('SelectController', ['$scope','i18n', function($scope,i18n) {
-    i18n.dict.then(function(__){
-    	if(!$scope.field.any_message) $scope.field.any_message=__("Any");
-	    if(!$scope.field.options) $scope.field.options=[{"value":1,"label":__("One")},{"value":2,"label":__("Two")}];
-    });
 	$scope.remove_option = function(option){
 		var index = $scope.field.options.indexOf(option);
 		$scope.field.options.splice(index,1);
@@ -157,7 +140,7 @@ angular.module('WPCFS', ['ui.sortable'])
 	$scope.add_option = function(){
 		$scope.field.options.push({});
 	};
-}]).controller('PresetsController', [ '$scope', '$filter', '$http', 'i18n', function ($scope,$filter,$http,i18n) {
+}]).controller('PresetsController', [ '$scope', '$filter', '$http', 'i18n', 'serialize_form', function ($scope,$filter,$http,i18n, serialize_form) {
    $scope.form_config = [];
    angular.forEach($scope.config.form_config,function(preset){
         $scope.form_config.push(preset);
@@ -166,6 +149,9 @@ angular.module('WPCFS', ['ui.sortable'])
     $scope.preset = null;
 
     i18n.dict.then(function(__){
+       $scope.get_preset_title = function(preset){
+            return preset.settings.form_title || preset.name || __("Untitled Preset");
+       };
        $scope.add_preset = function(){
             var preset = {
                 "name": __("Untitled Preset"),
@@ -183,7 +169,16 @@ angular.module('WPCFS', ['ui.sortable'])
 
        $scope.edit_preset = function(preset){
             $scope.preset = preset;
+            $scope.preset.safe = serialize_form(preset);
        };
+        $scope.is_selected_preset = function(preset){
+            return preset == $scope.preset;
+        };
+        $scope.is_preset_modified = function(preset){
+            var serialized = serialize_form(preset);
+            console.log("MODIFIED?",serialized,$scope.preset.safe);
+            return (serialized!=$scope.preset.safe);
+        };
 
         $scope.save_preset = function(preset){
             preset.state = "Saving";
@@ -193,7 +188,7 @@ angular.module('WPCFS', ['ui.sortable'])
             $http({
                 "method":"POST",
                 "url":ajaxurl,
-                "data": "action="+data.action+"&data="+$filter('json')(data)+"&nonce="+$scope.config.save_nonce,
+                "data": "action="+data.action+"&data="+serialize_form(data)+"&nonce="+$scope.config.save_nonce,
                 "headers": {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function(){
                 preset.state="Saved";
@@ -201,13 +196,35 @@ angular.module('WPCFS', ['ui.sortable'])
             },function(){
                 preset.state="Error";
             });
+            $scope.preset.safe = serialize_form(preset);
+            $scope.close_preset_popup();
+        };
+        $scope.serial = function(){ return serialize_form($scope.preset); };
+
+        $scope.delete_preset = function(preset) {
+            if(confirm(__("Are you sure you want to delete this preset '%s'?".replace('%s',preset.name)))){
+                $http({
+                    "method":"POST",
+                    "url":ajaxurl,
+                    "data": "action="+$scope.config.delete_callback+"&id="+preset.id+"&nonce="+$scope.config.delete_nonce,
+                    "headers": {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).then(function(){
+                    $scope.presets.splice($scope.presets.indexOf(preset),1);
+                },function(){
+                    preset.state="Error";
+                });
+            }
         };
 
-        if($scope.presets.length==0){
-            $scope.add_preset();
-        } else if(!$scope.preset){
-            $scope.preset = $scope.presets[0];
+        $scope.close_preset_popup = function(){
+            if($scope.is_preset_modified($scope.preset) && !confirm(__(
+                "You have unsaved changes, are you sure you wish to close this preset"
+            ))) return;
+
+            $scope.preset = null;
         }
+
+        //$scope.edit_preset($scope.presets[0]);
 
         $scope.export_settings_href = ajaxurl+"?action="+$scope.config.export_callback;
         $scope.warn_no_import = function(){
@@ -221,13 +238,11 @@ angular.module('WPCFS', ['ui.sortable'])
         $scope.config = {
             "form_config": $scope.preset,
             "building_blocks": $scope.config.building_blocks,
+            "settings_pages": $scope.config.settings_pages,
         };
     };
     $scope.$watch("preset",update_child_config);
 
     update_child_config();
 }]).controller('PresetModifiedController', [ '$scope', function($scope){
-    $scope.$watch("preset",function(){
-        //$scope.preset.modified=true;
-    });
 }]);
