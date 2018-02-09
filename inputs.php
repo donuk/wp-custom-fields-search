@@ -16,7 +16,7 @@
                 return array($value);
             }
 		}
-        function get_name(){ return __("Text Input"); }
+        function get_name(){ return __("Text Input","wp-custom-fields-search"); }
 	}
 
 
@@ -29,16 +29,16 @@
     }
 
 	class WPCustomFieldsSearch_SelectInput extends WPCustomFieldsSearch_Input {
-        function get_name(){ return __("Drop Down"); }
+        function get_name(){ return __("Drop Down","wp-custom-fields-search"); }
 		var $template = "select";
 		function get_editor_options(){
 			$options = parent::get_editor_options();
 			$options['extra_config_form'] = plugin_dir_url(__FILE__).'ng/partials/inputs/select.html';
 
             $options['defaults'] = array( 
-                "any_message"=>__("Any"), 
+                "any_message"=>__("Any","wp-custom-fields-search"), 
                 "source"=>"Auto",
-	            "options"=>array(array("value"=>1,"label"=>__("One")),array("value"=>2,"label"=>__("Two")))
+	            "options"=>array(array("value"=>1,"label"=>__("One","wp-custom-fields-search")),array("value"=>2,"label"=>__("Two","wp-custom-fields-search")))
             );
 
 			return $options;
@@ -57,19 +57,19 @@
 		}
 	}
 	class WPCustomFieldsSearch_RadioButtons extends WPCustomFieldsSearch_SelectInput {
-        function get_name(){ return __("Radio Buttons"); }
+        function get_name(){ return __("Radio Buttons","wp-custom-fields-search"); }
 		var $template = "radio-buttons";
     }
 	class WPCustomFieldsSearch_CheckboxInput extends WPCustomFieldsSearch_Input {
-        function get_name(){ return __("Checkboxes"); }
+        function get_name(){ return __("Checkboxes","wp-custom-fields-search"); }
 		var $template = "checkbox";
 		function get_editor_options(){
 			$options = parent::get_editor_options();
 			$options['extra_config_form'] = plugin_dir_url(__FILE__).'ng/partials/inputs/checkbox.html';
             $options['defaults'] = array( 
-                "any_message"=>__("Any"), 
+                "any_message"=>__("Any","wp-custom-fields-search"), 
                 "source"=>"Auto",
-	            "options"=>array(array("value"=>1,"label"=>__("One")),array("value"=>2,"label"=>__("Two")))
+	            "options"=>array(array("value"=>1,"label"=>__("One","wp-custom-fields-search")),array("value"=>2,"label"=>__("Two","wp-custom-fields-search")))
             );
 			return $options;
 		}
@@ -99,7 +99,7 @@
             return $options['constant_value'];
 		}
 
-        function get_name(){ return __("Hidden Constant"); }
+        function get_name(){ return __("Hidden Constant","wp-custom-fields-search"); }
 		function is_submitted($options,$data){
             return true;
         }

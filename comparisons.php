@@ -1,10 +1,10 @@
 <?php 
 
 class WPCustomFieldsSearch_Equals extends WPCustomFieldsSearch_Comparison {
-    function get_name(){ return __("Exact Match"); }
+    function get_name(){ return __("Exact Match","wp-custom-fields-search"); }
 }
 class WPCustomFieldsSearch_TextIn extends WPCustomFieldsSearch_Comparison {
-    function get_name(){ return __("Contains Text"); }
+    function get_name(){ return __("Contains Text","wp-custom-fields-search"); }
 
 	function get_where($config,$value,$field_alias){
 		return $field_alias." LIKE '%".wpcfs_escape_string($value)."%'";
@@ -31,14 +31,14 @@ class WPCustomFieldsSearch_OrderedComparison extends WPCustomFieldsSearch_Compar
 	}
 }
 class WPCustomFieldsSearch_GreaterThan extends WPCustomFieldsSearch_OrderedComparison {
-    function get_name(){ return __("Greater Than"); }
+    function get_name(){ return __("Greater Than","wp-custom-fields-search"); }
 	function get_where($config,$value,$field_alias){
         $comparison = $config['inclusive'] ? ">=" : ">";
         return $this->get_ordered_where($config,$value,$field_alias,$comparison);
 	}
 }
 class WPCustomFieldsSearch_LessThan extends WPCustomFieldsSearch_OrderedComparison {
-    function get_name(){ return __("Less Than"); }
+    function get_name(){ return __("Less Than","wp-custom-fields-search"); }
 
 	function get_where($config,$value,$field_alias){
         $comparison = $config['inclusive'] ? "<=" : "<";
@@ -46,7 +46,7 @@ class WPCustomFieldsSearch_LessThan extends WPCustomFieldsSearch_OrderedComparis
 	}
 }
 class WPCustomFieldsSearch_Range extends WPCustomFieldsSearch_OrderedComparison {
-    function get_name(){ return __("In Range"); }
+    function get_name(){ return __("In Range","wp-custom-fields-search"); }
 
 	function get_where($config,$value,$field_alias){
         list($min,$max) = split(":",$value);
@@ -66,7 +66,7 @@ class WPCustomFieldsSearch_Range extends WPCustomFieldsSearch_OrderedComparison 
 }
 
 class WPCustomFieldsSearch_SubCategoryOf extends WPCustomFieldsSearch_Comparison {
-    function get_name(){ return __("In category or Sub-category"); }
+    function get_name(){ return __("In category or Sub-category","wp-custom-fields-search"); }
 
     function get_editor_options(){
         return array_merge(parent::get_editor_options(),array(

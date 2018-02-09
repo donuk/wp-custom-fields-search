@@ -19,7 +19,7 @@
 	<?php } ?>
 
 <div class='wpcfs-input-wrapper wpcfs-input-submit'>
-    <input type='submit' value='<?php echo __("Search")?>'>
+    <input type='submit' value='<?php echo __("Search","wp-custom-fields-search")?>'>
 </div>
 <?php echo $hidden; ?>
 </form>

@@ -20,7 +20,7 @@
 					 })($(
 					"<div>"+
 						"<input type='checkbox' id='"+rand_id+"'/>"+
-						"<label for='"+rand_id+"'>"+__("ALlow Blank")+"</label>"+
+						"<label for='"+rand_id+"'>"+__("Allow Blank")+"</label>"+
 						"<input class='any-label'/>"+
 					"</div>"
 					).appendTo(options_ui));

@@ -60,7 +60,7 @@
     print "<?php /** Auto-generated translation file */\n
         \$translations = array(";
     foreach($found as $word=>$files){
-        print " ".json_encode($word)." => __(".json_encode($word)."),/*".join(", ",$files)." */\n";
+        print " ".json_encode($word)." => __(".json_encode($word).",\"wp-custom-fields-search\"),/*".join(", ",$files)." */\n";
     }
     print "); ?>";
 ?>

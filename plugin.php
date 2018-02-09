@@ -9,6 +9,7 @@ Author URI: http://www.webhammer.co.uk/
 Text Domain: wp_custom_fields_search
 */
 define('WPCFS_PLUGIN_VERSION',"1.2.1");
+define('"wp-custom-fields-search"',"wp_custom_fields_search");
 /*
  * Copyright 2015 Webhammer UK Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -153,7 +154,7 @@ class WPCustomFieldsSearchPlugin {
         foreach($this->get_submitted_inputs() as $input){
             $description[] = $this->describe_search($input);
         }
-        return join(__(" &amp; "),$description);
+        return join(__(" &amp; ","wp-custom-fields-search"),$description);
     }
     function describe_search($input){
         $label = $input['label'];
@@ -161,7 +162,7 @@ class WPCustomFieldsSearchPlugin {
         foreach($input['input']->get_submitted_values($input,$_REQUEST) as $value){
             $found[] = $input['comparison']->describe($label,$value);
         }
-        $join = ($input['multi_match'] == "Any") ? __(" or ") : __(" &amp; ");
+        $join = ($input['multi_match'] == "Any") ? __(" or ","wp-custom-fields-search") : __(" &amp; ");
         return join($found," $join ");
     }
 	function widgets_init(){
@@ -372,7 +373,7 @@ class WPCustomFieldsSearchPlugin {
 
     function wpcfs_settings_pages($pages){
         $pages[] = array(
-            "title"=>__('General'),
+            "title"=>__('General',"wp-custom-fields-search"),
             "template" => plugin_dir_url(__FILE__)."/ng/partials/settings-general.html"
         );
         return $pages;
@@ -394,7 +395,7 @@ class WPCustomFieldsSearchPlugin {
         require_once("search_form.php");
         $config = get_option("wp-custom-fields-search");
         if(!array_key_exists($id,$config['presets'])){
-            trigger_error(__("No Such Preset")." ".$id);
+            trigger_error(__("No Such Preset","wp-custom-fields-search")." ".$id);
             return;
         }
         $preset = $config['presets'][$id];
