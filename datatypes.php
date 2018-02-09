@@ -46,10 +46,10 @@
                     return array();
                 case 'post_author':
                     $q = $wpdb->get_results("SELECT GROUP_CONCAT(DISTINCT post_author) AS author FROM $wpdb->posts");
-                    $authors = $wpdb->get_results("SELECT ID,user_nicename FROM $wpdb->users WHERE ID IN (".$q[0]->author.")");
+                    $authors = $wpdb->get_results("SELECT ID,display_name FROM $wpdb->users WHERE ID IN (".$q[0]->author.")");
                     $response = array();
                     foreach($authors as $row){
-                        $response[] = array( "value"=>$row->ID, "label"=>$row->user_nicename);
+                        $response[] = array( "value"=>$row->ID, "label"=>$row->display_name);
                     }
                     return $response;
                 case 'post_type':
