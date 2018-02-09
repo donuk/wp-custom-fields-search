@@ -1,17 +1,17 @@
 <?php
 	class WPCustomFieldsSearch_PostField extends WPCustomFieldsSearch_DataType {
-        function get_name(){ return __("Core Post Field","wp-custom-fields-search"); }
+        function get_name(){ return __("Core Post Field","wp_custom_fields_search"); }
 		function getFieldMap(){
 			global $wpdb;
 			return array(
-				"post_title"	=>	__("Title","wp-custom-fields-search"),
-				"post_author"	=>	__("Author","wp-custom-fields-search"),
-				"post_date"	=>	__("Date","wp-custom-fields-search"),
-				"post_content"	=>	__("Content","wp-custom-fields-search"),
-				"post_excerpt"	=>	__("Excerpt","wp-custom-fields-search"),
-				"post_type"	=>	__("Post Type","wp-custom-fields-search"),
-				"all"		=>	__("All","wp-custom-fields-search"),
-				"post_id"	=>	__("ID","wp-custom-fields-search"),
+				"post_title"	=>	__("Title","wp_custom_fields_search"),
+				"post_author"	=>	__("Author","wp_custom_fields_search"),
+				"post_date"	=>	__("Date","wp_custom_fields_search"),
+				"post_content"	=>	__("Content","wp_custom_fields_search"),
+				"post_excerpt"	=>	__("Excerpt","wp_custom_fields_search"),
+				"post_type"	=>	__("Post Type","wp_custom_fields_search"),
+				"all"		=>	__("All","wp_custom_fields_search"),
+				"post_id"	=>	__("ID","wp_custom_fields_search"),
 			);
 		}
 		function getAvailableFields(){
@@ -42,7 +42,7 @@
             switch($config['datatype_field']){
                 case 'post_title': case 'post_date': case 'post_content': case 'post_excerpt': case 'all':
                     $map = $this->getFieldMap();
-                    trigger_error(__("Cannot auto-populate select for ","wp-custom-fields-search").$map[$config['datatype_field']]);
+                    trigger_error(__("Cannot auto-populate select for ","wp_custom_fields_search").$map[$config['datatype_field']]);
                     return array();
                 case 'post_author':
                     $q = $wpdb->get_results("SELECT GROUP_CONCAT(DISTINCT post_author) AS author FROM $wpdb->posts");
@@ -64,7 +64,7 @@
 	}
 
 	class WPCustomFieldsSearch_CustomField extends WPCustomFieldsSearch_DataType {
-        function get_name(){ return __("Custom Post Field","wp-custom-fields-search"); }
+        function get_name(){ return __("Custom Post Field","wp_custom_fields_search"); }
 		function getFieldMap(){
 			global $wpdb;
 			$results = $wpdb->get_results("SELECT DISTINCT(meta_key) FROM $wpdb->postmeta ORDER BY meta_key");
@@ -104,7 +104,7 @@
         var $multijoin = true;
 
         function getFieldMap(){
-            return array("term_id"=>__("ID","wp-custom-fields-search"),"name"=>__("Name","wp-custom-fields-search"));
+            return array("term_id"=>__("ID","wp_custom_fields_search"),"name"=>__("Name","wp_custom_fields_search"));
         }
 
 		function add_joins($config,$join,$count){
@@ -148,9 +148,9 @@
 
     class WPCustomFieldsSearch_Category extends WPCustomFieldsSearch_TaxonomyTerm {
         var $taxonomy = "category";
-        function get_name(){ return __("Category Field","wp-custom-fields-search"); }
+        function get_name(){ return __("Category Field","wp_custom_fields_search"); }
     }
     class WPCustomFieldsSearch_Tag extends WPCustomFieldsSearch_TaxonomyTerm {
         var $taxonomy = "post_tag";
-        function get_name(){ return __("Tag","wp-custom-fields-search"); }
+        function get_name(){ return __("Tag","wp_custom_fields_search"); }
     }

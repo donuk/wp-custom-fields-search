@@ -102,18 +102,18 @@ function wpcfs_upgrade_3_x_to_1_0(){
         
         $new_settings[$type][$k] = $new_config;
     }
-    update_option("wp-custom-fields-search",array("presets"=>array_values($new_settings['preset'])));
+    update_option("wp_custom_fields_search",array("presets"=>array_values($new_settings['preset'])));
     foreach($new_settings['widget'] as $k=>$v){
         $new_settings['widget'][$k] = array('data'=>json_encode($v));
     }
-    update_option("widget_wp-custom-fields-search",$new_settings["widget"]);
+    update_option("widget_wp_custom_fields_search",$new_settings["widget"]);
 
     $sidebars = get_option("sidebars_widgets");
     foreach($sidebars as $menu_name=>$widgets){
         $new_widgets = array();
         foreach($widgets as $k=>$v){
             $new_widgets[] = $v;
-            $alt = str_replace("db_customsearch_widget","wp-custom-fields-search",$v);
+            $alt = str_replace("db_customsearch_widget","wp_custom_fields_search",$v);
             if($alt!=$v){
                 $new_widgets[] = $alt;
             }

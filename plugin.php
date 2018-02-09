@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Custom Fields Search
-Plugin URI: http://www.webhammer.co.uk/wp-custom-fields-search
+Plugin URI: http://www.webhammer.co.uk/wp_custom_fields_search
 Description: Adds powerful search forms to your wordpress site
 Version: 1.2.1
 Author: Don Benjamin
@@ -9,7 +9,7 @@ Author URI: http://www.webhammer.co.uk/
 Text Domain: wp_custom_fields_search
 */
 define('WPCFS_PLUGIN_VERSION',"1.2.1");
-define('"wp-custom-fields-search"',"wp_custom_fields_search");
+define('"wp_custom_fields_search"',"wp_custom_fields_search");
 /*
  * Copyright 2015 Webhammer UK Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -47,7 +47,7 @@ class WPCustomFieldsSearchPlugin {
 		add_filter("wp_custom_fields_search_comparisons",array($this,"wp_custom_fields_search_comparisons"));
         add_filter("wpcfs_settings_pages",array($this,"wpcfs_settings_pages"),9);
 
-        add_shortcode("wp-custom-fields-search",array($this,"shortcode"));
+        add_shortcode("wp_custom_fields_search",array($this,"shortcode"));
         add_shortcode("wpcfs-preset",array($this,"preset_shortcode"));
         add_action('plugins_loaded',array($this,'plugins_loaded'));
 
@@ -70,11 +70,11 @@ class WPCustomFieldsSearchPlugin {
 		static $submitted;
 		if(!isset($submitted)){
 			$wpcfs = $_REQUEST['wpcfs'];
-			if(substr($wpcfs,0,23)=="wp-custom-fields-search"){
-				$options = get_option("widget_wp-custom-fields-search");
+			if(substr($wpcfs,0,23)=="wp_custom_fields_search"){
+				$options = get_option("widget_wp_custom_fields_search");
 				$submitted = json_decode($options[substr($wpcfs,24)]['data'],true);
 			} elseif(substr($wpcfs,0,7)=="preset-") {
-				$config = get_option("wp-custom-fields-search");
+				$config = get_option("wp_custom_fields_search");
                 $submitted = $config['presets'][substr($wpcfs,7)];
             } else {
 				$submitted = false;
@@ -154,7 +154,7 @@ class WPCustomFieldsSearchPlugin {
         foreach($this->get_submitted_inputs() as $input){
             $description[] = $this->describe_search($input);
         }
-        return join(__(" &amp; ","wp-custom-fields-search"),$description);
+        return join(__(" &amp; ","wp_custom_fields_search"),$description);
     }
     function describe_search($input){
         $label = $input['label'];
@@ -162,7 +162,7 @@ class WPCustomFieldsSearchPlugin {
         foreach($input['input']->get_submitted_values($input,$_REQUEST) as $value){
             $found[] = $input['comparison']->describe($label,$value);
         }
-        $join = ($input['multi_match'] == "Any") ? __(" or ","wp-custom-fields-search") : __(" &amp; ");
+        $join = ($input['multi_match'] == "Any") ? __(" or ","wp_custom_fields_search") : __(" &amp; ");
         return join($found," $join ");
     }
 	function widgets_init(){
@@ -183,24 +183,24 @@ class WPCustomFieldsSearchPlugin {
 			array('angularjs')
 		);
 		wp_enqueue_script(
-			"wp-custom-fields-search-editor",
-			plugin_dir_url(__FILE__).'js/wp-custom-fields-search-editor.js',
+			"wp_custom_fields_search-editor",
+			plugin_dir_url(__FILE__).'js/wp_custom_fields_search-editor.js',
 			array('jquery','jquery-ui-core','jquery-ui-widget','jquery-ui-sortable','angularjs','ng-sortable')
 		);
 		wp_enqueue_script(
 			"wpcfs-angular-services",
 			plugin_dir_url(__FILE__).'ng/js/services.js',
-			array('wp-custom-fields-search-editor')
+			array('wp_custom_fields_search-editor')
 		);
 		wp_enqueue_script(
 			"wpcfs-angular-app",
 			plugin_dir_url(__FILE__).'ng/js/app.js',
-			array('wp-custom-fields-search-editor','wpcfs-angular-services')
+			array('wp_custom_fields_search-editor','wpcfs-angular-services')
 		);
 		wp_enqueue_script(
 			"wp-handlers",
 			plugin_dir_url(__FILE__).'js/wp-handlers.js',
-			array('wp-custom-fields-search-editor')
+			array('wp_custom_fields_search-editor')
 		);
 		wp_enqueue_script(
 			"tether",
@@ -219,18 +219,18 @@ class WPCustomFieldsSearchPlugin {
 	}
 
     function admin_menu(){
-        add_menu_page('WP Custom Fields Search Presets','WP Custom Fields Search', 'manage_options','wp-custom-fields-search',array($this,'presets_page'));
+        add_menu_page('WP Custom Fields Search Presets','WP Custom Fields Search', 'manage_options','wp_custom_fields_search',array($this,'presets_page'));
     }
     function admin_init(){
-        $previous_version = get_option("wp-custom-fields-search-version");
+        $previous_version = get_option("wp_custom_fields_search-version");
         $current_version = WPCFS_PLUGIN_VERSION;
         if($previous_version != $current_version){
             $this->upgrade_plugin($previous_version,$current_version);
-            update_option("wp-custom-fields-search-version",$current_version);
+            update_option("wp_custom_fields_search-version",$current_version);
         }
     }
     function plugins_loaded(){
-        load_plugin_textdomain('wp-custom-fields-search',false,dirname( plugin_basename(__FILE__)).'/languages/');
+        load_plugin_textdomain('wp_custom_fields_search',false,dirname( plugin_basename(__FILE__)).'/languages/');
     }
 
     function upgrade_plugin($old_version,$latest_version){
@@ -246,7 +246,7 @@ class WPCustomFieldsSearchPlugin {
             // Save something...
             // Return
         }
-        $config = get_option("wp-custom-fields-search");
+        $config = get_option("wp_custom_fields_search");
         $presets = $config['presets'];
         include(dirname(__FILE__).'/templates/presets-page.php');
 
@@ -261,12 +261,12 @@ class WPCustomFieldsSearchPlugin {
             $data = json_decode(wpcfs_strip_hash_keys(stripslashes($_POST['data'])),true);
             $id = $data['id'];
             if($data===null) throw new WPCustomFieldsSearchValidationException("data is required");
-            $config = get_option("wp-custom-fields-search");
+            $config = get_option("wp_custom_fields_search");
 
             if(!$config['presets']) $config['presets'] = array();
             $config['presets'][$id] = $data;
 
-            update_option("wp-custom-fields-search",$config);
+            update_option("wp_custom_fields_search",$config);
             echo "OK";
         } catch(WPCustomFieldsSearchValidationException $e){
             header("HTTP/1.1 400 Invalid Data");
@@ -286,9 +286,9 @@ class WPCustomFieldsSearchPlugin {
         }
 
         $id = $_POST['id'];
-        $config = get_option("wp-custom-fields-search");
+        $config = get_option("wp_custom_fields_search");
         unset($config['presets'][$id]);
-        update_option("wp-custom-fields-search",$config);
+        update_option("wp_custom_fields_search",$config);
         echo "OK";
     }
 
@@ -373,7 +373,7 @@ class WPCustomFieldsSearchPlugin {
 
     function wpcfs_settings_pages($pages){
         $pages[] = array(
-            "title"=>__('General',"wp-custom-fields-search"),
+            "title"=>__('General',"wp_custom_fields_search"),
             "template" => plugin_dir_url(__FILE__)."/ng/partials/settings-general.html"
         );
         return $pages;
@@ -393,9 +393,9 @@ class WPCustomFieldsSearchPlugin {
     static function show_preset($id){
         if($id=="default") $id=0;
         require_once("search_form.php");
-        $config = get_option("wp-custom-fields-search");
+        $config = get_option("wp_custom_fields_search");
         if(!array_key_exists($id,$config['presets'])){
-            trigger_error(__("No Such Preset","wp-custom-fields-search")." ".$id);
+            trigger_error(__("No Such Preset","wp_custom_fields_search")." ".$id);
             return;
         }
         $preset = $config['presets'][$id];
@@ -415,11 +415,11 @@ class WPCustomFieldsSearchPlugin {
     }
     function export_settings(){
         $export = array(
-            "doc_type"=>"wp-custom-fields-search full export",
+            "doc_type"=>"wp_custom_fields_search full export",
             "plugin_version"=>WPCFS_PLUGIN_VERSION,
             "format_version"=>"1",
-            "presets"=>get_option("wp-custom-fields-search"),
-            "widget"=>get_option("widget_wp-custom-fields-search"),
+            "presets"=>get_option("wp_custom_fields_search"),
+            "widget"=>get_option("widget_wp_custom_fields_search"),
             "sidebars"=>get_option("sidebars_widgets"),
         );
         header("Content-type:text/json");

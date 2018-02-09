@@ -282,7 +282,7 @@ msgid "WP Custom Fields Search"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.webhammer.co.uk/wp-custom-fields-search"
+msgid "http://www.webhammer.co.uk/wp_custom_fields_search"
 msgstr ""
 
 #. Description of the plugin/theme

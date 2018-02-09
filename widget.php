@@ -18,10 +18,10 @@ require_once(dirname(__FILE__).'/functions.php');
 
 class WPCustomFieldsSearchWidget extends WP_Widget {
 	function __construct(){
-		parent::__construct('wp-custom-fields-search',
-			__("WPCFS Custom Search Form","wp_custom_fields_search" ,"wp-custom-fields-search"),
+		parent::__construct('wp_custom_fields_search',
+			__("WPCFS Custom Search Form","wp_custom_fields_search" ,"wp_custom_fields_search"),
 			array(
-				"description"=>__("Customisable search form (from WP Custom Fields Search)","wp_custom_fields_search","wp-custom-fields-search")
+				"description"=>__("Customisable search form (from WP Custom Fields Search)","wp_custom_fields_search","wp_custom_fields_search")
 			)
 		);
 	}
@@ -64,11 +64,11 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 		// TODO: Could this be implemented with is_active_sidebar???
 		if($this->number=="__i__"){
 			echo "
-				<div id='$form_id' class='wp-custom-fields-search-form'>
+				<div id='$form_id' class='wp_custom_fields_search-form'>
 				</div>
 				<script>
                     var configure_forms = function(){
-                        jQuery('.wp-custom-fields-search-form:not(.wp_custom_fields_search_editor)').each(function(el){
+                        jQuery('.wp_custom_fields_search-form:not(.wp_custom_fields_search_editor)').each(function(el){
                             var $=jQuery;
                             var template_id = '$form_id',
                                 template_name='".$this->get_field_name('data')."',
@@ -107,7 +107,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 			";
 		} else {
 			echo "
-				<div id='$form_id' class='wp-custom-fields-search-form'>
+				<div id='$form_id' class='wp_custom_fields_search-form'>
 				</div>
 				<script>
 					jQuery('#$form_id').wp_custom_fields_search_editor({
