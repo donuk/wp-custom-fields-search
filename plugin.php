@@ -60,7 +60,7 @@ class WPCustomFieldsSearchPlugin {
 	}
 
 	function is_search_submitted(){
-		return $_REQUEST['wpcfs'];
+		return array_key_exists('wpcfs',$_REQUEST) && $_REQUEST['wpcfs'];
 	}
 
 	function get_submitted_form(){
@@ -204,7 +204,7 @@ class WPCustomFieldsSearchPlugin {
     }
     function admin_init(){
         $previous_version = get_option("wp-custom-fields-search-version");
-        $current_version = WP_CUSTOM_FIELDS_SEARCH_VERSION;
+        $current_version = WPCFS_PLUGIN_VERSION;
         if($previous_version != $current_version){
             $this->upgrade_plugin($previous_version,$current_version);
             update_option("wp-custom-fields-search-version",$current_version);
