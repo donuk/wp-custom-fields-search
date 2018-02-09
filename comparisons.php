@@ -25,7 +25,7 @@ class WPCustomFieldsSearch_OrderedComparison extends WPCustomFieldsSearch_Compar
     }
 	function get_editor_options(){
 		$options = parent::get_editor_options();
-		$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/comparisons/numeric.html';
+		$options['extra_config_form'] = plugin_dir_url(__FILE__).'ng/partials/comparisons/numeric.html';
 		$options['numeric'] = "Alphabetical";
 		return $options;
 	}

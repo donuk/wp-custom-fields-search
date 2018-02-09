@@ -171,31 +171,31 @@ class WPCustomFieldsSearchPlugin {
 	function admin_enqueue_scripts(){
 		wp_enqueue_script(
 			"angularjs",
-			plugin_dir_url(__FILE__)."/js/angular.min.js",
+			plugin_dir_url(__FILE__)."js/angular.min.js",
 			array('jquery')
 		);
 		wp_enqueue_script(
 			"ng-sortable",
-			plugin_dir_url(__FILE__)."/ng/lib/ui-sortable.js",
+			plugin_dir_url(__FILE__)."ng/lib/ui-sortable.js",
 			array('angularjs')
 		);
 		wp_enqueue_script(
 			"wp-custom-fields-search-editor",
-			plugin_dir_url(__FILE__).'/js/wp-custom-fields-search-editor.js',
+			plugin_dir_url(__FILE__).'js/wp-custom-fields-search-editor.js',
 			array('jquery','jquery-ui-core','jquery-ui-widget','jquery-ui-sortable','angularjs','ng-sortable')
 		);
 		wp_enqueue_script(
 			"wpcfs-angular-app",
-			plugin_dir_url(__FILE__).'/ng/js/app.js',
+			plugin_dir_url(__FILE__).'ng/js/app.js',
 			array('wp-custom-fields-search-editor')
 		);
 		wp_enqueue_script(
 			"wp-handlers",
-			plugin_dir_url(__FILE__).'/js/wp-handlers.js',
+			plugin_dir_url(__FILE__).'js/wp-handlers.js',
 			array('wp-custom-fields-search-editor')
 		);
 
-        wp_register_style( 'wpcfs_css', plugins_url("wp-custom-fields-search") . '/ng/css/editor.css', false, '1.0.0' );
+        wp_register_style( 'wpcfs_css', plugin_dir_url(__FILE__) . 'ng/css/editor.css', false, '1.0.0' );
         wp_enqueue_style( 'wpcfs_css' );
 	}
 

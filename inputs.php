@@ -3,7 +3,7 @@
 		var $template = "text";
 		function get_editor_options(){
 			$options = parent::get_editor_options();
-			$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/inputs/textbox.html';
+			$options['extra_config_form'] = plugin_dir_url(__FILE__).'ng/partials/inputs/textbox.html';
 			$options['split_words'] = '';
 			return $options;
 		}
@@ -33,7 +33,7 @@
 		var $template = "select";
 		function get_editor_options(){
 			$options = parent::get_editor_options();
-			$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/inputs/select.html';
+			$options['extra_config_form'] = plugin_dir_url(__FILE__).'ng/partials/inputs/select.html';
 			$options['clear_extra_config_form'] = true;
 			$options['any_label'] = 'Any';
 			return $options;
@@ -60,7 +60,7 @@
 		var $template = "checkbox";
 		function get_editor_options(){
 			$options = parent::get_editor_options();
-			$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/inputs/checkbox.html';
+			$options['extra_config_form'] = plugin_dir_url(__FILE__).'ng/partials/inputs/checkbox.html';
 			$options['clear_extra_config_form'] = true;
 			return $options;
 		}
@@ -82,7 +82,7 @@
 
 		function get_editor_options(){
 			$options = parent::get_editor_options();
-			$options['extra_config_form'] = plugin_dir_url(__FILE__).'/ng/partials/inputs/hidden.html';
+			$options['extra_config_form'] = plugin_dir_url(__FILE__).'ng/partials/inputs/hidden.html';
             $options['constant_value'] = '';
 			return $options;
 		}
