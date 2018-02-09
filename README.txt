@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 4.8.1
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -16,9 +16,7 @@ This plugin provides an admin interface allowing you to build powerful search fo
 
 You can configure a number of inputs of different types, to search different fields of your posts in different ways.  These will then be presented to your users as a simple form interface allowing them to find the content they need.
 
-== Adding Search To Your Site  ==
-
-=== Add a sidebar widget ===
+= Add a sidebar widget =
 
 1. Navigate to the widgets page in your wordpress admin area ( Appearance > Widgets )
 1. In the available widgets list you should see "WPCFS Custom Search Form", drag this into the appropriate sidebar.
@@ -29,7 +27,7 @@ You can configure a number of inputs of different types, to search different fie
 You should now see a very basic search form in that sidebar.  You can expand on this using the instructions below under configuring your form
 
 
-=== Include a preset ===
+= Include a preset =
 
 1. Navigate the WP Custom Fields Search section in the menu
 1. Click the "New Preset" button
@@ -40,9 +38,9 @@ You should now see a very basic search form in that sidebar.  You can expand on 
 
 You should now see a very basic search form in that sidebar.  You can expand on this using the instructions below under configuring your form
 
-=== Configuring your form ===
+= Configuring your form =
 
-==== Adding Fields ====
+** Adding Fields **
 
 Each form consists of a list of fields.  
 
@@ -57,15 +55,15 @@ Once you have configured your field close the popup with the X in the top-right 
 
 You can add as many fields as you want, and re-order the fields by dragging them up and down the list.  You can delete them by clicking the little X icon in the list, and you can reconfigure them by clicking the edit / cog icon in the list.
 
-==== Global Settings ====
+** Global Settings **
 
 You can name each search form using the text input at the top of the edit form.  This name can be displayed to your site visitors (if you click the cog icon to it's right and tick the option "Show Title?") or it can be helpful if you have a number of forms and need to keep track of which is which.
 
-==== Input Types / How would you like this field to appear? ====
+= Input Types / How would you like this field to appear? =
 
 The input type controls the form that the user sees when they visit your site to perform a search and how they provide you with a search term.  The search term may be something they've typed or it might be a selection they've made from options you provide.
 
-===== Text Input =====
+** Text Input **
 
 A simple text field which allows your visitor to type a free text search query.
 
@@ -73,7 +71,7 @@ This can be powerful when paired with the "Contains Text" comparison as it will 
 
 By default text inputs treat their input as a single string so if a user types multiple words, they will need to appear in exactly that order.  This behaviour can be changed in the input settings options.  Click the cog next to the input type selector and you will see the text input settings popup.  Choose "Split Words?" to search for each word separately.  So e.g. a search for "Big Jumper" might match a post with the text "Big Red Jumper" or "Jumper and Big Socks".  The 'Matches If' option controls if the resulting posts must contain all the search words, or just any one of them.
 
-===== Drop Down =====
+** Drop Down **
 
 This creates a html select element or drop-down menu.  This is useful where the user must select from a known list of search terms, e.g. searching by category.
 
@@ -83,7 +81,7 @@ If you need to customise this list you can in the input settings popup (click th
 
 If you just want to change the text of the placeholder item at the top of the list, you can set this with the "Blank Prompt" option.
 
-====== Configuring options in a list ======
+** Configuring options in a list **
 
 To configure which options are shown in the list, you will need to switch the data source from "Auto" to "Manual".  YOu can now configure the list of options for the dropdown.
 
@@ -91,7 +89,7 @@ Each item has a value and a label.  The label is what will be displayed to the u
 
 Items can be added and removed using the relevant buttons.
 
-===== Checkboxes =====
+** Checkboxes **
 
 These are displayed as a list of checkbox inputs which the user can tick or not.
 
@@ -99,62 +97,62 @@ The options which are displayed are configured in the same way as for dropdowns 
 
 Because it's possible to select multiple checkboxes at once, you may want to show posts which match all the selections, or those which only match some of them.  This can be configured in the settings popup, by selecting "Any" or "All" for the "Matches If" parameter.
 
-===== Radio Buttons =====
+** Radio Buttons **
 
 These are displayed as a list of radio button inputs from which the user can select only a single item.
 
 The options which are displayed are configured in the same way as for dropdowns (See "Configuring options in a list" above)
 
-===== Hidden Constant =====
+** Hidden Constant **
 
 This option is not displayed to the user at all, but always searches for a fixed value in the database.
 
 This is useful if you want this search form to always search through only particular posts.  E.g. if you want to search a particular post type, you could use a hidden constant on the field "Post Type".  You can set the term which is searched in the settings popup, in the Post Type example you would want this set to the name of one of the post types in your installation, e.g. post or page or a custom post type.
 
-==== Data Types ====
+= Data Types =
 
 Data types control which fields in the database are searched on when a search term is provided for each field.
 
-===== Core Post Field =====
+** Core Post Field **
 
 This searches on the standard properties associated with a post or page in a standard wordpress install.  e.g. you can select to search the Title, Author, Date, Content, Excerpt, Post Type or ID.
 
 There is also an all option which will search on all of the title, content and author fields.
 
-===== Custom Post Field =====
+** Custom Post Field **
 
 This allows searching on any of the custom fields you have set up for your posts.  This includes all the custom fields you have manually added as well as those added by the wordpress core, and any plugins which use the custom field functionality.
 
 This can allow powerful 'catalogue' style search in that you can add any properties you would like to your posts and then filter based on these values.
 
-===== Category Field =====
+** Category Field **
 
 This allows you to search based on what category a post is in.  If you have multiple categories with the same name it's recommended to use the ID search in order to separate them, however if you want to attach this to e.g. a text input, you will probably want to use the name search, otherwise the user will have to type the ID number for the category they watn.
 
-===== Tag Field =====
+** Tag Field **
 
 Essentially the same as the category field but operates on tags rather than categories.
 
 
-==== Comparison Types ====
+= Comparison Types =
 
 How do you want to match the search to the data?
 
 These control the rules used to match the post field against the search term to decide which posts to display to the user.
 
-===== Exact Match =====
+** Exact Match **
 
 The search term has to exactly match the data field.
 
-===== Contains Text =====
+** Contains Text **
 
 This will match if the search term is anywhere in the data field, so e.g. "Best Post" would find posts with the value "This is the Best Post", or "How to write the best Post" or simply "Best Post".
 
-===== Greater Than =====
+** Greater Than **
 
 This will return any posts for which the field is considered greater than the search term, so a search term of 200 would match a post with a greater value, e.g. 300.
 
-====== Numeric or Alphabetic Search? ======
+**= Numeric or Alphabetic Search? **=
 
 Comparing things by order is tricky as what would be first alphabetically is not always the same as what would be first numerically.  e.g. if you sort alphabetically then 20 comes before 3, because comparison is done digit by digit and the first digit is lower.
 
@@ -163,17 +161,17 @@ As such if your field contains numerical data you will want to open the settings
 Also when comparing ordering of items, it's important to know whether to include exact matches, e.g 200 is not greater than 200 so should posts with that value be shown for searches which exactly match?  This can be controlled by selecting Inclusive (yes they should) or Exclusive (no they shouldn't) in the settings popup.
 
 
-===== Less Than =====
+** Less Than **
 
 Shows all posts which have a value less than the search term.  (See "Numeric or Alphabetic search" above for notes on ordered searches)
 
-===== In Range =====
+** In Range **
 
 This requires two values and will return posts which fall between the two values.  The search term has to be of the form "a:b" where a is the lower limit and b is the upper limit.  So e.g. a search term of 100:200 would return posts with values between 100 and 200.  You will probably want to use this with manually configured drop downs or checkboxes to avoid your users having to format these search terms themselves. Either term can be left blank to mean unlimited eg ":100" would show posts with a field less than 100. 
 
 See "Numeric or Alphabetic search" above for notes on ordered searches.
 
-===== In category or sub category =====
+** In category or sub category **
 
 This is a special comparison which requires a category name or id for the search term and will match any post which is either in that category or is in a sub-category.
 
@@ -192,6 +190,9 @@ This is a special comparison which requires a category name or id for the search
 5.  Preset search forms can be set up in exactly the same way as widgets
 
 == Changelog ==
+
+= 1.2.2 =
+* Added text domain to translation strings, hopefully fixes https://wordpress.org/support/topic/problems-with-localization-2/
 
 = 1.2.1 =
 * Correcting some issues with the README file
