@@ -9,26 +9,35 @@ angular.module('WPCFS', ['ui.sortable'])
 
         var d2 = $q.defer();
         d2.resolve(__);
-        i18n.dict = d2.promise;
+        i18n.dict = function() { return d2.promise; };
         return i18n;
     }
 
-    var translations = $http.get(ajaxurl+"?action=wpcfs_ng_load_translations");
+    var translations;
+    var get_translations = function(){
+        if(!translations) translations = $http.get(ajaxurl+"?action=wpcfs_ng_load_translations");
+        return translations;
+    }
 
-    var i18n = function(phrase){
-        return translations.then(function(response){
+    var service = function(phrase){
+        return service.i18n(phrase);
+    }
+    service.i18n = function(phrase){
+        return get_translations().then(function(response){
             if(response.data[phrase])
                 return response.data[phrase];
             else
                 return phrase;
         });
     };
-    i18n.dict = translations.then(function(response){
-        return function(k){
-            return response.data[k] || k;
-        };
-    });
-    return i18n;
+    service.dict = function(){
+        return get_translations().then(function(response){
+            return function(k){
+                return response.data[k] || k;
+            };
+        });
+    };
+    return service;
 }])
 .directive('i18n',[ 'i18n', function(i18n){
    return {
@@ -41,7 +50,7 @@ angular.module('WPCFS', ['ui.sortable'])
 }])
 .factory('replace_all', function(){
     return function(string,replacements){
-        angular.forEach(replacements,function(k,v){
+        angular.forEach(replacements,function(v,k){
             string = string.replace(k,v);
         });
         return string;

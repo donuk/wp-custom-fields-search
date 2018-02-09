@@ -26,7 +26,7 @@ angular.module('WPCFS')
 		"containment": "#field-list"
 	};
 
-    i18n.dict.then(function(__){
+    i18n.dict().then(function(__){
     	$scope.add_field = function(){
 	    	var new_field = {};
 	    	$scope.form_fields.push(new_field);
@@ -64,7 +64,7 @@ angular.module('WPCFS')
         $scope.config_popup = null;
         $scope.set_min_height(0,"sub_config");
     };
-    i18n.dict.then(function(__){
+    i18n.dict().then(function(__){
         $scope.$watch("field.datatype",function(){
             var datatype_options = $scope.datatypes[$scope.field.datatype];
             $scope.fields = datatype_options ? datatype_options.options.all_fields : [];
@@ -148,7 +148,7 @@ angular.module('WPCFS')
    $scope.presets = $scope.form_config;
     $scope.preset = null;
 
-    i18n.dict.then(function(__){
+    i18n.dict().then(function(__){
        $scope.get_preset_title = function(preset){
             return preset.settings.form_title || preset.name || __("Untitled Preset");
        };
