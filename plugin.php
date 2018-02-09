@@ -46,10 +46,10 @@ class WPCustomFieldsSearchPlugin {
 
         add_shortcode("wp-custom-fields-search",array($this,"shortcode"));
         add_shortcode("wpcfs-preset",array($this,"preset_shortcode"));
-        add_action("parse_query",array($this,"parse_query"));
         add_action('plugins_loaded',array($this,'plugins_loaded'));
 
 		if($this->is_search_submitted()){
+            add_action("parse_query",array($this,"parse_query"));
 			add_filter('template_include',array($this,'show_search_results_template'),99);
 			add_filter('posts_orderby',array($this,'posts_orderby'));
 			add_filter('posts_join',array($this,'posts_join'));
@@ -101,7 +101,7 @@ class WPCustomFieldsSearchPlugin {
 		else return $template;
 	}
 
-
+       
 	function posts_orderby($orderby){
 		return $orderby;
 	}
@@ -261,10 +261,9 @@ class WPCustomFieldsSearchPlugin {
     }
 
     function parse_query($wpquery){
-        if($this->is_search_submitted()){
-            $wpquery->is_search = true;
-            $wpquery->is_home = false;
-        }
+        $wpquery->is_search = true;
+        $wpquery->is_home = false;
+        return;
     }
 	function show_search_template_for_searches($template){
 		if($_REQUEST['wpcfs']){
