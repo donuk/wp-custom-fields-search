@@ -57,7 +57,7 @@ There are a core set of datatypes, comparisons and inputs which can be expanded 
 == Changelog ==
 
 = 1.1.14 =
-* Removed double slash from URL, hopefully this will fix https://wordpress.org/support/topic/preset-page-blank/#post-9939623 and related issues.
+* Removed double slash from URLs, hopefully this will fix https://wordpress.org/support/topic/preset-page-blank/#post-9939623 and related issues.
 
 = 1.1.13 =
 * Added a warning that older version of IE (pre 11) are not supported
