@@ -10,7 +10,7 @@
 		function get_submitted_value($options,$data){
 			$html_name="f".$options['index'];
 			$value = $data[$html_name];
-            if($options['split_words']){
+            if(array_key_exists('split_words',$options) && $options['split_words']){
                 return array_filter(explode(" ",$value),strlen);
             } else {
                 return array($value);

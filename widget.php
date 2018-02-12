@@ -54,7 +54,7 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 
 		$form_id = $this->get_field_id('edit-form');
         $default = "{inputs:[],settings:{}}";
-        $form_config = $instance['data']?$instance['data']:$default;
+        $form_config = (array_key_exists('data',$instance) && $instance['data']) ?$instance['data']:$default;
         if(!json_decode($form_config)){
             $form_config2 = str_replace('""','"',$form_config);
             if(json_decode($form_config2)) $form_config = $form_config2;
@@ -84,7 +84,8 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
                                 'form_config': $form_config,
                                 'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
                                 'settings_pages': ".json_encode($settings_pages).",
-                                'field_name':'".$this->get_field_name('data')."'
+                                'field_name':'".$this->get_field_name('data')."',
+                                'root': '".plugin_dir_url(__FILE__)."'
                             });
                             
                         });
@@ -114,8 +115,8 @@ class WPCustomFieldsSearchWidget extends WP_Widget {
 						'form_config':$form_config,
 						'building_blocks': ".json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config()).",
                         'settings_pages': ".json_encode($settings_pages).",
-						'field_name':'".$this->get_field_name('data')."'
-
+						'field_name':'".$this->get_field_name('data')."',
+                        'root': '".plugin_dir_url(__FILE__)."'
 					});
 				</script>
 			";

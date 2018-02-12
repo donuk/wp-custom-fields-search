@@ -60,7 +60,8 @@ var wpcfs_assert_supported_browser = function(){
 
 				angular.module('WPCFS')
 				.controller('RootController', ['$scope', function ($scope) {
-					$scope.root = "/wp-content/plugins/wp_custom_fields_search/ng/"; //TODO: Feed this in from WP
+					$scope.root = widget.options.root+"ng/"; //TODO: Feed this in from WP
+    
 					$scope.partials = $scope.root+"partials/";
 					$scope.config = widget.options;
 					$scope.handlers = widget.handlers;

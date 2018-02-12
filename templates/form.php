@@ -1,6 +1,6 @@
 <?php
     echo $args['before_widget'];
-    if($settings['show_title']) { 
+    if(array_key_exists('show_title',$settings) && $settings['show_title']) { 
         echo $args['before_title'];
         echo $settings['form_title'];
         echo $args['after_title'];

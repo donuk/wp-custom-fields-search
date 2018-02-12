@@ -10,6 +10,7 @@
         'building_blocks': <?php echo json_encode(WPCustomFieldsSearchPlugin::get_javascript_editor_config())?>,
         'settings_pages': <?php echo json_encode(apply_filters('wpcfs_settings_pages',array())) ?>,
 
+        'root': "<?php echo plugin_dir_url(dirname(__FILE__)) ?>",
         'save_callback': "wpcfs_save_preset",
         'delete_callback': "wpcfs_delete_preset",
         'save_nonce': <?php echo json_encode(wp_create_nonce("wpcfs_save_preset"))?>,

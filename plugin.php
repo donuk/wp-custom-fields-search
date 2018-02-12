@@ -184,7 +184,7 @@ class WPCustomFieldsSearchPlugin {
 		);
 		wp_enqueue_script(
 			"wp_custom_fields_search-editor",
-			plugin_dir_url(__FILE__).'js/wp_custom_fields_search-editor.js',
+			plugin_dir_url(__FILE__).'js/wp-custom-fields-search-editor.js',
 			array('jquery','jquery-ui-core','jquery-ui-widget','jquery-ui-sortable','angularjs','ng-sortable')
 		);
 		wp_enqueue_script(
