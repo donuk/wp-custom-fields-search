@@ -55,4 +55,4 @@ describe('translations', function(){
         
     });
 });
-
+test_suite_loaded("translations");

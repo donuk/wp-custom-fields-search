@@ -41,7 +41,7 @@ angular.module('WPCFS')
         $scope.form_fields.splice($scope.form_fields.indexOf(field),1);
     }
     $scope.close_edit_form = function(field){
-        if(!field.label)
+        if(field && !field.label)
             $scope.remove_field(field);
 
         $scope.popped_up_field = null;

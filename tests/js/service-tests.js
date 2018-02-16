@@ -34,3 +34,4 @@ describe('services', function(){
     
 });
 
+test_suite_loaded("services");
