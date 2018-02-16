@@ -53,7 +53,7 @@
                     }
                     return $response;
                 case 'post_type':
-                    return $this->_array_to_suggestions_list($wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_type FROM $wpdb->posts WHERE post_status='publish'")));
+                    return $this->_array_to_suggestions_list($wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_type FROM $wpdb->posts WHERE post_status='publish'",array())));
             }
         }
         function get_editor_options(){

@@ -22,7 +22,7 @@
             static $counter;
             $counter++;
             $form_id = $submit_id."/$counter";
-	    if(array_key_exists('inputs',$data) && is_array($data['inputs']))
+	    if($data && array_key_exists('inputs',$data) && is_array($data['inputs']))
             foreach($data['inputs'] as $config){
                 $clsname = $config['input'];
                 try {
