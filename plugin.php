@@ -69,8 +69,10 @@ class WPCustomFieldsSearchPlugin {
 	function get_submitted_form(){
 		static $submitted;
 		if(!isset($submitted)){
-			$wpcfs = $_REQUEST['wpcfs'];
-			if(substr($wpcfs,0,23)=="wp_custom_fields_search"){
+			$wpcfs = array_key_exists('wpcfs',$_REQUEST) ? $_REQUEST['wpcfs'] : null;
+            if(!$wpcfs) {
+                $submitted = null;
+			} elseif(substr($wpcfs,0,23)=="wp_custom_fields_search"){
 				$options = get_option("widget_wp_custom_fields_search");
 				$submitted = json_decode($options[substr($wpcfs,24)]['data'],true);
 			} elseif(substr($wpcfs,0,7)=="preset-") {
