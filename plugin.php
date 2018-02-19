@@ -374,7 +374,7 @@ class WPCustomFieldsSearchPlugin {
     function wpcfs_settings_pages($pages){
         $pages[] = array(
             "title"=>__('General',"wp_custom_fields_search"),
-            "template" => plugin_dir_url(__FILE__)."/ng/partials/settings-general.html"
+            "template" => plugin_dir_url(__FILE__)."ng/partials/settings-general.html"
         );
         return $pages;
     }
