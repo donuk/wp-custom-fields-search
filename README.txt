@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 4.8.1
-Stable tag: 1.2.3
+Stable tag: 1.2.5
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -175,6 +175,31 @@ See "Numeric or Alphabetic search" above for notes on ordered searches.
 
 This is a special comparison which requires a category name or id for the search term and will match any post which is either in that category or is in a sub-category.
 
+== Frequently Asked Questions ==
+
+= Why are my posts not showing in the search results? =
+
+There are basically 3 reasons why no results may show up.
+
+1. The wpcfs search may be filtering the posts out for some reason
+2. Another plugin or config setting may be filtering the results
+3. There may be a conflict between wpcfs and another plugin/theme used on your site
+
+To identify which is the problem, try removing all the search fields from the WPCFS search form. Now when you click the search button, the plugin will not filter anything.
+
+If your results are now showing then there was a problem with one of the search fields. Try adding them back one by one until you find which one is causing the problem. If you think they should match, please let me know and I will try to debug further.
+
+If your results are still not showing even with an empty search form then you’re likely in situation 2 or 3.
+
+Do these posts display anywhere else on your site? If they don’t display anywhere else then you’re likely in situation 2. Basically the plugin only ever filters the results which you see, so it starts with the list of all visible posts and then applies a set of filter rules to gradually filter out some of those posts until your search results are left.
+
+This means if another plugin (or a config setting) has already filtered out some posts, the wpcfs search results will respect this and will also not show those filtered posts.
+
+Debugging this could be tricky, and not really relevant here, but you could try de-activating all your plugins, switching themes, editing your posts to make sure they are published and public etc.
+
+If the posts do display elsewhere on your public facing site but not in the wpcfs search results even with all filter fields removed then there is likely a conflict between the wpcfs plugin and another plugin or theme which you are using. The process for debugging this would be much like in situation 2, disabling different plugins and themes etc. to see which one allows the posts to display. If you can identify which other plugin is conflicting please let me know, if it’s a widely used plugin I will look to make sure we are compatible it in future.
+
+
 == Installation ==
  
 1. Unzip `wp-custom-fields-search.zip` to the `/wp-content/plugins/` directory
@@ -190,6 +215,12 @@ This is a special comparison which requires a category name or id for the search
 5.  Preset search forms can be set up in exactly the same way as widgets
 
 == Changelog ==
+
+= 1.2.5 =
+* Added FAQ tab
+
+= 1.2.4 =
+* Fixes warning message for dropdowns with post_type field
 
 = 1.2.3 =
 * Fixes regressions from 1.2.2
