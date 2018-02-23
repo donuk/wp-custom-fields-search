@@ -98,7 +98,7 @@ angular.module('WPCFS', ['ui.sortable'])
         };
 
         angular.forEach(serialize_form.extra_serializers,function(serializer){
-            serialized = serializer(input, serialized);
+            serialized = serializer(form, serialized);
         });
 
         return $filter('json')(serialized);
@@ -106,7 +106,7 @@ angular.module('WPCFS', ['ui.sortable'])
 
     serialize_form.extra_serializers = [];
     serialize_form.add_serializer = function(extra){
-        serialize_form.extra_serializers.append(extra);
+        serialize_form.extra_serializers.push(extra);
     };
 
     return serialize_form;

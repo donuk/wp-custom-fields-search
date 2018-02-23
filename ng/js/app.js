@@ -182,13 +182,11 @@ angular.module('WPCFS')
 
         $scope.save_preset = function(preset){
             preset.state = "Saving";
-            data = angular.copy(preset);
-            data.action = $scope.config.save_callback;
 
             $http({
                 "method":"POST",
                 "url":ajaxurl,
-                "data": "action="+data.action+"&data="+serialize_form(data)+"&nonce="+$scope.config.save_nonce,
+                "data": "action="+$scope.config.save_callback+"&data="+serialize_form(preset)+"&nonce="+$scope.config.save_nonce,
                 "headers": {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function(){
                 preset.state="Saved";
