@@ -1,4 +1,4 @@
-angular.module('WPCFS', ['ui.sortable'])
+angular.module('WPCFS')
 .factory('i18n',['$q','$http', function($q,$http){
     if(typeof __ != 'undefined') {
         var i18n = function(phrase){

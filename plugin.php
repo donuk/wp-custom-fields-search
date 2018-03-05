@@ -36,6 +36,7 @@ class WPCustomFieldsSearchPlugin {
         add_action('admin_menu', array($this,'admin_menu'));
         add_action('admin_init', array($this,'admin_init'));
 
+        add_action('wp_ajax_wpcfs_angular_dependencies',array($this,'angular_dependencies'));
         add_action('wp_ajax_wpcfs_save_preset',array($this,'save_preset'));
         add_action('wp_ajax_wpcfs_delete_preset',array($this,'delete_preset'));
         add_action('wp_ajax_wpcfs_export_settings',array($this,'export_settings'));
@@ -124,7 +125,7 @@ class WPCustomFieldsSearchPlugin {
 		foreach($this->get_submitted_inputs() as $input){
 			$submitted = $input['input']->get_submitted_values($input,$request);
 			$wheres = array();
-            $join = ($input['multi_match'] == "Any") ? "OR" : "AND";
+            $join = (@$input['multi_match'] == "Any") ? "OR" : "AND";
             $submitted_index = 0;
             foreach($submitted as $value){
                 $sub_wheres = array();
@@ -164,7 +165,7 @@ class WPCustomFieldsSearchPlugin {
         foreach($input['input']->get_submitted_values($input,$_REQUEST) as $value){
             $found[] = $input['comparison']->describe($label,$value);
         }
-        $join = ($input['multi_match'] == "Any") ? __(" or ","wp_custom_fields_search") : __(" &amp; ");
+        $join = (@$input['multi_match'] == "Any") ? __(" or ","wp_custom_fields_search") : __(" &amp; ");
         return join($found," $join ");
     }
 	function widgets_init(){
@@ -173,26 +174,60 @@ class WPCustomFieldsSearchPlugin {
         wp_enqueue_style("wpcfs-form",plugin_dir_url(__FILE__).'templates/form.css');
 	}
 
+    function get_angular_libraries(){
+        return apply_filters("wpcfs_angular_libraries",array(
+            array(
+                "name"=>"ng-sortable",
+                "file"=>plugin_dir_url(__FILE__)."ng/lib/ui-sortable.js",
+                "dependencies"=>array(),
+                "module_name"=>"ui.sortable",
+            )
+       ));
+    }
+    function angular_dependencies(){
+        header("Content-type: application/javascript");
+        $libs = $this->get_angular_libraries();
+        $module_names = array();
+        foreach($libs as $lib){
+            $module_names[] = $lib["module_name"];
+        }
+?>
+angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
+<?php
+        die();
+    }
 	function admin_enqueue_scripts(){
+        $angular_libraries = $this->get_angular_libraries();
+        $angular_dependencies=array("angularjs");
 		wp_enqueue_script(
 			"angularjs",
 			plugin_dir_url(__FILE__)."js/angular.min.js",
 			array('jquery')
 		);
-		wp_enqueue_script(
-			"ng-sortable",
-			plugin_dir_url(__FILE__)."ng/lib/ui-sortable.js",
-			array('angularjs')
-		);
+        foreach($angular_libraries as $library){
+            if(!array_key_exists("dependencies",$library)) $library["dependencies"]=array();
+            $library["dependencies"][] = "angularjs";
+    		wp_enqueue_script(
+	    		$library["name"],
+                $library["file"],
+                $library["dependencies"]
+	    	);
+            $angular_dependencies[] = $library["name"];
+        }
 		wp_enqueue_script(
 			"wp_custom_fields_search-editor",
 			plugin_dir_url(__FILE__).'js/wp-custom-fields-search-editor.js',
 			array('jquery','jquery-ui-core','jquery-ui-widget','jquery-ui-sortable','angularjs','ng-sortable')
 		);
 		wp_enqueue_script(
+			"wpcfs-angular-dependencies",
+			'/wp-admin/admin-ajax.php?action=wpcfs_angular_dependencies',
+			$angular_dependencies
+		);
+		wp_enqueue_script(
 			"wpcfs-angular-services",
 			plugin_dir_url(__FILE__).'ng/js/services.js',
-			array('wp_custom_fields_search-editor')
+			array('wp_custom_fields_search-editor','wpcfs-angular-dependencies')
 		);
 		wp_enqueue_script(
 			"wpcfs-angular-app",
@@ -332,12 +367,11 @@ class WPCustomFieldsSearchPlugin {
 			);
 		}
 
-		return array(
+		return apply_filters("wp_custom_fields_search_editor_config",array(
 			"inputs"=>$inputs,
 			"datatypes"=>$datatypes,
 			"comparisons"=>$comparisons,
-
-		);
+		));
 	}
 	function wp_custom_fields_search_inputs($inputs){
 		require_once(dirname(__FILE__).'/engine.php');
