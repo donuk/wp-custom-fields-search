@@ -215,7 +215,7 @@ angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
             $angular_dependencies[] = $library["name"];
         }
 		wp_enqueue_script(
-			"wp_custom_fields_search-editor",
+			"wpcfs-editor",
 			plugin_dir_url(__FILE__).'js/wp-custom-fields-search-editor.js',
 			array('jquery','jquery-ui-core','jquery-ui-widget','jquery-ui-sortable','angularjs','ng-sortable')
 		);
@@ -227,17 +227,17 @@ angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
 		wp_enqueue_script(
 			"wpcfs-angular-services",
 			plugin_dir_url(__FILE__).'ng/js/services.js',
-			array('wp_custom_fields_search-editor','wpcfs-angular-dependencies')
+			array('wpcfs-editor','wpcfs-angular-dependencies')
 		);
 		wp_enqueue_script(
 			"wpcfs-angular-app",
 			plugin_dir_url(__FILE__).'ng/js/app.js',
-			array('wp_custom_fields_search-editor','wpcfs-angular-services')
+			array('wpcfs-editor','wpcfs-angular-services')
 		);
 		wp_enqueue_script(
 			"wp-handlers",
 			plugin_dir_url(__FILE__).'js/wp-handlers.js',
-			array('wp_custom_fields_search-editor')
+			array('wpcfs-editor')
 		);
 		wp_enqueue_script(
 			"tether",
