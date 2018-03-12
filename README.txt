@@ -218,6 +218,7 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 
 = 1.2.8 =
 * Removed a warning message relating to static methods; https://wordpress.org/support/topic/line-440/
+* Improved extension hooks for the angular admin app
 
 = 1.2.7 =
 * Fixed some issues with the JS extension code
