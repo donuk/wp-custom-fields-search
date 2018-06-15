@@ -10,6 +10,7 @@ angular.module('WPCFS')
         });
         $scope.min_height = min_height + 100;
     };
+    $scope.settings_visible = false;
     $scope.datatypes  = array2dict($scope.config.building_blocks.datatypes); 
     $scope.inputs  = array2dict($scope.config.building_blocks.inputs);
     $scope.comparisons  = array2dict($scope.config.building_blocks.comparisons); 
@@ -38,10 +39,12 @@ angular.module('WPCFS')
         $scope.popped_up_field = field;
     }
     $scope.remove_field = function(field) {
-        $scope.form_fields.splice($scope.form_fields.indexOf(field),1);
+        var index = $scope.form_fields.indexOf(field);
+        if(index>-1) $scope.form_fields.splice($scope.form_fields.indexOf(field),1);
+        return field;
     }
     $scope.close_edit_form = function(field){
-        if(!field.label)
+        if(field && !field.label)
             $scope.remove_field(field);
 
         $scope.popped_up_field = null;
