@@ -418,13 +418,22 @@ angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
         $atts = shortcode_atts(array(
             "id"=>"0"
         ),$atts);
+        ob_start();
         $this->show_preset($atts['id']);
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
     }
     function shortcode($atts){
         $atts = shortcode_atts(array(
             "preset"=>"0"
         ),$atts);
+
+        ob_start();
         $this->show_preset($atts['preset']);
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
     }
     static function show_preset($id){
         if($id=="default") $id=0;
