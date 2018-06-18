@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 4.8.1
-Stable tag: 1.2.10
+Stable tag: 1.2.11
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -12,7 +12,9 @@ Build search forms to provide custom search functionality allowing search of bui
  
 == Description ==
  
-This plugin provides an admin interface allowing you to build powerful search forms for your wordpress site.
+This plugin provides an admin interface allowing you to build powerful search forms for your wordpress site.  
+
+With this you can give your readers the ability to search and filter your posts / catalogue to quickly find the information they need.  Any custom fields you have added to your posts can be made searchable as well as the core post fields like title, author, categories etc.  Configurable input widgets allow you to customise the form further to build exactly the search you need for your site.
 
 You can configure a number of inputs of different types, to search different fields of your posts in different ways.  These will then be presented to your users as a simple form interface allowing them to find the content they need.
 
@@ -215,6 +217,9 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 5.  Preset search forms can be set up in exactly the same way as widgets
 
 == Changelog ==
+
+= 1.2.11 =
+* Expanded the description as the plugin repository is cutting off the first line.
 
 = 1.2.10 =
 * Short codes were incorrectly implemented - https://wordpress.org/support/topic/invalid-header-26/
