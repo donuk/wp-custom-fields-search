@@ -216,6 +216,9 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 
 == Changelog ==
 
+= 1.2.11 =
+* https://wordpress.org/support/topic/opening-tag-instead-of-closing-tag-in-code/
+
 = 1.2.10 =
 * Short codes were incorrectly implemented - https://wordpress.org/support/topic/invalid-header-26/
 
