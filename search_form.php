@@ -14,7 +14,7 @@
                     "before_title"=>"<h4>",
                     "after_title"=>"</h4>",
                     "before_widget"=>"<div class='wpcfs-preset'>",
-                    "after_widget"=>"<div>",
+                    "after_widget"=>"</div>",
                 );
             }
             $components = array();
