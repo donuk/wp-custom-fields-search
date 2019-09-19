@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 5.2.3
-Stable tag: 1.2.12
+Stable tag: 1.2.13
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -218,12 +218,14 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 
 == Changelog ==
 
-= 1.2.11 =
+= 1.2.13 =
 * Re-tested with Wordpress 5.2.3
+
+= 1.2.12 =
+* https://wordpress.org/support/topic/opening-tag-instead-of-closing-tag-in-code/
 
 = 1.2.11 =
 * Expanded the description as the plugin repository is cutting off the first line.
-* https://wordpress.org/support/topic/opening-tag-instead-of-closing-tag-in-code/
 
 = 1.2.10 =
 * Short codes were incorrectly implemented - https://wordpress.org/support/topic/invalid-header-26/
