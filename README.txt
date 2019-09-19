@@ -3,8 +3,8 @@ Contributors: don@don-benjamin.co.uk
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@webhammer.co.uk&item_name=Custom Search Donation&currency_code=GBP
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
-Tested up to: 4.8.1
-Stable tag: 1.2.11
+Tested up to: 5.2.3
+Stable tag: 1.2.12
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -217,6 +217,9 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 5.  Preset search forms can be set up in exactly the same way as widgets
 
 == Changelog ==
+
+= 1.2.11 =
+* Re-tested with Wordpress 5.2.3
 
 = 1.2.11 =
 * Expanded the description as the plugin repository is cutting off the first line.
