@@ -220,6 +220,7 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 
 = 1.2.11 =
 * Expanded the description as the plugin repository is cutting off the first line.
+* https://wordpress.org/support/topic/opening-tag-instead-of-closing-tag-in-code/
 
 = 1.2.10 =
 * Short codes were incorrectly implemented - https://wordpress.org/support/topic/invalid-header-26/
