@@ -49,7 +49,17 @@ class WPCustomFieldsSearch_Range extends WPCustomFieldsSearch_OrderedComparison 
     function get_name(){ return __("In Range","wp_custom_fields_search"); }
 
 	function get_where($config,$value,$field_alias){
-        list($min,$max) = split(":",$value);
+		$range = explode(":",$value);
+		if (count($range) !=2) {
+			trigger_error( __("Range format should be '<min>:<max>' received '$value'"));
+			if (count($range) == 1) {
+				$range[] = null;
+			} else {
+				$range = array_slice($range,0,2);
+			}
+		}
+
+		list($min, $max) = $range;
         $params = array();
         if($min){
             $comparison = $config['inclusive'] ? ">=" : ">";
