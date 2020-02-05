@@ -116,7 +116,7 @@ class WPCustomFieldsSearchPlugin {
 	}
 	function posts_join($join){
 		foreach($this->get_submitted_inputs() as $input){
-            $join = $input['datatype']->add_joins($input,$join,count($input['input']->get_submitted_value($input,$_REQUEST)));
+            $join = $input['datatype']->add_joins($input,$join,count($input['input']->get_submitted_values($input,$_REQUEST)));
 		}
 		return $join;
 	}

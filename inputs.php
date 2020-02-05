@@ -11,7 +11,7 @@
 			$html_name="f".$options['index'];
 			$value = $data[$html_name];
             if(array_key_exists('split_words',$options) && $options['split_words']){
-                return array_filter(explode(" ",$value),strlen);
+                return array_filter(explode(" ",$value),"strlen");
             } else {
                 return array($value);
             }
