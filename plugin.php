@@ -144,6 +144,9 @@ class WPCustomFieldsSearchPlugin {
 
     function get_submitted_inputs(){
         $form = $this->get_submitted_form();
+        if(!$form) {
+            return array();
+        }
         $inputs = array();
         foreach($form['inputs'] as $input){
 			if($input['input']->is_submitted($input,$_REQUEST)) 

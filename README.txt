@@ -219,6 +219,7 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 == Changelog ==
 
 = 1.2.14 =
+* Re-tested with Wordpress 5.3.2
 * https://wordpress.org/support/topic/warning-count-parameter-must-be-an-array-4/ 
 
 = 1.2.13 =
