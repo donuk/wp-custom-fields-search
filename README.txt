@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 5.4-beta3
-Stable tag: 1.2.15
+Stable tag: 1.2.16
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -217,6 +217,10 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 5.  Preset search forms can be set up in exactly the same way as widgets
 
 == Changelog ==
+
+= 1.2.16 =
+* Tested with latest wordpress beta
+* Removed some warning messages
 
 = 1.2.15 =
 * https://wordpress.org/support/topic/fonction-in-range-not-working/
