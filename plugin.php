@@ -442,7 +442,7 @@ angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
         if($id=="default") $id=0;
         require_once("search_form.php");
         $config = get_option("wp_custom_fields_search");
-        if(!array_key_exists($id,$config['presets'])){
+        if(!($config && array_key_exists('presets',$config) && array_key_exists($id,$config['presets']))){
             trigger_error(__("No Such Preset","wp_custom_fields_search")." ".$id);
             return;
         }
