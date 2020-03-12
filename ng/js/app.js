@@ -124,13 +124,29 @@ angular.module('WPCFS')
         });
     });
 
-}]).controller('WPCFSSettings', ['$scope', function($scope) {
+}]).controller('WPCFSSettings', ['$scope', 'i18n', function($scope, i18n) {
+	if (typeof $scope.settings.default_post_types == 'undefined') {
+		angular.extend($scope.settings, {
+			"default_post_types": true,
+			"selected_post_types": [ "###ANY###"],
+		});
+	}
     $scope.expand = function(page){
         $scope.expanded = page;
     };
     $scope.is_expanded = function(page){
         return $scope.expanded == page;
     };
+	i18n.dict().then(function(__){
+		$scope.post_type_options = $scope.config.building_blocks.general.post_types.reduce(
+			function(combined, post_type) {
+				combined[post_type] = post_type;
+				return combined;
+			}, { "###ANY###" : __("Show All Post Types") }
+		)
+		console.log("Options",$scope.post_type_options);
+	})
+
     $scope.expanded = $scope.config.settings_pages[0];
 }]).controller('ConfigPopup', ['$scope', function($scope) {
     $scope.include_file = $scope.config_popup.form;

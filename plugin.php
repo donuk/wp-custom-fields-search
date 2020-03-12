@@ -3,12 +3,12 @@
 Plugin Name: WP Custom Fields Search
 Plugin URI: http://www.webhammer.co.uk/wp_custom_fields_search
 Description: Adds powerful search forms to your wordpress site
-Version: 1.2.15
+Version: 1.2.16
 Author: Don Benjamin
 Author URI: http://www.webhammer.co.uk/
 Text Domain: wp_custom_fields_search
 */
-define('WPCFS_PLUGIN_VERSION',"1.2.15");
+define('WPCFS_PLUGIN_VERSION',"1.2.16");
 define('"wp_custom_fields_search"',"wp_custom_fields_search");
 /*
  * Copyright 2015 Webhammer UK Ltd.
@@ -121,6 +121,7 @@ class WPCustomFieldsSearchPlugin {
 		return $join;
 	}
 	function posts_where($where){
+		$where = $this->open_up_post_types($where);
         $request = stripslashes_deep($_REQUEST);
 		foreach($this->get_submitted_inputs() as $input){
 			$submitted = $input['input']->get_submitted_values($input,$request);
@@ -139,6 +140,38 @@ class WPCustomFieldsSearchPlugin {
             }
 			$where.=" AND ( ".join(" $join ",$wheres)." )"; #TODO: Make the AND/OR configurable
 		}
+		return $where;
+	}
+	function open_up_post_types($where) {
+		global $wpdb;
+
+        $form = $this->get_submitted_form();
+		if (!$form || !array_key_exists('default_post_types', $form['settings']))
+			return $where;
+		if ($form['settings']['default_post_types']!==false)
+			return $where;
+
+		$where = preg_replace(
+			"/AND\s*$wpdb->posts.post_type\s*=\s*'(post|page)'/",
+			"",
+			$where
+		);
+		$where = preg_replace(
+			"/AND\s*$wpdb->posts.post_type\s*IN\s*\([^\)]*\)/",
+			"",
+			$where
+		);
+
+		$selected_post_types = $form['settings']['selected_post_types'];
+		if(in_array("###ANY###", $selected_post_types) || !$selected_post_types)
+			return $where;
+
+		$options = [];
+		foreach($selected_post_types as $type) {
+			$options[] = "'".esc_html($type)."'";
+		}
+		$where.=" AND $wpdb->posts.post_type IN (".join(",", $options).") ";
+
 		return $where;
 	}
 
@@ -374,6 +407,9 @@ angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
 			"inputs"=>$inputs,
 			"datatypes"=>$datatypes,
 			"comparisons"=>$comparisons,
+			"general"=>array(
+				"post_types"=>array_keys(get_post_types()),
+			)
 		));
 	}
 	function wp_custom_fields_search_inputs($inputs){

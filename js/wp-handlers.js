@@ -6,7 +6,7 @@
 				"any_label": type_config.any_label,
 			},instance_config);
 
-		(function(select,options_ui){
+		(function (select,options_ui) {
 			select.append("<option value='Auto'>"+__("Auto")+"</option>");
 			select.append("<option value='Manual'>"+__("Manual")+"</option>");
 			select.val(instance_config.source);
