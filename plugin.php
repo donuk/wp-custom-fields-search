@@ -152,7 +152,7 @@ class WPCustomFieldsSearchPlugin {
 			return $where;
 
 		$where = preg_replace(
-			"/AND\s*$wpdb->posts.post_type\s*=\s*'(post|page)'/",
+			"/AND\s*$wpdb->posts.post_type\s*=\s*'[^']*'/",
 			"",
 			$where
 		);
