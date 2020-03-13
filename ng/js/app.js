@@ -106,6 +106,7 @@ angular.module('WPCFS')
             return comparisons;
         };
         [ "input" , "datatype", "comparison" ].forEach(function(type){
+			var original = $scope.field[type], first=true;
             $scope.$watch("field."+type,function(new_option){
                 try {
                     var config = $scope[type+"s"][new_option]['options'];
@@ -113,9 +114,16 @@ angular.module('WPCFS')
                     return false; 
                 }
 
+				var overwrite = true;
+				if (first && (new_option==original)) {
+					overwrite = false;
+				}
+
+				first = false;
                 if(config.defaults)
                     angular.forEach(config.defaults,function(v,k){
-                        $scope.field[k] = angular.copy(v);
+						if (overwrite || !$scope.field[k])
+							$scope.field[k] = angular.copy(v);
                     });
             });
         });
