@@ -90,8 +90,11 @@ angular.module('WPCFS')
         var serialized = {
             "id": form.id,
             "settings": {
+
                 "form_title": form.settings.form_title,
                 "show_title": form.settings.show_title,
+                "default_post_types": form.settings.default_post_types,
+
             },
             "action": form.action,
             "inputs": form.inputs.map(serialize_input),
@@ -117,7 +120,8 @@ angular.module('WPCFS')
         "link": function(scope,elem,attrs) {
             var source_field = attrs.wpcfsHeightSource;
             scope.$watch(function(){
-                scope.set_min_height(elem.height(), source_field);
+				if(scope.set_min_height)
+					scope.set_min_height(elem.height(), source_field);
             });
         }
     }

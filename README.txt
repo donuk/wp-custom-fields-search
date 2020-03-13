@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 5.4-beta3
-Stable tag: 1.2.16
+Stable tag: 1.2.17
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -181,13 +181,20 @@ This is a special comparison which requires a category name or id for the search
 
 = Why are my posts not showing in the search results? =
 
-There are basically 3 reasons why no results may show up.
+There are basically 4 reasons why no results may show up.
 
-1. The wpcfs search may be filtering the posts out for some reason
-2. Another plugin or config setting may be filtering the results
-3. There may be a conflict between wpcfs and another plugin/theme used on your site
+1. The wordpress core search logic may be filtering by post type
+2. The wpcfs search may be filtering the posts out for some reason
+3. Another plugin or config setting may be filtering the results
+4. There may be a conflict between wpcfs and another plugin/theme used on your site
 
-To identify which is the problem, try removing all the search fields from the WPCFS search form. Now when you click the search button, the plugin will not filter anything.
+To identify which is the problem, we'll go through them step by step.
+
+Firstly set your form to show all post types, to do this open the search form settings by clicking the little cog icon on the top right of the form editor.  You should a checkbox called "Show default post types", uncheck this and you should be given a list of all post_types used by your site.  Just select the top option "Show All Post Types" and click save.
+
+Now try using the search form on the frontend of the site, if you now see the posts then that was the issue although you'll probably want to refine which posts are shown (you most likely don't want your site visitors seeing old revisions of posts etc.)
+
+Next try removing all the search fields from the WPCFS search form. Now when you click the search button on the front end, the plugin will not filter anything.
 
 If your results are now showing then there was a problem with one of the search fields. Try adding them back one by one until you find which one is causing the problem. If you think they should match, please let me know and I will try to debug further.
 
@@ -217,6 +224,11 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 5.  Preset search forms can be set up in exactly the same way as widgets
 
 == Changelog ==
+
+= 1.2.17 =
+* Added post types config (https://wordpress.org/support/topic/is-the-plugin-compatible-with-avada-theme/)
+* Fixed the problem with post fields always resetting when re-opening the edit form
+* Fixed some javascript error messages
 
 = 1.2.16 =
 * Tested with latest wordpress beta
