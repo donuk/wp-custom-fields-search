@@ -218,6 +218,10 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 
 == Changelog ==
 
+= xxx =
+* Fixed the problem with post fields always resetting when re-opening the edit form
+* Fixed some javascript error messages
+
 = 1.2.15 =
 * https://wordpress.org/support/topic/fonction-in-range-not-working/
 
