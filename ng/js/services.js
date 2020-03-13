@@ -120,7 +120,8 @@ angular.module('WPCFS')
         "link": function(scope,elem,attrs) {
             var source_field = attrs.wpcfsHeightSource;
             scope.$watch(function(){
-                scope.set_min_height(elem.height(), source_field);
+				if(scope.set_min_height)
+					scope.set_min_height(elem.height(), source_field);
             });
         }
     }

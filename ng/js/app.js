@@ -48,13 +48,15 @@ angular.module('WPCFS')
             $scope.remove_field(field);
 
         $scope.popped_up_field = null;
-        $scope.set_min_height(0,"field");
+		if($scope.set_min_height)
+	        $scope.set_min_height(0,"field");
     }
 
     $scope.show_settings_popup = function(){ $scope.settings_visible = true; }
     $scope.close_settings_popup = function(){ 
         $scope.settings_visible = false; 
-        $scope.set_min_height(0,"field");
+		if($scope.set_min_height)
+			$scope.set_min_height(0,"field");
     }
 }]).controller('WPCFSField', ['$scope', 'replace_all', 'i18n', function($scope, replace_all, i18n) {
     $scope.field = $scope.popped_up_field;
@@ -65,7 +67,8 @@ angular.module('WPCFS')
     };
     $scope.close_config_popup = function(){
         $scope.config_popup = null;
-        $scope.set_min_height(0,"sub_config");
+		if($scope.set_min_height)
+			$scope.set_min_height(0,"sub_config");
     };
     i18n.dict().then(function(__){
         $scope.$watch("field.datatype",function(){
@@ -106,6 +109,7 @@ angular.module('WPCFS')
             return comparisons;
         };
         [ "input" , "datatype", "comparison" ].forEach(function(type){
+			var original = $scope.field[type], first=true;
             $scope.$watch("field."+type,function(new_option){
                 try {
                     var config = $scope[type+"s"][new_option]['options'];
@@ -113,9 +117,16 @@ angular.module('WPCFS')
                     return false; 
                 }
 
+				var overwrite = true;
+				if (first && (new_option==original)) {
+					overwrite = false;
+				}
+
+				first = false;
                 if(config.defaults)
                     angular.forEach(config.defaults,function(v,k){
-                        $scope.field[k] = angular.copy(v);
+						if (overwrite || !$scope.field[k])
+							$scope.field[k] = angular.copy(v);
                     });
             });
         });
