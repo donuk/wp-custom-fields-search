@@ -369,7 +369,6 @@ angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
         $wpquery->is_search = true;
         $wpquery->is_home = false;
         $wpquery->is_page = false;
-        $wpquery->page_id = false;
         $wpquery->is_singular = false;
         $wpquery->query_vars['pagename'] = null;
         $wpquery->query_vars['page_id'] = null;
