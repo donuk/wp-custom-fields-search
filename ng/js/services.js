@@ -69,6 +69,8 @@ angular.module('WPCFS')
             "split_words": input.split_words,
             "numeric": input.numeric,
             "inclusive": input.inclusive,
+            "taxonomy_root": input.taxonomy_root,
+            "any_message": input.any_message,
         };
 
         angular.forEach(serialize_input.extra_serializers,function(serializer){
@@ -135,5 +137,20 @@ angular.module('WPCFS')
             });
         }
     }
+}])
+.factory("taxonomyLister", [ '$http', '$q', function ($http) {
+	var loaded = {};
+	return function(taxonomy) {
+		if (typeof loaded[taxonomy] == 'undefined') {
+			var url = ajaxurl+"?action=wpcfs_ng_load_taxonomy&taxonomy="+taxonomy;
+			loaded[taxonomy] = 
+				$http.get(url)
+				.then(function (response) {
+					return response['data'];
+				});
+		}
+		return loaded[taxonomy];
+
+	};
 }])
 ;

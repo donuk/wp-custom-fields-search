@@ -61,6 +61,8 @@
                 <select ng-if='field.datatype' ng-model='field.datatype_field'
                     ng-options='id as name for (id,name) in fields'>
                 </select>
+                <a class='icon right edit' ng-if='field.datatype && datatypes[field.datatype].options.extra_config_form' ng-click='show_config_form(datatypes[field.datatype].options.extra_config_form,field)'><i18n>Edit</i18n></a>
+
                 <div class='wpcfs-floating-prompt' ng-if='!field.datatype_field'><p><i18n>What do you want to search?</i18n></p></div>
             </div>
             <div class='config_row' ng-if='field.datatype_field'>

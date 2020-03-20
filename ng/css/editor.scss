@@ -81,6 +81,11 @@ $break-large:1200px;
         position: absolute;
         right: $icon_padding;
     }
+	.config_row {
+		.icon.right {
+			right: $icon_padding + 10px;
+		}
+    }
     .icon.top {
         position: absolute;
         top: $icon_padding;
@@ -156,6 +161,7 @@ $break-large:1200px;
         .popup-content {
             @extend .bordered_item;
             margin-top: $popup_bar_height;
+			position: relative;
         }
 
         .config_row:first-of-type {
@@ -163,7 +169,14 @@ $break-large:1200px;
         .config_row {
             padding:10px;
             margin: 5px;
+			border-bottom: dashed gray 1px;
         }
+		.config_row:last-child {
+			border: none;
+		}
+		.config_row:nth-child(even) {
+/*			background: #ccc;*/
+		}
 
         input, select {
             font-size: 1.5em;

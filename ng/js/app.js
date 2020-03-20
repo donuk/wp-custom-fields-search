@@ -155,7 +155,6 @@ angular.module('WPCFS')
 				return combined;
 			}, { "###ANY###" : __("Show All Post Types") }
 		)
-		console.log("Options",$scope.post_type_options);
 	})
 
     $scope.expanded = $scope.config.settings_pages[0];
@@ -170,6 +169,31 @@ angular.module('WPCFS')
 	$scope.add_option = function(){
 		$scope.field.options.push({});
 	};
+}]).controller('TaxonomyController', ['$scope','taxonomyLister', function($scope,taxonomyLister) {
+	var extraConfigForm = $scope.datatypes[$scope.field.datatype].options;
+	taxonomyLister(extraConfigForm.taxonomyName)
+	.then(function(terms) {
+		var flattened = [];
+
+		var recurseTerms = function(terms, indent) {
+			if (!indent) {
+				indent="";
+			}
+			terms.map(function(term) {
+				if (term.children.length==0) {
+					return;
+				}
+				flattened.push({
+					"term_id":term.term_id,
+					"name":indent+term.name,
+				})
+				recurseTerms(term.children, indent+" - ");
+			});
+		}
+		recurseTerms(terms);
+
+		$scope.terms = flattened;
+	});
 }]).controller('PresetsController', [ '$scope', '$filter', '$http', 'i18n', 'serialize_form', function ($scope,$filter,$http,i18n, serialize_form) {
    $scope.form_config = [];
    angular.forEach($scope.config.form_config,function(preset){
@@ -206,7 +230,6 @@ angular.module('WPCFS')
         };
         $scope.is_preset_modified = function(preset){
             var serialized = serialize_form(preset);
-            console.log("MODIFIED?",serialized,$scope.preset.safe);
             return (serialized!=$scope.preset.safe);
         };
 

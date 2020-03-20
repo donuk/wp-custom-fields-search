@@ -42,6 +42,7 @@ class WPCustomFieldsSearchPlugin {
         add_action('wp_ajax_wpcfs_export_settings',array($this,'export_settings'));
 
         add_action('wp_ajax_wpcfs_ng_load_translations',array($this,'ng_load_translations'));
+        add_action('wp_ajax_wpcfs_ng_load_taxonomy',array($this,'ng_load_taxonomy'));
 
 		add_filter("wp_custom_fields_search_inputs",array($this,"wp_custom_fields_search_inputs"));
 		add_filter("wp_custom_fields_search_datatypes",array($this,"wp_custom_fields_search_datatypes"));
@@ -498,6 +499,35 @@ angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
         }
         header("Content-type: application/json");
         echo json_encode($all_translations);
+        exit(0);
+    }
+
+	function recurseTaxonomy($name, $parent)
+	{
+		$terms = get_terms([ 
+			'taxonomy'=>$name,
+			'parent'=>$parent,
+			'hide_empty'=>false
+		]);
+
+		$output = [];
+		foreach ($terms as $term) {
+			$output[] = [
+				"term_id"=>$term->term_id,
+				"name"=>$term->name,
+				"children"=>$this->recurseTaxonomy($name, $term->term_id)
+			];
+		}
+
+		return $output;
+	}
+    function ng_load_taxonomy() {
+		$taxonomyName = $_GET['taxonomy'];
+
+		$terms = $this->recurseTaxonomy($taxonomyName, 0);
+
+        header("Content-type: application/json");
+        echo json_encode($terms);
         exit(0);
     }
     function export_settings(){

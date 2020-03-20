@@ -127,11 +127,14 @@
             $options = parent::get_editor_options();
             if(!array_key_exists('labels',$options)) $options['labels'] = array();
             $options['labels'][] = "is_wp_term";
+            $options['taxonomyName'] = $this->taxonomy;
             $options['defaults'] = array( "datatype_field"=>"name");
+			$options['extra_config_form'] = plugin_dir_url(__FILE__).'ng/partials/datatypes/taxonomy.html';
             return $options;
         }
+
         function recurse_category($id,$field,$trace=array()){
-            $categories = get_categories(array('parent'=>$id,"taxonomy"=>$this->taxonomy));
+            $categories = get_terms(array('parent'=>$id,"taxonomy"=>$this->taxonomy, 'hide_empty'=>false));
             $values = array();
             foreach($categories as $category){
                 $full_trace[] = array_merge($trace,array($category));
@@ -142,7 +145,8 @@
         }
 
         function get_suggested_values($config){
-            return $this->recurse_category(0,$config['datatype_field']); #TODO - Have this id selected in the editor UI
+			$root = array_key_exists('taxonomy_root', $config) ? $config['taxonomy_root'] : 0;
+            return $this->recurse_category($root, $config['datatype_field']);
         }
     }
 
