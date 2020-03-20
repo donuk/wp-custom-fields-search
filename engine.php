@@ -109,4 +109,6 @@
 	require_once(dirname(__FILE__).'/inputs.php');
 	require_once(dirname(__FILE__).'/datatypes.php');
 	require_once(dirname(__FILE__).'/comparisons.php');
+
+	do_action('wpcfs_engine_loaded');
 ?>

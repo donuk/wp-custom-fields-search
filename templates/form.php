@@ -7,8 +7,9 @@
     } 
 ?>
 <form method='<?php echo $method?>' action='<?php echo htmlspecialchars($results_page)?>' class='wpcfs-search-form' id='<?php echo htmlspecialchars($form_id)?>'>
-	<?php foreach($components as $config) { ?>
-        <div class='wpcfs-input-wrapper wpcfs-input-input'>
+<?php foreach($components as $config) { 
+?>
+	<div class='wpcfs-input-wrapper wpcfs-input-input <?php echo sanitize_html_class($config['html_name'])." ".sanitize_html_class(strtolower($config['label']))." ".sanitize_html_class(strtolower($config['class']->get_name()));?>'>
             <label for="<?php echo htmlspecialchars($config['html_id'])?>" class='wpcfs-label'>
                 <?php echo $config['label']; ?>
             </label>

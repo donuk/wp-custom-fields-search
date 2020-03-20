@@ -1,4 +1,4 @@
-<select type='text' name="<?php echo htmlspecialchars($html_name)?>">
+<select type='text' name="<?php echo htmlspecialchars($html_name)?>" id='<?php echo $html_id;?>'>
 
 <?php foreach($options['options'] as $option) {
 ?>
