@@ -1,4 +1,6 @@
-<?php include(dirname(__FILE__).'/unsupported-message.php') ?>
+<?php include(dirname(__FILE__).'/unsupported-message.php');
+
+?>
 <h1><?php echo __("Configure WP Custom Fields Search","wp_custom_fields_search")?></h1>
 <div id='wpcfs-presets-page'>
 </div>

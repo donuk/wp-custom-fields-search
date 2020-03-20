@@ -150,6 +150,35 @@
         }
     }
 
+    class WPCustomFieldsSearch_CustomTaxonomy extends WPCustomFieldsSearch_TaxonomyTerm {
+        function get_name(){ return __("Custom Taxonomy","wp_custom_fields_search"); }
+
+		function getFieldMap()
+		{
+			return array_reduce(
+				get_taxonomies(),
+				function ($map, $taxonomyName) {
+					$taxonomy = get_taxonomy($taxonomyName);
+					$map[$taxonomyName] = $taxonomy->labels->name;
+					return $map;
+				},
+				[]	
+			);
+		}
+		function recurse_category($id,$field,$trace=array()){
+			return parent::recurse_category($id,"term_id",$trace);
+		}
+		function get_editor_options(){
+			$options = parent::get_editor_options();
+			unset($options['taxonomyName']);
+			return $options;
+		}
+
+		function get_field_alias($config,$field_name,$count=0){
+			$alias = $this->get_table_alias($config,$count);
+			return "$alias.term_id";
+		}
+    }
     class WPCustomFieldsSearch_Category extends WPCustomFieldsSearch_TaxonomyTerm {
         var $taxonomy = "category";
         function get_name(){ return __("Category Field","wp_custom_fields_search"); }
