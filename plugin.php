@@ -3,12 +3,12 @@
 Plugin Name: WP Custom Fields Search
 Plugin URI: http://www.webhammer.co.uk/wp_custom_fields_search
 Description: Adds powerful search forms to your wordpress site
-Version: 1.2.26
+Version: 1.2.27
 Author: Don Benjamin
 Author URI: http://www.webhammer.co.uk/
 Text Domain: wp_custom_fields_search
 */
-define('WPCFS_PLUGIN_VERSION',"1.2.26");
+define('WPCFS_PLUGIN_VERSION',"1.2.27");
 define('"wp_custom_fields_search"',"wp_custom_fields_search");
 /*
  * Copyright 2015 Webhammer UK Ltd.
@@ -138,7 +138,9 @@ class WPCustomFieldsSearchPlugin {
 			return $join;
 		}
 		foreach($this->get_submitted_inputs() as $input){
-            $join = $input['datatype']->add_joins($input,$join,count($input['input']->get_submitted_values($input,$_REQUEST)));
+			$isMulti = array_key_exists('multi_match', $input) && ($input['multi_match'] != "Any");
+			$count = $isMulti ? count($input['input']->get_submitted_values($input, $_REQUEST)) : 1;
+            $join = $input['datatype']->add_joins($input,$join,$count);
 		}
 		return $join;
 	}
@@ -150,8 +152,9 @@ class WPCustomFieldsSearchPlugin {
         $request = stripslashes_deep($_REQUEST);
 		foreach($this->get_submitted_inputs() as $input){
 			$submitted = $input['input']->get_submitted_values($input,$request);
+			$isMulti = array_key_exists('multi_match', $input) && ($input['multi_match'] != "Any");
 			$wheres = array();
-            $join = (@$input['multi_match'] == "Any") ? "OR" : "AND";
+            $join = $isMulti ? "AND" : "OR";
             $submitted_index = 0;
             foreach($submitted as $value){
                 $sub_wheres = array();
@@ -161,7 +164,9 @@ class WPCustomFieldsSearchPlugin {
                 
                 $wheres[] = "(".join(" OR ",$sub_wheres).")";
                 
-                $submitted_index++;
+				if($isMulti) {
+	                $submitted_index++;
+				}
             }
 			$where.=" AND ( ".join(" $join ",$wheres)." )"; #TODO: Make the AND/OR configurable
 		}

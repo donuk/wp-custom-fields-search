@@ -71,6 +71,7 @@ angular.module('WPCFS')
             "inclusive": input.inclusive,
             "taxonomy_root": input.taxonomy_root,
             "any_message": input.any_message,
+            "multi_match": input.multi_match,
         };
 
         angular.forEach(serialize_input.extra_serializers,function(serializer){
