@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@w
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 5.4-beta3
-Stable tag: 1.2.24
+Stable tag: 1.2.26
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -224,6 +224,12 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 5.  Preset search forms can be set up in exactly the same way as widgets
 
 == Changelog ==
+
+= 1.2.26 =
+* False alarm - reverted to 1.2.24
+
+= 1.2.25 =
+* Restored the old behaviour as there was a bug.
 
 = 1.2.24 =
 * Changed the search behaviour to only operate on the main query by default.  Previous behaviour was causing issues when the WP_Query object was used outside of the main loop.
