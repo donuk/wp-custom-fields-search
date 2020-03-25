@@ -3,12 +3,12 @@
 Plugin Name: WP Custom Fields Search
 Plugin URI: http://www.webhammer.co.uk/wp_custom_fields_search
 Description: Adds powerful search forms to your wordpress site
-Version: 1.2.23
+Version: 1.2.24
 Author: Don Benjamin
 Author URI: http://www.webhammer.co.uk/
 Text Domain: wp_custom_fields_search
 */
-define('WPCFS_PLUGIN_VERSION',"1.2.23");
+define('WPCFS_PLUGIN_VERSION',"1.2.24");
 define('"wp_custom_fields_search"',"wp_custom_fields_search");
 /*
  * Copyright 2015 Webhammer UK Ltd.
@@ -56,10 +56,11 @@ class WPCustomFieldsSearchPlugin {
 		if($this->is_search_submitted()){
             add_action("parse_query",array($this,"parse_query"));
 			add_filter('template_include',array($this,'show_search_results_template'),11);
-			add_filter('posts_orderby',array($this,'posts_orderby'));
-			add_filter('posts_join',array($this,'posts_join'));
-			add_filter('posts_where',array($this,'posts_where'));
-			add_filter('posts_groupby',array($this,'posts_groupby'));
+			add_filter('posts_orderby',array($this,'posts_orderby'), 10, 2);
+			add_filter('posts_join',array($this,'posts_join'), 10, 2);
+			add_filter('posts_where',array($this,'posts_where'), 10, 2);
+			add_filter('post_limits',array($this,'post_limits'), 10, 2);
+			add_filter('posts_groupby',array($this,'posts_groupby'), 10, 2);
 			add_filter('get_search_query',array($this,'get_search_query'));
 		}
 	}
@@ -108,20 +109,43 @@ class WPCustomFieldsSearchPlugin {
 		else return $template;
 	}
 
+	function should_override_current_query($wp_query) {
+		$should_override = $wp_query->is_main_query();
+		return apply_filters('wpcfs_should_override_current_query', $should_override, $wp_query);
+	}
+
        
-	function posts_orderby($orderby){
+	function post_limits($limit, $wp_query){
+		if (!$this->should_override_current_query($wp_query)) {
+			return $limit;
+		}
+		return $limit;
+	}
+	function posts_orderby($orderby, $wp_query){
+		if (!$this->should_override_current_query($wp_query)) {
+			return $orderby;
+		}
 		return $orderby;
 	}
-	function posts_groupby($groupby){
+	function posts_groupby($groupby, $wp_query){
+		if (!$this->should_override_current_query($wp_query)) {
+			return $groupby;
+		}
 		return $groupby;
 	}
-	function posts_join($join){
+	function posts_join($join, $wp_query){
+		if (!$this->should_override_current_query($wp_query)) {
+			return $join;
+		}
 		foreach($this->get_submitted_inputs() as $input){
             $join = $input['datatype']->add_joins($input,$join,count($input['input']->get_submitted_values($input,$_REQUEST)));
 		}
 		return $join;
 	}
-	function posts_where($where){
+	function posts_where($where, $wp_query){
+		if (!$this->should_override_current_query($wp_query)) {
+			return $where;
+		}
 		$where = $this->open_up_post_types($where);
         $request = stripslashes_deep($_REQUEST);
 		foreach($this->get_submitted_inputs() as $input){
