@@ -396,6 +396,9 @@ angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
     }
 
     function parse_query($wpquery){
+		if (!$this->should_override_current_query($wpquery)) {
+			return;
+		}
         $wpquery->is_search = true;
         $wpquery->is_home = false;
         $wpquery->is_page = false;
