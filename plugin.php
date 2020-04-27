@@ -511,17 +511,23 @@ angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
         $content = ob_get_contents();
         ob_end_clean();
         return $content;
-    }
-    static function show_preset($id){
-        if($id=="default") $id=0;
+	}
+
+	function show_preset($id){
         require_once("search_form.php");
+		$preset = $this->get_preset_config($id);
+        include(dirname(__FILE__).'/templates/preset-display.php');
+	}
+
+    function get_preset_config($id){
+        require_once("engine.php");
+        if($id=="default") $id=0;
         $config = get_option("wp_custom_fields_search");
         if(!($config && array_key_exists('presets',$config) && array_key_exists($id,$config['presets']))){
             trigger_error(__("No Such Preset","wp_custom_fields_search")." ".$id);
             return;
         }
-        $preset = $config['presets'][$id];
-        include(dirname(__FILE__).'/templates/preset-display.php');
+        return $config['presets'][$id];
     }
 
     function ng_load_translations(){
@@ -588,7 +594,7 @@ angular.module('WPCFS',['<?php echo join("','",$module_names); ?>']);
 }
 WPCustomFieldsSearchPlugin::getInstance();
 function wpcfs_show_preset($id){
-    WPCustomFieldsSearchPlugin::show_preset($id);
+    WPCustomFieldsSearchPlugin::getInstance()->show_preset($id);
 }
 if(!function_exists('wp_custom_fields_search')){
     function wp_custom_fields_search($id="default"){

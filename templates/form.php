@@ -6,6 +6,7 @@
         echo $args['after_title'];
     } 
 ?>
+<?php do_action('wpcfs-before-form') ?>
 <form method='<?php echo $method?>' action='<?php echo htmlspecialchars($results_page)?>' class='wpcfs-search-form' id='<?php echo htmlspecialchars($form_id)?>'>
 <?php foreach($components as $config) { 
 ?>
@@ -22,6 +23,8 @@
 <div class='wpcfs-input-wrapper wpcfs-input-submit'>
     <input type='submit' value='<?php echo __("Search","wp_custom_fields_search")?>'>
 </div>
+
 <?php echo $hidden; ?>
 </form>
+<?php do_action('wpcfs-after-form') ?>
 <?php echo $args['after_widget']?>

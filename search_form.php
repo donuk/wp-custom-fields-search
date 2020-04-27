@@ -22,6 +22,9 @@
             static $counter;
             $counter++;
             $form_id = $submit_id."/$counter";
+			$hidden = '';
+
+		$query = self::get_query_if_submitted($submit_id);
 	    if($data && array_key_exists('inputs',$data) && is_array($data['inputs']))
             foreach($data['inputs'] as $config){
                 $clsname = $config['input'];
@@ -36,13 +39,15 @@
                 $config['html_id'] = "$form_id/$config[html_name]";
                 if($config['class']->show_in_form){
                     array_push($components,$config);
-                }
+				}
+				if (is_callable([$config['class'],'renderHidden'])) {
+					$hidden .= $config['class']->renderHidden($config,$query);
+				}
             }
             $template_file = apply_filters("wpcfs_form_template",dirname(__FILE__).'/templates/form.php',$data);
-            $hidden = "<input type='hidden' name='wpcfs' value='".htmlspecialchars($submit_id)."'/>";
+            $hidden .= "<input type='hidden' name='wpcfs' value='".htmlspecialchars($submit_id)."'/>";
             $method = "get";
             $results_page = apply_filters("wpcfs_results_page",get_site_url(),$data);
-            $query = self::get_query_if_submitted($submit_id);
 
             $hidden = apply_filters("wpcfs_hidden_elements",$hidden,array("data"=>$data,"form_id"=>$form_id));
             $settings =$data['settings'];
