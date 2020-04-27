@@ -226,7 +226,7 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 == Changelog ==
 
 = 1.2.28 =
-* Custom taxonomy dropdowns were being populated with values from other taxonomies
+* Custom taxonomy dropdowns were being populated with values from other taxonomies https://wordpress.org/support/topic/custom-taxonomy-dropdown-show-all-category/
 
 = 1.2.26 =
 * Fixed some issues with checkbox / any matches.
