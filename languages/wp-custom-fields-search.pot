@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WP Custom Fields Search plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Custom Fields Search 1.2.16\n"
+"Project-Id-Version: WP Custom Fields Search 1.2.29\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-custom-fields-search\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-03-13T14:00:52+00:00\n"
+"POT-Creation-Date: 2020-04-29T09:14:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wp_custom_fields_search\n"
@@ -87,7 +87,7 @@ msgid "Post Type"
 msgstr ""
 
 #: datatypes.php:13
-#: ng/translations.php:24
+#: ng/translations.php:25
 msgid "All"
 msgstr ""
 
@@ -108,11 +108,15 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: datatypes.php:151
+#: datatypes.php:154
+msgid "Custom Taxonomy"
+msgstr ""
+
+#: datatypes.php:189
 msgid "Category Field"
 msgstr ""
 
-#: datatypes.php:155
+#: datatypes.php:193
 msgid "Tag"
 msgstr ""
 
@@ -126,7 +130,7 @@ msgstr ""
 
 #: inputs.php:39
 #: inputs.php:70
-#: ng/translations.php:23
+#: ng/translations.php:24
 msgid "Any"
 msgstr ""
 
@@ -189,130 +193,134 @@ msgid "Inclusive"
 msgstr ""
 
 #: ng/translations.php:12
-msgid "Config"
+msgid "Only show items from a subtree"
 msgstr ""
 
 #: ng/translations.php:13
-msgid "Close"
+msgid "Config"
 msgstr ""
 
 #: ng/translations.php:14
-msgid "Remove"
+msgid "Close"
 msgstr ""
 
 #: ng/translations.php:15
-msgid "Edit"
+msgid "Remove"
 msgstr ""
 
 #: ng/translations.php:16
-msgid "Add"
+msgid "Edit"
 msgstr ""
 
 #: ng/translations.php:17
-msgid "Add Field"
+msgid "Add"
 msgstr ""
 
 #: ng/translations.php:18
-msgid "What should this field be called?"
+msgid "Add Field"
 msgstr ""
 
 #: ng/translations.php:19
-msgid "How would you like this field to appear?"
+msgid "What should this field be called?"
 msgstr ""
 
 #: ng/translations.php:20
-msgid "What do you want to search?"
+msgid "How would you like this field to appear?"
 msgstr ""
 
 #: ng/translations.php:21
-msgid "How do you want to match the search to the data?"
+msgid "What do you want to search?"
 msgstr ""
 
 #: ng/translations.php:22
+msgid "How do you want to match the search to the data?"
+msgstr ""
+
+#: ng/translations.php:23
 msgid "Matches If"
 msgstr ""
 
-#: ng/translations.php:25
+#: ng/translations.php:26
 msgid "Present"
 msgstr ""
 
-#: ng/translations.php:26
+#: ng/translations.php:27
 msgid "Data Source:"
 msgstr ""
 
-#: ng/translations.php:27
+#: ng/translations.php:28
 msgid "Auto"
 msgstr ""
 
-#: ng/translations.php:28
+#: ng/translations.php:29
 msgid "Manual"
 msgstr ""
 
-#: ng/translations.php:29
+#: ng/translations.php:30
 msgid "Value"
 msgstr ""
 
-#: ng/translations.php:30
+#: ng/translations.php:31
 msgid "Label"
 msgstr ""
 
-#: ng/translations.php:31
+#: ng/translations.php:32
 msgid "Data Source"
 msgstr ""
 
-#: ng/translations.php:32
+#: ng/translations.php:33
 msgid "Blank Prompt (e.g. Any)"
 msgstr ""
 
-#: ng/translations.php:33
+#: ng/translations.php:34
 msgid "Split Words?"
 msgstr ""
 
-#: ng/translations.php:34
+#: ng/translations.php:35
 msgid "No"
 msgstr ""
 
-#: ng/translations.php:35
+#: ng/translations.php:36
 msgid "Yes"
 msgstr ""
 
-#: ng/translations.php:36
+#: ng/translations.php:37
 msgid "Instantiate this preset in any post or page by entering the shortcode:"
 msgstr ""
 
-#: ng/translations.php:37
+#: ng/translations.php:38
 msgid "Or in your theme files with the PHP code:"
 msgstr ""
 
-#: ng/translations.php:38
+#: ng/translations.php:39
 msgid "Export Settings"
 msgstr ""
 
-#: ng/translations.php:39
+#: ng/translations.php:40
 msgid "Allow Blank"
 msgstr ""
 
-#: plugin.php:196
+#: .php:226
 msgid " &amp; "
 msgstr ""
 
-#: plugin.php:204
+#: .php:234
 msgid " or "
 msgstr ""
 
-#: plugin.php:451
+#: .php:489
 msgid "General"
 msgstr ""
 
-#: plugin.php:482
+#: .php:527
 msgid "No Such Preset"
 msgstr ""
 
-#: templates/form.php:22
+#: templates/form.php:24
 msgid "Search"
 msgstr ""
 
-#: templates/presets-page.php:2
+#: templates/presets-page.php:4
 msgid "Configure WP Custom Fields Search"
 msgstr ""
 

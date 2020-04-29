@@ -9,6 +9,7 @@
  "Numeric" => __("Numeric","wp_custom_fields_search"),/*ng//partials/comparisons/numeric.html */
  "Exclusive" => __("Exclusive","wp_custom_fields_search"),/*ng//partials/comparisons/numeric.html */
  "Inclusive" => __("Inclusive","wp_custom_fields_search"),/*ng//partials/comparisons/numeric.html */
+ "Only show items from a subtree" => __("Only show items from a subtree","wp_custom_fields_search"),/*ng//partials/datatypes/taxonomy.html */
  "Config" => __("Config","wp_custom_fields_search"),/*ng//partials/form.html */
  "Close" => __("Close","wp_custom_fields_search"),/*ng//partials/form.html, ng//partials/presets.html */
  "Remove" => __("Remove","wp_custom_fields_search"),/*ng//partials/form.html, ng//partials/presets.html */
