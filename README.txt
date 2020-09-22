@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: don@don-benjamin.co.uk
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=don@webhammer.co.uk&item_name=Custom Search Donation&currency_code=GBP
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=accounts@webhammer.co.uk&item_name=Custom Search Donation&currency_code=GBP
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 5.4-beta3
-Stable tag: 1.2.30
+Stable tag: 1.2.31
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -225,8 +225,11 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 
 == Changelog ==
 
+= 1.2.31 =
+* Updated PayPal account
+
 = 1.2.30 =
-* Regnerated translation files
+* Regenerated translation files
 
 = 1.2.29 =
 * Some small refactoring for easier extension
