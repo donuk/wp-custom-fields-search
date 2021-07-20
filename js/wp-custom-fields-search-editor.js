@@ -50,13 +50,27 @@ var wpcfs_assert_supported_browser = function(){
 			var angular_root = $("<div ng-controller='RootController' ng-include='partials+\""+this.options.root_template+"\"'></div>").appendTo(this.element);
             
 
+      var body = $('body')
+      var listen = function(selector, event_name, callback) {
+        if (body.on) {
+          return body.on(event_name, selector, callback);
+        } else if(el.live) {
+          return $(selector).live(event_name, callback);
+        } else {
+          throw Error("Incompatible with this version of jQuery");
+        }
+      };
 			(function(widget){
-                if(widget.options.mode=="widget"){
-    				widget.save();
-	    			$('.widget-control-actions input')
-		    		.live('mouseenter',function(){ widget.save(); })
-			    	.live('click',function(){ widget.save(); });
-                }
+        if(widget.options.mode=="widget"){
+          widget.save();
+
+          listen('.widget-control-actions input', 'mouseenter', function() {
+            widget.save()
+          });
+          listen('.widget-control-actions input', 'click', function() {
+            widget.save()
+          });
+        }
 
 				angular.module('WPCFS')
 				.controller('RootController', ['$scope', function ($scope) {
