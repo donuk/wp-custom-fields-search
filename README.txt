@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=accou
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 5.4-beta3
-Stable tag: 1.2.34
+Stable tag: 1.2.35
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -224,6 +224,11 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 5.  Preset search forms can be set up in exactly the same way as widgets
 
 == Changelog ==
+
+= 1.2.35 =
+* Fixes escaping issue reported by Darius Sveikauskas patchstack.com
+
+https://patchstack.com/database/report-preview/d070e244-9f1c-4c4b-aa22-69baa3506272
 
 = 1.2.34 =
 * Fixed some incompatibilities with PHP8 and block themes
