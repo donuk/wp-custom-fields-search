@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=accou
 Tags: search,custom fields,widget,sidebar
 Requires at least: 3.1.1
 Tested up to: 5.4-beta3
-Stable tag: 1.2.33
+Stable tag: 1.2.34
 License: Apache 2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
  
@@ -225,6 +225,9 @@ If the posts do display elsewhere on your public facing site but not in the wpcf
 
 == Changelog ==
 
+= 1.2.34 =
+* Fixed some incompatibilities with PHP8 and block themes
+
 = 1.2.33 =
 * Suppress warnings in the dropdown template
 
@@ -411,4 +414,3 @@ This version simply adds a notice warning that the upgrade to 1.0.0 may break co
  
 = 0.3.27 = 
 Stable-ish for up to 2 years.
-
